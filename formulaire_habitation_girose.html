@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devis Assurance Habitation & PNO — Girose Patrimoine</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:#1a1a1a;background:#f4f5f7;min-height:100vh;padding:24px 16px 48px}
+.form-wrap{max-width:680px;margin:0 auto}
+.form-header{background:#185FA5;color:#E6F1FB;padding:22px 28px;border-radius:12px 12px 0 0}
+.form-header h1{font-size:17px;font-weight:600;margin-bottom:6px}
+.form-header p{font-size:12px;opacity:.85;line-height:1.6}
+.form-body{background:#fff;border:1px solid #e2e5ea;border-top:none;border-radius:0 0 12px 12px;padding:24px 28px}
+.progress-steps{display:flex;margin-bottom:16px}
+.step-pill{flex:1;text-align:center;font-size:11px;padding:6px 2px;border-bottom:2px solid #e2e5ea;color:#888;cursor:pointer;transition:all .2s}
+.step-pill.active{border-color:#185FA5;color:#185FA5;font-weight:600}
+.step-pill.done{border-color:#1D9E75;color:#0F6E56}
+.progress-bar{height:4px;background:#f0f2f5;border-radius:2px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:#185FA5;border-radius:2px;transition:width .4s}
+.section-title{font-size:13px;font-weight:600;color:#185FA5;background:#EBF4FF;padding:8px 12px;border-radius:8px;margin:24px 0 4px;border-left:3px solid #378ADD}
+.section-title:first-child{margin-top:0}
+.section-desc{font-size:12px;color:#888;margin-bottom:20px;line-height:1.5}
+.field-row{display:grid;gap:16px;margin-bottom:10px}
+.field-row.cols2{grid-template-columns:1fr 1fr}
+.field-row.cols3{grid-template-columns:1fr 1fr 1fr}
+.field-group{display:flex;flex-direction:column;gap:8px;padding:16px;background:#fafbfc;border:1px solid #eef0f3;border-radius:10px;margin-bottom:10px}.field-row .field-group{margin-bottom:0;border-radius:10px}
+.field-group:hover{border-color:#d0dff0}
+.field-label{font-size:13px;color:#222;font-weight:600;line-height:1.4}
+.field-label-sub{font-size:12px;font-weight:400;color:#999;display:block;margin-top:2px}
+.req{color:#d63031}
+.field-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
+.field-input:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+select.field-input{cursor:pointer}
+.radio-group{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.radio-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px 20px}
+.radio-label{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.radio-label:hover{border-color:#185FA5;background:#EBF4FF}
+.radio-label input{width:15px;height:15px;accent-color:#185FA5;cursor:pointer;flex-shrink:0}
+.radio-label input:checked ~ *,.radio-label:has(input:checked){border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:500}
+.radio-group.inline .radio-label{padding:6px 14px}
+.checkbox-group{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.checkbox-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px}
+.checkbox-label{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.checkbox-label:hover{border-color:#185FA5;background:#EBF4FF}
+.checkbox-label input{width:15px;height:15px;accent-color:#185FA5;cursor:pointer;flex-shrink:0}
+.field-group.error{border-color:#d63031;background:#fff8f8}
+.field-group.error .field-label{color:#d63031}
+.error-hint{font-size:11px;color:#d63031;margin-top:4px;display:flex;align-items:center;gap:4px}
+.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#d63031;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;box-shadow:0 4px 16px rgba(214,48,49,.3);max-width:90vw;text-align:center}
+.toast.show{display:block;animation:fadeInDown .3s ease}
+@keyframes fadeInDown{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.sinistre-block{border:1px solid #e2e5ea;border-radius:8px;padding:12px;margin-bottom:10px;background:#fafbfc}
+.sinistre-title{font-size:12px;font-weight:600;color:#555;margin-bottom:10px}
+.step-content{display:none}
+.step-content.active{display:block}
+.nav-row{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid #e2e5ea;gap:10px}
+.btn{padding:9px 20px;border-radius:8px;border:1px solid #c8d0db;background:#fff;color:#333;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:#f4f5f7}
+.btn-primary{background:#185FA5;color:#fff;border-color:#185FA5}
+.btn-primary:hover{background:#0C447C}
+.textarea-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;resize:vertical;min-height:80px;transition:border-color .15s}
+.textarea-input:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+.slider-wrap{padding:4px 0}
+.slider{width:100%;accent-color:#185FA5;cursor:pointer}
+.slider-labels{display:flex;justify-content:space-between;font-size:11px;color:#888;margin-top:4px}
+.slider-value{text-align:center;font-size:13px;font-weight:600;color:#185FA5;margin-top:4px}
+.success-wrap{text-align:center;padding:40px 20px;display:none}
+.success-icon{font-size:48px;margin-bottom:16px;display:block}
+.success-title{font-size:18px;font-weight:600;margin-bottom:8px;color:#0F6E56}
+.success-text{font-size:13px;color:#666;line-height:1.6}
+.form-footer{text-align:center;margin-top:16px;font-size:11px;color:#aaa}
+.qualite-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+.qualite-card{border:1.5px solid #e2e5ea;border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;font-size:13px;color:#444}
+.qualite-card:hover{border-color:#185FA5;background:#EBF4FF}
+.qualite-card.selected{border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:600}
+.qualite-card .icon{font-size:24px;display:block;margin-bottom:6px}
+@media(max-width:500px){
+  .field-row.cols2,.field-row.cols3{grid-template-columns:1fr}
+  .form-body{padding:18px 16px}
+  .form-header{padding:16px 18px}
+  .qualite-cards{grid-template-columns:1fr}
+  .step-pill{font-size:10px;padding:5px 1px}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">⚠️ Veuillez répondre à toutes les questions obligatoires</div>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <h1>🏠 Demande de devis — Assurance Habitation &amp; PNO</h1>
+    <p>Ces informations sont nécessaires pour réaliser une tarification et éditer une proposition d'assurance adaptée à votre situation.</p>
+  </div>
+
+  <div class="form-body">
+    <div class="progress-steps">
+      <div class="step-pill active">1. Qualité</div>
+      <div class="step-pill">2. Le bien</div>
+      <div class="step-pill">3. Vos besoins</div>
+      <div class="step-pill">4. Coordonnées</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+
+    <form id="mainForm" action="https://formspree.io/f/xwlpkzyn" method="POST">
+
+      <!-- ÉTAPE 1 : QUALITÉ -->
+      <div class="step-content active" id="step0">
+        <div class="section-title">Qualité de l'assuré</div>
+        <div class="section-desc">Indiquez votre situation par rapport au bien à assurer</div>
+
+        <div class="qualite-cards">
+          <div class="qualite-card" id="card-locataire" onclick="selectQualite('Locataire (ou futur locataire)','card-locataire')">
+            <span class="icon">🔑</span>
+            Locataire<br><span style="font-size:11px;font-weight:400;color:#888">(ou futur locataire)</span>
+          </div>
+          <div class="qualite-card" id="card-proprio" onclick="selectQualite('Propriétaire occupant','card-proprio')">
+            <span class="icon">🏡</span>
+            Propriétaire<br><span style="font-size:11px;font-weight:400;color:#888">occupant</span>
+          </div>
+          <div class="qualite-card" id="card-pno" onclick="selectQualite('Propriétaire Non-Occupant (PNO)','card-pno')">
+            <span class="icon">🏢</span>
+            Propriétaire<br><span style="font-size:11px;font-weight:400;color:#888">Non-Occupant (PNO)</span>
+          </div>
+        </div>
+        <input type="hidden" name="qualite_assure" id="qualite_assure">
+
+        <div class="nav-row"><div></div><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+      </div>
+
+      <!-- ÉTAPE 2 : LE BIEN -->
+      <div class="step-content" id="step1">
+        <div class="section-title">À propos du bien à assurer</div>
+        <div class="section-desc">Ces informations sont nécessaires pour réaliser une tarification</div>
+
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Type de bien <span class="req">*</span></label>
+            <select class="field-input" name="type_bien">
+              <option value="">Veuillez sélectionner</option>
+              <option>Un appartement</option>
+              <option>Une maison</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Usage du bien <span class="req">*</span></label>
+            <select class="field-input" name="usage_bien">
+              <option value="">Veuillez sélectionner</option>
+              <option>Principale</option>
+              <option>Secondaire</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Adresse du bien <span class="req">*</span></label>
+          <input class="field-input" name="adresse_bien" placeholder="Numéro, rue…">
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Code postal <span class="req">*</span></label>
+            <input class="field-input" name="cp_bien" placeholder="75000" maxlength="5">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Ville <span class="req">*</span></label>
+            <input class="field-input" name="ville_bien" placeholder="Paris">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Année de construction <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="annee_construction" value="Avant 1981"> Avant 1981</label>
+            <label class="radio-label"><input type="radio" name="annee_construction" value="Après 1981"> Après 1981</label>
+            <label class="radio-label"><input type="radio" name="annee_construction" value="En construction"> En construction</label>
+            <label class="radio-label"><input type="radio" name="annee_construction" value="Ne sait pas"> Ne sait pas</label>
+          </div>
+        </div>
+
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Étage du logement <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="etage" value="Rez-de-chaussée"> Rez-de-chaussée</label>
+              <label class="radio-label"><input type="radio" name="etage" value="1er étage"> 1er étage</label>
+              <label class="radio-label"><input type="radio" name="etage" value="Autre étage"> Autre étage</label>
+              <label class="radio-label"><input type="radio" name="etage" value="Dernier étage"> Dernier étage</label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Nombre total d'étages dans l'immeuble <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="nb_etages" value="De 1 à 3 étages"> De 1 à 3 étages</label>
+              <label class="radio-label"><input type="radio" name="nb_etages" value="De 4 à 6 étages"> De 4 à 6 étages</label>
+              <label class="radio-label"><input type="radio" name="nb_etages" value="Plus de 6 étages"> Plus de 6 étages</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Nombre de pièces <span class="req">*</span></label>
+            <select class="field-input" name="nb_pieces">
+              <option value="">Veuillez sélectionner</option>
+              <option>Studio</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7 pièces et plus</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Surface du logement (m²) <span class="req">*</span></label>
+            <input class="field-input" name="surface" type="number" placeholder="Ex : 65" min="1">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Présence de pièce(s) de plus de 40 m² ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="piece_40m2" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="piece_40m2" value="Non"> Non</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Dépendances</label>
+          <div class="checkbox-group inline">
+            <label class="checkbox-label"><input type="checkbox" name="dependances" value="Cave"> Cave</label>
+            <label class="checkbox-label"><input type="checkbox" name="dependances" value="Box"> Box</label>
+            <label class="checkbox-label"><input type="checkbox" name="dependances" value="Parking"> Parking</label>
+            <label class="checkbox-label"><input type="checkbox" name="dependances" value="Autres"> Autres</label>
+            <label class="checkbox-label"><input type="checkbox" name="dependances" value="Aucune" id="cb-aucune"> Aucune</label>
+          </div>
+        </div>
+
+        <div class="field-group conditional" id="surface-dep-block">
+          <label class="field-label">Surface totale des dépendances</label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="surface_dependances" value="Moins de 50m²"> Moins de 50 m²</label>
+            <label class="radio-label"><input type="radio" name="surface_dependances" value="Entre 50 et 100m²"> Entre 50 et 100 m²</label>
+            <label class="radio-label"><input type="radio" name="surface_dependances" value="Plus de 100m²"> Plus de 100 m²</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Autre(s) équipement(s) à signaler</label>
+          <div class="checkbox-group inline">
+            <label class="checkbox-label"><input type="checkbox" name="equipements" value="Cheminée"> Cheminée</label>
+            <label class="checkbox-label"><input type="checkbox" name="equipements" value="Panneaux photovoltaïques"> Panneaux photovoltaïques</label>
+            <label class="checkbox-label"><input type="checkbox" name="equipements" value="Télésurveillance"> Télésurveillance</label>
+            <label class="checkbox-label"><input type="checkbox" name="equipements" value="Poêle"> Poêle</label>
+            <label class="checkbox-label"><input type="checkbox" name="equipements" value="Véranda ou balcon fermé"> Véranda / balcon fermé</label>
+            <label class="checkbox-label"><input type="checkbox" name="equipements" value="Piscine"> Piscine</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Sinistres déclarés au cours des 3 dernières années <span class="req">*</span></label>
+          <select class="field-input" name="nb_sinistres" id="nb_sinistres" style="max-width:200px" onchange="updateSinistres()">
+            <option value="">Veuillez sélectionner</option>
+            <option value="0">Non</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+
+        <div id="sinistres-container"></div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 : BESOINS -->
+      <div class="step-content" id="step2">
+        <div class="section-title">Vos besoins</div>
+        <div class="section-desc">Ces informations nous permettent de personnaliser votre couverture</div>
+
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Adultes vivant au domicile</label>
+            <select class="field-input" name="nb_adultes">
+              <option value="">Veuillez sélectionner</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Enfants vivant au domicile</label>
+            <select class="field-input" name="nb_enfants">
+              <option value="">Veuillez sélectionner</option>
+              <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Besoin d'une assurance scolaire ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="assurance_scolaire" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="assurance_scolaire" value="Non"> Non</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Valeur approximative du mobilier à assurer <span class="req">*</span><br><span style="font-weight:400;color:#aaa">(meubles, équipements sportifs, appareils électroménagers…)</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Moins de 15 000€"> Moins de 15 000 €</label>
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Entre 15 000€ et 30 000€"> Entre 15 000 € et 30 000 €</label>
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Entre 30 000€ et 45 000€"> Entre 30 000 € et 45 000 €</label>
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Plus de 45 000€"> Plus de 45 000 €</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Le bien est-il loué meublé ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="loue_meuble" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="loue_meuble" value="Non"> Non</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Appareils électroménagers ou audiovisuels de moins de 5 ans ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="electromenager" value="Oui, tous"> Oui, tous</label>
+            <label class="radio-label"><input type="radio" name="electromenager" value="Oui, certains"> Oui, certains</label>
+            <label class="radio-label"><input type="radio" name="electromenager" value="Non, aucun"> Non, aucun</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Appareils informatiques de moins de 2 ans ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="informatique" value="Oui, tous"> Oui, tous</label>
+            <label class="radio-label"><input type="radio" name="informatique" value="Oui, certains"> Oui, certains</label>
+            <label class="radio-label"><input type="radio" name="informatique" value="Non, aucun"> Non, aucun</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Objets précieux à assurer ? <span class="req">*</span><br><span style="font-weight:400;color:#aaa">(bijoux, pierreries, fourrures, collections, tableaux ou objet d'une valeur unitaire &gt; 2 000 €)</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="objets_precieux" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="objets_precieux" value="Non"> Non</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Avez-vous déjà un contrat habitation en cours pour ce logement ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="contrat_en_cours" value="Oui" onchange="toggleContrat(true)"> Oui</label>
+            <label class="radio-label"><input type="radio" name="contrat_en_cours" value="Non" onchange="toggleContrat(false)"> Non</label>
+          </div>
+        </div>
+
+        <div class="conditional" id="contrat-block">
+          <div class="field-group">
+            <label class="field-label">Montant exact ou approximatif de votre cotisation mensuelle actuelle</label>
+            <input class="field-input" name="cotisation_actuelle" placeholder="Ex : 25 €/mois">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Informations complémentaires</label>
+          <textarea class="textarea-input" name="informations_complementaires" placeholder="Indiquez ici toute information complémentaire que vous jugeriez utile…"></textarea>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 : COORDONNÉES -->
+      <div class="step-content" id="step3">
+        <div class="section-title">Vos coordonnées pour recevoir votre devis</div>
+
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Prénom <span class="req">*</span></label>
+            <input class="field-input" name="prenom" placeholder="Prénom">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Nom <span class="req">*</span></label>
+            <input class="field-input" name="nom" placeholder="NOM">
+          </div>
+        </div>
+
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Email <span class="req">*</span></label>
+            <input class="field-input" name="email" type="email" placeholder="prenom.nom@email.fr">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Téléphone <span class="req">*</span></label>
+            <input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00">
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Envoyer ma demande</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- SUCCÈS -->
+    <div class="success-wrap" id="successWrap">
+      <span class="success-icon">✅</span>
+      <div class="success-title">Demande envoyée avec succès !</div>
+      <p class="success-text">Votre conseiller Girose Patrimoine a bien reçu votre demande de devis.<br>Vous serez contacté(e) dans les plus brefs délais.</p>
+    </div>
+  </div>
+
+  <div class="form-footer">Girose Patrimoine · Saint-Cloud · ORIAS 22003796 · Données transmises de manière sécurisée</div>
+</div>
+
+<script>
+let currentStep = 0;
+
+// ── Validation ──────────────────────────────────────────────────────────────
+
+// Champs obligatoires par étape : [{ type, selector, label }]
+const REQUIRED = {
+  0: [
+    { type: 'hidden', selector: '#qualite_assure', label: 'Veuillez sélectionner votre qualité (Locataire, Propriétaire…)' }
+  ],
+  1: [
+    { type: 'select',   selector: 'select[name="type_bien"]',         label: 'Type de bien' },
+    { type: 'select',   selector: 'select[name="usage_bien"]',        label: 'Usage du bien' },
+    { type: 'text',     selector: 'input[name="adresse_bien"]',       label: 'Adresse du bien' },
+    { type: 'text',     selector: 'input[name="cp_bien"]',            label: 'Code postal' },
+    { type: 'text',     selector: 'input[name="ville_bien"]',         label: 'Ville' },
+    { type: 'radio',    selector: 'input[name="annee_construction"]', label: 'Année de construction' },
+    { type: 'radio',    selector: 'input[name="etage"]',              label: 'Étage du logement' },
+    { type: 'radio',    selector: 'input[name="nb_etages"]',          label: "Nombre d'étages" },
+    { type: 'select',   selector: 'select[name="nb_pieces"]',         label: 'Nombre de pièces' },
+    { type: 'text',     selector: 'input[name="surface"]',            label: 'Surface du logement' },
+    { type: 'radio',    selector: 'input[name="piece_40m2"]',         label: 'Présence de pièce > 40 m²' },
+    { type: 'select',   selector: 'select[name="nb_sinistres"]',      label: 'Sinistres déclarés' },
+  ],
+  2: [
+    { type: 'radio',    selector: 'input[name="assurance_scolaire"]', label: 'Assurance scolaire' },
+    { type: 'radio',    selector: 'input[name="valeur_mobilier"]',    label: 'Valeur du mobilier' },
+    { type: 'radio',    selector: 'input[name="loue_meuble"]',        label: 'Bien loué meublé' },
+    { type: 'radio',    selector: 'input[name="electromenager"]',     label: 'Appareils électroménagers' },
+    { type: 'radio',    selector: 'input[name="informatique"]',       label: 'Appareils informatiques' },
+    { type: 'radio',    selector: 'input[name="objets_precieux"]',    label: 'Objets précieux' },
+    { type: 'radio',    selector: 'input[name="contrat_en_cours"]',   label: 'Contrat en cours' },
+  ],
+  3: [
+    { type: 'text',     selector: 'input[name="prenom"]',    label: 'Prénom' },
+    { type: 'text',     selector: 'input[name="nom"]',       label: 'Nom' },
+    { type: 'email',    selector: 'input[name="email"]',     label: 'Email' },
+    { type: 'text',     selector: 'input[name="telephone"]', label: 'Téléphone' },
+  ]
+};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '⚠️ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function clearErrors(stepEl) {
+  stepEl.querySelectorAll('.field-group.error').forEach(g => {
+    g.classList.remove('error');
+    const hint = g.querySelector('.error-hint');
+    if (hint) hint.remove();
+  });
+}
+
+function markError(el, msg) {
+  // Remonter jusqu'au .field-group parent
+  let group = el.closest('.field-group');
+  if (!group) return;
+  group.classList.add('error');
+  if (!group.querySelector('.error-hint')) {
+    const hint = document.createElement('div');
+    hint.className = 'error-hint';
+    hint.innerHTML = '⚠ ' + msg;
+    group.appendChild(hint);
+  }
+  // Scroll vers le premier champ en erreur
+  group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function validateStep(step) {
+  const stepEl = document.getElementById('step' + step);
+  clearErrors(stepEl);
+  const rules = REQUIRED[step] || [];
+  let firstError = null;
+  let hasError = false;
+
+  for (const rule of rules) {
+    const el = stepEl.querySelector(rule.selector);
+    if (!el) continue;
+
+    let invalid = false;
+    if (rule.type === 'radio') {
+      const checked = stepEl.querySelectorAll(rule.selector + ':checked');
+      if (checked.length === 0) invalid = true;
+    } else if (rule.type === 'hidden') {
+      if (!el.value) invalid = true;
+    } else if (rule.type === 'select') {
+      if (!el.value) invalid = true;
+    } else {
+      if (!el.value.trim()) invalid = true;
+    }
+
+    if (rule.type === 'email' && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) {
+      invalid = true;
+    }
+
+    if (invalid) {
+      hasError = true;
+      if (!firstError) firstError = el;
+      markError(el, rule.label + ' est obligatoire');
+    }
+  }
+
+  if (hasError) {
+    showToast('Veuillez répondre à toutes les questions obligatoires avant de continuer');
+    if (firstError) {
+      const group = firstError.closest('.field-group');
+      if (group) group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return false;
+  }
+  return true;
+}
+
+// ── Navigation ───────────────────────────────────────────────────────────────
+
+function goStep(n) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  document.querySelectorAll('.step-pill')[currentStep].classList.remove('active');
+  document.querySelectorAll('.step-pill')[currentStep].classList.add('done');
+  currentStep = n;
+  document.getElementById('step' + currentStep).classList.add('active');
+  document.querySelectorAll('.step-pill').forEach((p, i) => {
+    p.classList.remove('active');
+    if (i === currentStep) p.classList.add('active');
+  });
+  document.getElementById('progressFill').style.width = ((currentStep + 1) / 4 * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep < 3) goStep(currentStep + 1);
+}
+function prevStep() { if (currentStep > 0) goStep(currentStep - 1); }
+
+function selectQualite(value, cardId) {
+  document.querySelectorAll('.qualite-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(cardId).classList.add('selected');
+  document.getElementById('qualite_assure').value = value;
+}
+
+function updateSinistres() {
+  const nb = parseInt(document.getElementById('nb_sinistres').value) || 0;
+  const container = document.getElementById('sinistres-container');
+  container.innerHTML = '';
+  const types = ['Dégâts des eaux','Incendie','Vol','Responsabilité civile','Bris de glaces','Autres'];
+  for (let i = 1; i <= nb; i++) {
+    container.innerHTML += `<div class="sinistre-block">
+      <div class="sinistre-title">Sinistre n°${i}</div>
+      <div class="field-row cols2">
+        <div class="field-group">
+          <label class="field-label">Type</label>
+          <select class="field-input" name="sinistre_${i}_type">
+            <option value="">Veuillez sélectionner</option>
+            ${types.map(t => `<option>${t}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Date approximative</label>
+          <input class="field-input" name="sinistre_${i}_date" type="month">
+        </div>
+      </div>
+    </div>`;
+  }
+}
+
+document.querySelectorAll('input[name="dependances"]').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const aucune = document.getElementById('cb-aucune');
+    const autresCases = Array.from(document.querySelectorAll('input[name="dependances"]')).filter(c => c !== aucune);
+
+    if (cb === aucune && aucune.checked) {
+      // Si "Aucune" cochée → décocher tout le reste et masquer surface
+      autresCases.forEach(c => c.checked = false);
+      document.getElementById('surface-dep-block').classList.remove('visible');
+    } else if (cb !== aucune && cb.checked) {
+      // Si une vraie dépendance cochée → décocher "Aucune" et afficher surface
+      aucune.checked = false;
+      document.getElementById('surface-dep-block').classList.add('visible');
+    } else {
+      // Si on décoche une dépendance → vérifier s'il en reste
+      const hasDep = autresCases.some(c => c.checked);
+      document.getElementById('surface-dep-block').classList.toggle('visible', hasDep);
+    }
+  });
+});
+
+}
+function toggleContrat(show) {
+  document.getElementById('contrat-block').classList.toggle('visible', show);
+}
+
+async function submitFormData() {
+  if (!validateStep(3)) return;
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  try {
+    const formData = new FormData(document.getElementById('mainForm'));
+    const response = await fetch('https://formspree.io/f/xwlpkzyn', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+    const data = await response.json();
+    if (data.ok) {
+      document.getElementById('mainForm').style.display = 'none';
+      document.getElementById('progressSteps') && (document.getElementById('progressSteps').style.display = 'none');
+      document.querySelector('.progress-steps').style.display = 'none';
+      document.querySelector('.progress-bar').style.display = 'none';
+      document.getElementById('successWrap').style.display = 'block';
+    } else {
+      btn.textContent = '✓ Envoyer ma demande';
+      btn.disabled = false;
+      alert('Une erreur est survenue. Veuillez réessayer.');
+    }
+  } catch (err) {
+    btn.textContent = '✓ Envoyer ma demande';
+    btn.disabled = false;
+    alert('Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
+  }
+}
+</script>
+</body>
+</html>
