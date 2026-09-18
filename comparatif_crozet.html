@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparatif Assurance Habitation - Julian Crozet</title>
+<style>
+  :root {
+    --navy: #1B234A;
+    --gold: #DEAD0F;
+    --green: #2E7D4F;
+    --light-green: #E7F4EC;
+    --light-navy: #EEF0F6;
+    --text: #222222;
+    --muted: #5A5A5A;
+    --bg: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --border: #D8D8D8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f;
+      --card-bg: #1c2030;
+      --text: #e8e8ec;
+      --muted: #a8adba;
+      --light-navy: #232840;
+      --light-green: #17301f;
+      --border: #34394a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f;
+    --card-bg: #1c2030;
+    --text: #e8e8ec;
+    --muted: #a8adba;
+    --light-navy: #232840;
+    --light-green: #17301f;
+    --border: #34394a;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .header {
+    background: var(--navy);
+    color: #fff;
+    padding: 28px 20px 24px;
+    text-align: center;
+  }
+  .header .logo {
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .header hr {
+    border: none;
+    border-top: 2px solid var(--gold);
+    width: 140px;
+    margin: 10px auto 16px;
+  }
+  .header h1 {
+    margin: 0 0 6px;
+    font-size: clamp(20px, 4vw, 28px);
+  }
+  .header .subtitle {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .header .client {
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  .lead {
+    text-align: center;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 28px;
+    font-size: 14.5px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 560px;
+    font-size: 14px;
+    table-layout: fixed;
+  }
+  th:nth-child(1), td:nth-child(1) { width: 38%; }
+  th:nth-child(2), td:nth-child(2) { width: 31%; }
+  th:nth-child(3), td:nth-child(3) { width: 31%; }
+  thead th {
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 13.5px;
+  }
+  thead th:first-child { text-align: left; }
+  thead th.reco { background: var(--green); }
+  tbody td, tbody th {
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    vertical-align: middle;
+  }
+  tbody th {
+    text-align: left;
+    font-weight: 600;
+    background: var(--light-navy);
+  }
+  tbody tr.diff td {
+    background: var(--light-green);
+    font-weight: 600;
+  }
+  tbody tr.diff th {
+    background: var(--light-green);
+  }
+  td.reco-col {
+    border-left: 2px solid var(--navy);
+  }
+  .price {
+    font-weight: 700;
+    color: var(--navy);
+  }
+  [data-theme="dark"] .price, :root:not([data-theme="light"]) .price {
+    color: #b9c2e8;
+  }
+
+  .footnote {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .reco-card {
+    margin: 32px 0 24px;
+    border: 1.5px solid var(--gold);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background: var(--card-bg);
+  }
+  .reco-badge {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: var(--green);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .reco-body .tag {
+    color: var(--green);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .reco-body .formule {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 15.5px;
+    margin-bottom: 4px;
+  }
+  .reco-body .price-line {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 17px;
+  }
+  [data-theme="dark"] .reco-body .price-line, :root:not([data-theme="light"]) .reco-body .price-line {
+    color: #b9c2e8;
+  }
+
+  .why h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .why ul {
+    padding-left: 18px;
+    margin: 0 0 16px;
+  }
+  .why li {
+    margin-bottom: 8px;
+    font-size: 14.5px;
+  }
+
+  .contact {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .contact strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">GIROSE PATRIMOINE</div>
+    <hr>
+    <h1>Comparatif de votre assurance habitation</h1>
+    <div class="subtitle">Assurance Habitation — Formule Confort (Apivia Courtage / Suravenir Assurances)</div>
+    <div class="client">Julian CROZET</div>
+  </div>
+
+  <div class="container">
+    <p class="lead">
+      Vous trouverez ci-dessous la comparaison des deux configurations étudiées pour votre appartement
+      du 3-5 rue des Trêves à Lyon (69009). Les deux propositions reposent sur la même formule Confort et
+      ne diffèrent que sur l'option Remplacement à neuf électroménager/informatique/audiovisuel.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Garantie</th>
+            <th>Proposition 1<br><span style="font-weight:400;">sans option RAN*</span></th>
+            <th class="reco">Proposition 2<br><span style="font-weight:400;">avec option RAN*</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Cotisation annuelle / mensuelle</th>
+            <td>299,23 €/an<br>24,93 €/mois</td>
+            <td class="reco-col price">365,67 €/an<br>30,47 €/mois</td>
+          </tr>
+          <tr>
+            <th>Formule</th>
+            <td>Confort</td>
+            <td class="reco-col">Confort</td>
+          </tr>
+          <tr>
+            <th>Responsabilité civile / Défense recours</th>
+            <td>Inclus — franchise 150 €</td>
+            <td class="reco-col">Inclus — franchise 150 €</td>
+          </tr>
+          <tr>
+            <th>Incendie / Dégâts des eaux / Bris de glace</th>
+            <td>Inclus — franchise 150 €</td>
+            <td class="reco-col">Inclus — franchise 150 €</td>
+          </tr>
+          <tr>
+            <th>Vol, Vandalisme</th>
+            <td>Inclus — franchise 150 €</td>
+            <td class="reco-col">Inclus — franchise 150 €</td>
+          </tr>
+          <tr>
+            <th>Catastrophes naturelles / technologiques, Attentats</th>
+            <td>Inclus</td>
+            <td class="reco-col">Inclus</td>
+          </tr>
+          <tr>
+            <th>Forces de la nature</th>
+            <td>Inclus — franchise 380 €</td>
+            <td class="reco-col">Inclus — franchise 380 €</td>
+          </tr>
+          <tr>
+            <th>Accidents électriques</th>
+            <td>Option retenue — franchise 150 €</td>
+            <td class="reco-col">Option retenue — franchise 150 €</td>
+          </tr>
+          <tr>
+            <th>Assistance</th>
+            <td>Incluse</td>
+            <td class="reco-col">Incluse</td>
+          </tr>
+          <tr>
+            <th>Déménagement</th>
+            <td>Option retenue</td>
+            <td class="reco-col">Option retenue</td>
+          </tr>
+          <tr>
+            <th>Tous risques immobiliers</th>
+            <td>Option retenue — franchise 150 €</td>
+            <td class="reco-col">Option retenue — franchise 150 €</td>
+          </tr>
+          <tr>
+            <th>Pack renfort</th>
+            <td>Option retenue</td>
+            <td class="reco-col">Option retenue</td>
+          </tr>
+          <tr>
+            <th>Remplacement à neuf mobilier/immobilier</th>
+            <td>Option non retenue</td>
+            <td class="reco-col">Option non retenue</td>
+          </tr>
+          <tr class="diff">
+            <th>Remplacement à neuf électroménager/<br>informatique/audiovisuel*</th>
+            <td>Option non retenue</td>
+            <td class="reco-col">Option retenue<br><span style="font-weight:400;">(électroménager &lt; 5 ans, informatique &lt; 2 ans)</span></td>
+          </tr>
+          <tr>
+            <th>Biens mobiliers garantis</th>
+            <td>24 000 €</td>
+            <td class="reco-col">24 000 €</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">* RAN = Remplacement à neuf. La ligne surlignée en vert correspond à la seule différence de garantie entre les deux propositions.</p>
+
+    <div class="reco-card">
+      <div class="reco-badge">&#10003;</div>
+      <div class="reco-body">
+        <div class="tag">SOLUTION RECOMMANDÉE</div>
+        <div class="formule">Apivia Courtage — Formule Confort avec option Remplacement à neuf électroménager/informatique/audiovisuel</div>
+        <div class="price-line">365,67 € TTC/an — 30,47 € TTC/mois</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <h2>Pourquoi cette formule</h2>
+      <ul>
+        <li>Vous avez déclaré posséder certains équipements électroménagers et informatiques : l'option retenue assure leur remplacement par du neuf en cas de sinistre garanti, sans application de vétusté.</li>
+        <li>Toutes les autres garanties (responsabilité civile, incendie, dégâts des eaux, vol, catastrophes naturelles, tous risques immobiliers) restent strictement identiques entre les deux propositions : seule la protection de vos équipements diffère.</li>
+        <li>Le supplément de cotisation reste proportionné au regard de la valeur de mobilier que vous avez déclarée.</li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      La fiche de conseil complète vous a été transmise en pièce jointe.<br>
+      <strong>GIROSE PATRIMOINE</strong> — Alexandre Gravier · 06 70 35 40 53 · gravier@girose-patrimoine.fr<br>
+      13 Rue Henri Regnault, 92210 Saint-Cloud — ORIAS n°22003796
+    </div>
+  </div>
+
+</body>
+</html>
