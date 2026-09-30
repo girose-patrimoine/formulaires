@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparatif RC Professionnelle - Aurore UME</title>
+<style>
+  :root {
+    --navy: #1B234A; --gold: #DEAD0F; --green: #2E7D4F;
+    --light-green: #E7F4EC; --light-navy: #EEF0F6;
+    --text: #222222; --muted: #5A5A5A; --bg: #FFFFFF;
+    --card-bg: #FFFFFF; --border: #D8D8D8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+      --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+    --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background: var(--bg); color: var(--text);
+    font-family: -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.5; }
+  .header { background: var(--navy); color:#fff; padding:28px 20px 24px; text-align:center; }
+  .header .logo { font-weight:700; letter-spacing:2px; font-size:14px; margin-bottom:10px; }
+  .header hr { border:none; border-top:2px solid var(--gold); width:140px; margin:10px auto 16px; }
+  .header h1 { margin:0 0 6px; font-size: clamp(20px,4vw,28px); }
+  .header .subtitle { color: var(--gold); font-weight:600; font-size:15px; margin-bottom:10px; }
+  .header .client { font-weight:700; font-size:17px; }
+  .container { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
+  .lead { text-align:center; color: var(--muted); max-width:640px; margin:0 auto 28px; font-size:14.5px; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; min-width:560px; font-size:14px; table-layout:fixed; }
+  th:nth-child(1), td:nth-child(1) { width: 32%; }
+  th:nth-child(2), td:nth-child(2) { width: 34.00%; }
+  th:nth-child(3), td:nth-child(3) { width: 34.00%; }
+
+  thead th { background: var(--navy); color:#fff; padding:12px 10px; text-align:center; font-size:13.5px; }
+  thead th:first-child { text-align:left; }
+  thead th.reco { background: var(--green); }
+  tbody td, tbody th { padding:10px 10px; border-bottom:1px solid var(--border); text-align:center; vertical-align:middle; }
+  tbody th { text-align:left; font-weight:600; background: var(--light-navy); }
+  tbody tr.diff td, tbody tr.diff th { background: var(--light-green); font-weight:600; }
+  td.reco-col { border-left:2px solid var(--navy); }
+  .price { font-weight:700; color: var(--navy); }
+  .footnote { font-size:12px; color: var(--muted); margin-top:10px; text-align:center; }
+  .reco-card { margin:32px 0 24px; border:1.5px solid var(--gold); border-radius:10px;
+    padding:18px 20px; display:flex; gap:16px; align-items:center; background: var(--card-bg); }
+  .reco-badge { flex:0 0 auto; width:44px; height:44px; border-radius:8px; background: var(--green);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; }
+  .reco-body .tag { color: var(--green); font-weight:700; font-size:12px; letter-spacing:0.5px; margin-bottom:4px; }
+  .reco-body .formule { font-weight:700; color: var(--text); font-size:15.5px; margin-bottom:4px; }
+  .reco-body .price-line { font-weight:700; color: var(--navy); font-size:17px; }
+  .why h2 { font-size:16px; margin-bottom:10px; }
+  .why ul { padding-left:18px; margin:0 0 16px; }
+  .why li { margin-bottom:8px; font-size:14.5px; }
+  .contact { margin-top:36px; padding-top:20px; border-top:1px solid var(--border);
+    text-align:center; font-size:13px; color: var(--muted); }
+  .why a { color: var(--navy); font-weight:600; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme='light']) .why a { color: var(--gold); } }
+  .contact strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">GIROSE PATRIMOINE</div>
+    <hr>
+    <h1>Comparatif de votre assurance RC Professionnelle</h1>
+    <div class="subtitle">Formation / Enseignement</div>
+    <div class="client">MADAME AURORE UME</div>
+  </div>
+  <div class="container">
+    <p class="lead">Deux propositions ont été établies auprès d'Apivia Courtage (assureur : AIG Europe SA ; protection juridique : CFDP Assurances) pour l'activité « Formation / Enseignement » (formateur, enseignant hors Éducation nationale). Elles sont identiques en tout point, à l'exception du plafond de la garantie Responsabilité Civile Professionnelle.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Garantie</th><th class="reco">Proposition 1<br><span style="font-weight:400;">RC Pro 100 000 €</span></th>
+<th class="">Proposition 2<br><span style="font-weight:400;">RC Pro 250 000 €</span></th></tr></thead>
+        <tbody>
+          <tr class="diff"><th>Prime annuelle TTC</th><td class="reco-col">236,25 €/an</td><td class="">565,95 €/an</td></tr>
+<tr class="diff"><th>RC Professionnelle (faute professionnelle, préjudices immatériels)</th><td class="reco-col">100 000 € par période d'assurance</td><td class="">250 000 € par période d'assurance</td></tr>
+<tr class="diff"><th>Sous-limites RC Pro : documents confiés, frais d'atténuation, factures impayées (20 %)</th><td class="reco-col">20 000 €</td><td class="">50 000 €</td></tr>
+<tr class="diff"><th>Sous-limites RC Pro : perte d'un homme clé, atteinte à la réputation (10 %)</th><td class="reco-col">10 000 €</td><td class="">25 000 €</td></tr>
+<tr><th>Franchise RC Pro</th><td class="reco-col">500 € (néant en dommages corporels)</td><td class="">500 € (néant en dommages corporels)</td></tr>
+<tr><th>RC Exploitation (dommages causés aux étudiants et aux tiers)</th><td class="reco-col">8 000 000 € par sinistre — corporels sans franchise</td><td class="">8 000 000 € par sinistre — corporels sans franchise</td></tr>
+<tr><th>dont dommages matériels et immatériels consécutifs</th><td class="reco-col">3 000 000 € — franchise 380 €</td><td class="">3 000 000 € — franchise 380 €</td></tr>
+<tr><th>dont immatériels non consécutifs / biens confiés</th><td class="reco-col">500 000 € / 300 000 € — franchise 1 000 €</td><td class="">500 000 € / 300 000 € — franchise 1 000 €</td></tr>
+<tr><th>Défense pénale et recours</th><td class="reco-col">50 000 € par sinistre</td><td class="">50 000 € par sinistre</td></tr>
+<tr><th>Protection juridique (CFDP)</th><td class="reco-col">35 000 € HT par sinistre</td><td class="">35 000 € HT par sinistre</td></tr>
+<tr><th>Déclenchement dans le temps</th><td class="reco-col">Base réclamation — garantie subséquente 5 ans</td><td class="">Base réclamation — garantie subséquente 5 ans</td></tr>
+<tr><th>Territorialité</th><td class="reco-col">Monde entier, hors États-Unis et Canada</td><td class="">Monde entier, hors États-Unis et Canada</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">Les lignes surlignées en vert correspondent aux seules différences entre les deux propositions. Montants et franchises selon les propositions n° PRCP20260930-000002363 et -000002364 et les conditions générales RC Professionnelle AIG_DUAAC_072024.</p>
+
+    <div class="reco-card">
+      <div class="reco-badge">&#10003;</div>
+      <div class="reco-body">
+        <div class="tag">SOLUTION RECOMMANDÉE</div>
+        <div class="formule">Apivia Courtage / AIG Europe — RC Professionnelle Formation / Enseignement, plafond RC Pro de 100 000 €</div>
+        <div class="price-line">236,25 € TTC/an</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <h2>Pourquoi cette formule</h2>
+      <ul>
+        <li>L'activité assurée correspond exactement à celle que vous exercez : enseignante intervenant en indépendante dans un établissement privé d'enseignement supérieur, hors Éducation nationale. Il est inutile d'assurer l'architecture d'intérieur, que vous ne pratiquez pas actuellement.</li>
+<li>Le risque principal de votre activité est un dommage corporel ou matériel causé à un étudiant, aux locaux ou au matériel de l'école. Il relève de la RC Exploitation, identique dans les deux propositions : 8 000 000 € par sinistre, sans franchise pour les dommages corporels.</li>
+<li>Le plafond de 100 000 € couvre raisonnablement le risque immatériel d'une activité d'enseignement au regard de votre chiffre d'affaires (erreur de contenu pédagogique, perte de travaux d'étudiants qui vous sont confiés, droits d'auteur sur vos supports de cours). Le plafond de 250 000 € multiplierait la prime par 2,4 (+329,70 €/an) sans modifier aucune autre garantie.</li>
+<li>Le contrat fonctionne en base réclamation, avec une garantie subséquente de 5 ans : une réclamation formulée après l'arrêt de votre activité reste couverte pendant 5 ans.</li>
+      </ul>
+    </div>
+
+    <div class="why">
+      <h2>Documents du contrat</h2>
+      <ul>
+        <li><a href="IPID_RC_Pro_Apivia_AIG.pdf">Document d'information sur le produit d'assurance (IPID)</a></li>
+        <li><a href="CG_RC_Pro_Apivia_AIG_072024.pdf">Conditions générales RC Professionnelle AIG_DUAAC_072024</a></li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      La fiche de conseil complète vous a été transmise en pièce jointe.<br>
+      <strong>GIROSE PATRIMOINE</strong> — Alexandre Gravier · 06 70 35 40 53 · contact@girose-patrimoine.fr<br>
+      13 Rue Henri Regnault, 92210 Saint-Cloud — ORIAS n°22003796
+    </div>
+  </div>
+</body>
+</html>
