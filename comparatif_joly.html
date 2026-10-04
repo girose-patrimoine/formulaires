@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition Assurance Auto - Dominique JOLY</title>
+<style>
+  :root {
+    --navy: #1B234A; --gold: #DEAD0F; --green: #2E7D4F;
+    --light-green: #E7F4EC; --light-navy: #EEF0F6;
+    --text: #222222; --muted: #5A5A5A; --bg: #FFFFFF;
+    --card-bg: #FFFFFF; --border: #D8D8D8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+      --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+    --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background: var(--bg); color: var(--text);
+    font-family: -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.5; }
+  .header { background: var(--navy); color:#fff; padding:28px 20px 24px; text-align:center; }
+  .header .logo { font-weight:700; letter-spacing:2px; font-size:14px; margin-bottom:10px; }
+  .header hr { border:none; border-top:2px solid var(--gold); width:140px; margin:10px auto 16px; }
+  .header h1 { margin:0 0 6px; font-size: clamp(20px,4vw,28px); }
+  .header .subtitle { color: var(--gold); font-weight:600; font-size:15px; margin-bottom:10px; }
+  .header .client { font-weight:700; font-size:17px; }
+  .container { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
+  .lead { text-align:center; color: var(--muted); max-width:640px; margin:0 auto 28px; font-size:14.5px; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; min-width:560px; font-size:14px; table-layout:fixed; }
+  th:nth-child(1), td:nth-child(1) { width: 32%; }
+  th:nth-child(2), td:nth-child(2) { width: 34.00%; }
+  th:nth-child(3), td:nth-child(3) { width: 34.00%; }
+
+  thead th { background: var(--navy); color:#fff; padding:12px 10px; text-align:center; font-size:13.5px; }
+  thead th:first-child { text-align:left; }
+  thead th.reco { background: var(--green); }
+  tbody td, tbody th { padding:10px 10px; border-bottom:1px solid var(--border); text-align:center; vertical-align:middle; }
+  tbody th { text-align:left; font-weight:600; background: var(--light-navy); }
+  tbody tr.diff td, tbody tr.diff th { background: var(--light-green); font-weight:600; }
+  td.reco-col { border-left:2px solid var(--navy); }
+  .price { font-weight:700; color: var(--navy); }
+  .footnote { font-size:12px; color: var(--muted); margin-top:10px; text-align:center; }
+  .reco-card { margin:32px 0 24px; border:1.5px solid var(--gold); border-radius:10px;
+    padding:18px 20px; display:flex; gap:16px; align-items:center; background: var(--card-bg); }
+  .reco-badge { flex:0 0 auto; width:44px; height:44px; border-radius:8px; background: var(--green);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; }
+  .reco-body .tag { color: var(--green); font-weight:700; font-size:12px; letter-spacing:0.5px; margin-bottom:4px; }
+  .reco-body .formule { font-weight:700; color: var(--text); font-size:15.5px; margin-bottom:4px; }
+  .reco-body .price-line { font-weight:700; color: var(--navy); font-size:17px; }
+  .why h2 { font-size:16px; margin-bottom:10px; }
+  .why ul { padding-left:18px; margin:0 0 16px; }
+  .why li { margin-bottom:8px; font-size:14.5px; }
+  .contact { margin-top:36px; padding-top:20px; border-top:1px solid var(--border);
+    text-align:center; font-size:13px; color: var(--muted); }
+  .contact strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">GIROSE PATRIMOINE</div>
+    <hr>
+    <h1>Comparatif de votre assurance automobile</h1>
+    <div class="subtitle">Assurance Automobile</div>
+    <div class="client">DOMINIQUE JOLY</div>
+  </div>
+  <div class="container">
+    <p class="lead">Votre contrat actuel (Solly Azar, formule Maxi, assureur Serenis Assurances) est comparé à la proposition établie auprès d'April Partenaires (Auto Standard, formule Maxi), assurée par la Caisse Meusienne d'Assurances Mutuelles, avec SOLUCIA Protection Juridique pour la protection juridique et Fragonard Assurances pour l'assistance.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Garantie</th><th class="">Contrat actuel<br><span style="font-weight:400;">Solly Azar — Formule Maxi</span></th>
+<th class="reco">Proposition April<br><span style="font-weight:400;">Auto Standard Maxi — 5 000 km/an</span></th></tr></thead>
+        <tbody>
+          <tr class="diff"><th>Cotisation annuelle / mensuelle</th><td class="">2 011,80 €/an<br/>167,65 €/mois</td><td class="reco-col">1 069,66 €/an<br/>88,32 €/mois</td></tr>
+<tr class="diff"><th>Forfait kilométrique</th><td class="">Non disponible</td><td class="reco-col">5 000 km/an — tolérance 10 % ; dépassement à déclarer sous 15 jours</td></tr>
+<tr><th>Responsabilité civile</th><td class="">Corporels illimités<br/>Matériels 100 000 000 €</td><td class="reco-col">Corporels illimités<br/>Matériels 100 000 000 €</td></tr>
+<tr><th>Défense pénale et recours suite à accident</th><td class="">5 000 €/sinistre — seuil 800 €</td><td class="reco-col">5 000 €/an — seuil 500 € HT</td></tr>
+<tr><th>Protection juridique automobile</th><td class="">Non incluse</td><td class="reco-col">Litiges liés au véhicule et infractions au Code de la route — 20 000 €/litige</td></tr>
+<tr><th>Insolvabilité des tiers responsables</th><td class="">Incluse</td><td class="reco-col">Non prévue</td></tr>
+<tr><th>Bris de glaces</th><td class="">Sans franchise</td><td class="reco-col">0 € (réparation) / 230 € (remplacement)</td></tr>
+<tr><th>Incendie / Vol</th><td class="">Franchise 300 €</td><td class="reco-col">Franchise 570 €</td></tr>
+<tr><th>Dommages tous accidents</th><td class="">Franchise 300 €</td><td class="reco-col">Franchise 570 €</td></tr>
+<tr><th>Catastrophes naturelles et technologiques</th><td class="">Franchise légale</td><td class="reco-col">Franchise légale</td></tr>
+<tr><th>Indemnisation du véhicule</th><td class="">Valeur à dire d'expert (plafond 50 000 €)</td><td class="reco-col">Valeur à dire d'expert</td></tr>
+<tr><th>Prêt du volant</th><td class="">Sans franchise (permis &gt; 3 ans)<br/>1 600 € sinon</td><td class="reco-col">Sans franchise<br/>1 500 € si conducteur novice</td></tr>
+<tr><th>Garantie du conducteur</th><td class="">Jusqu'à 500 000 € — franchise relative 10 %</td><td class="reco-col">Jusqu'à 750 000 € — dès 15 % d'AIPP + rente dépendance</td></tr>
+<tr><th>Assistance</th><td class="">Incluse — 0 km</td><td class="reco-col">Formule MAX — 0 km pour le véhicule, panne et erreurs du conducteur incluses, véhicule de remplacement</td></tr>
+<tr><th>Équipements / accessoires</th><td class="">Équipements hors série : 300 €</td><td class="reco-col">Accessoires, effets, objets : 6 000 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">Les lignes surlignées en vert correspondent aux critères déterminants de la proposition. Cotisation actuelle : montant mensuel en cours. La cotisation April inclut les frais annexes prévus au devis ; sont dus en sus à la souscription la provision pour frais de courtage (20 €, restituable) et les frais d'adhésion CMAM (15 €).</p>
+
+    <div class="reco-card">
+      <div class="reco-badge">&#10003;</div>
+      <div class="reco-body">
+        <div class="tag">SOLUTION RECOMMANDÉE</div>
+        <div class="formule">April — Auto Standard, Formule Maxi avec forfait kilométrique de 5 000 km/an</div>
+        <div class="price-line">1 069,66 € TTC/an — 88,32 € TTC/mois</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <h2>Pourquoi cette formule</h2>
+      <ul>
+        <li>Votre cotisation est quasiment divisée par deux, tout en conservant une couverture tous risques, grâce à un forfait kilométrique adapté à votre usage du véhicule.</li>
+<li>Les franchises dommages sont plus élevées qu'aujourd'hui, mais l'écart restant à votre charge en cas de sinistre demeure nettement inférieur à l'économie réalisée chaque année.</li>
+<li>Vous gagnez en protection personnelle : garantie du conducteur relevée, protection juridique automobile incluse et accessoires mieux couverts.</li>
+      </ul>
+    </div>
+
+    <div class="why">
+      <h2>Documents du contrat</h2>
+      <ul>
+        <li><a href="IPID_Auto_Standard_April.pdf">Document d'information sur le produit d'assurance (IPID)</a></li>
+        <li><a href="CG_Auto_April_CMAM_062026.pdf">Conditions générales Auto Standard CG_AUTO_CMAM_06.2026</a></li>
+        <li><a href="CG_Assistance_Auto_April_062026.pdf">Conditions générales Assistance ASSCG_AUTO_ASSISTANCE_STD_06.2026</a></li>
+        <li><a href="CG_Protection_Juridique_Auto_April_012023.pdf">Conditions générales Protection juridique CG_AUTO_PJ_01.2023</a></li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      La fiche de conseil complète vous a été transmise en pièce jointe.<br>
+      <strong>GIROSE PATRIMOINE</strong> — Alexandre Gravier · 06 70 35 40 53 · contact@girose-patrimoine.fr<br>
+      13 Rue Henri Regnault, 92210 Saint-Cloud — ORIAS n°22003796
+    </div>
+  </div>
+</body>
+</html>
