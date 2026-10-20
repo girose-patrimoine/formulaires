@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Devis Assurance de prêt — Girose Patrimoine</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:#1a1a1a;background:#f4f5f7;min-height:100vh;padding:24px 16px 48px}
+.form-wrap{max-width:680px;margin:0 auto}
+.form-header{background:#185FA5;color:#E6F1FB;padding:22px 28px;border-radius:12px 12px 0 0}
+.form-header h1{font-size:17px;font-weight:600;margin-bottom:6px}
+.form-header p{font-size:12px;opacity:.85;line-height:1.6}
+.form-body{background:#fff;border:1px solid #e2e5ea;border-top:none;border-radius:0 0 12px 12px;padding:24px 28px}
+.progress-steps{display:flex;margin-bottom:16px}
+.step-pill{flex:1;text-align:center;font-size:11px;padding:6px 2px;border-bottom:2px solid #e2e5ea;color:#888;cursor:pointer;transition:all .2s}
+.step-pill.active{border-color:#185FA5;color:#185FA5;font-weight:600}
+.step-pill.done{border-color:#1D9E75;color:#0F6E56}
+.progress-bar{height:4px;background:#f0f2f5;border-radius:2px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:#185FA5;border-radius:2px;transition:width .4s}
+.section-title{font-size:13px;font-weight:600;color:#185FA5;background:#EBF4FF;padding:8px 12px;border-radius:8px;margin:24px 0 4px;border-left:3px solid #378ADD}
+.section-title:first-child{margin-top:0}
+.section-desc{font-size:12px;color:#888;margin-bottom:20px;line-height:1.5}
+.field-group{display:flex;flex-direction:column;gap:8px;padding:16px;background:#fafbfc;border:1px solid #eef0f3;border-radius:10px;margin-bottom:10px}
+.field-group:hover{border-color:#d0dff0}
+.field-row{display:grid;gap:16px;margin-bottom:10px}
+.field-row.cols2{grid-template-columns:1fr 1fr}
+.field-row .field-group{margin-bottom:0}
+.field-label{font-size:13px;color:#222;font-weight:600;line-height:1.4}
+.req{color:#d63031}
+.field-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
+.field-input:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+select.field-input{cursor:pointer}
+.radio-group{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.radio-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px 20px}
+.radio-label{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.radio-label:hover{border-color:#185FA5;background:#EBF4FF}
+.radio-label input{width:15px;height:15px;accent-color:#185FA5;cursor:pointer;flex-shrink:0}
+.radio-label:has(input:checked){border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:500}
+.radio-group.inline .radio-label{padding:6px 14px}
+.checkbox-group{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin-top:2px}
+.checkbox-label{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.checkbox-label:hover{border-color:#185FA5;background:#EBF4FF}
+.checkbox-label input{width:15px;height:15px;accent-color:#185FA5;cursor:pointer;flex-shrink:0}
+.checkbox-label:has(input:checked){border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:500}
+.field-group.error{border-color:#d63031;background:#fff8f8}
+.field-group.error .field-label{color:#d63031}
+.error-hint{font-size:11px;color:#d63031;margin-top:4px}
+.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#d63031;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;box-shadow:0 4px 16px rgba(214,48,49,.3);max-width:90vw;text-align:center}
+.toast.show{display:block}
+.step-content{display:none}
+.step-content.active{display:block}
+.nav-row{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid #e2e5ea;gap:10px}
+.btn{padding:9px 20px;border-radius:8px;border:1px solid #c8d0db;background:#fff;color:#333;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:#f4f5f7}
+.btn-primary{background:#185FA5;color:#fff;border-color:#185FA5}
+.btn-primary:hover{background:#0C447C}
+.textarea-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;resize:vertical;min-height:80px;transition:border-color .15s}
+.textarea-input:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+.qualite-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+.qualite-card{border:1.5px solid #e2e5ea;border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;font-size:13px;color:#444}
+.qualite-card:hover{border-color:#185FA5;background:#EBF4FF}
+.qualite-card.selected{border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:600}
+.qualite-card .icon{font-size:24px;display:block;margin-bottom:6px}
+.sinistre-block{border:1px solid #e2e5ea;border-radius:8px;padding:12px;margin-bottom:10px;background:#fafbfc}
+.sinistre-title{font-size:12px;font-weight:600;color:#555;margin-bottom:10px}
+.success-wrap{text-align:center;padding:40px 20px;display:none}
+.success-icon{font-size:48px;margin-bottom:16px;display:block}
+.success-title{font-size:18px;font-weight:600;margin-bottom:8px;color:#0F6E56}
+.success-text{font-size:13px;color:#666;line-height:1.6}
+.form-footer{text-align:center;margin-top:16px;font-size:11px;color:#aaa}
+@media(max-width:500px){
+  .field-row.cols2{grid-template-columns:1fr}
+  .form-body{padding:18px 16px}
+  .qualite-cards{grid-template-columns:1fr}
+  .step-pill{font-size:10px;padding:5px 1px}
+}
+.info-box{font-size:12px;color:#0C447C;background:#EBF4FF;border:1px solid #cfe2f7;border-radius:8px;padding:10px 12px;line-height:1.55;margin-bottom:10px}
+.pret-block,.emp-block{border:1px solid #e2e5ea;border-radius:10px;padding:14px;margin-bottom:12px;background:#fff}
+.block-title{font-size:13px;font-weight:600;color:#185FA5;margin-bottom:10px}
+.hint{font-size:11px;font-weight:400;color:#999}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <h1>🏦 Demande de devis — Assurance de prêt</h1>
+    <p>Ces informations nous permettent d'interroger les assureurs et de vous proposer une assurance emprunteur adaptée à votre financement. Aucune information médicale n'est demandée dans ce formulaire.</p>
+  </div>
+  <div class="form-body">
+    <div class="progress-steps">
+      <div class="step-pill active">1. Projet</div>
+      <div class="step-pill">2. Prêt(s)</div>
+      <div class="step-pill">3. Emprunteur(s)</div>
+      <div class="step-pill">4. Coordonnées</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+
+    <form id="mainForm" action="https://formspree.io/f/xwlpkzyn" method="POST">
+      <input type="hidden" name="_subject" value="Demande de devis — Assurance de prêt">
+      <input type="hidden" name="formulaire" value="Assurance de prêt">
+
+      <!-- ÉTAPE 1 -->
+      <div class="step-content active" id="step0">
+        <div class="section-title">Votre démarche</div>
+        <div class="section-desc">Nouveau financement ou changement d'assurance sur un prêt en cours</div>
+
+        <div class="field-group" data-req="Votre démarche">
+          <label class="field-label">Vous souhaitez <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="demarche" value="Assurer un nouveau prêt" onchange="majDemarche()"> Assurer un nouveau prêt (projet en cours)</label>
+            <label class="radio-label"><input type="radio" name="demarche" value="Changer d'assurance sur un prêt en cours" onchange="majDemarche()"> Changer d'assurance sur un prêt en cours</label>
+          </div>
+        </div>
+
+        <div class="info-box" id="info-changement" style="display:none">Depuis la loi Lemoine, vous pouvez changer d'assurance de prêt immobilier à tout moment, sans frais, à condition que le nouveau contrat présente des garanties équivalentes à celles exigées par votre banque.</div>
+
+        <div class="field-group" data-req="Objet du financement">
+          <label class="field-label">Objet du financement <span class="req">*</span></label>
+          <select class="field-input" name="objet_financement">
+            <option value="">Veuillez sélectionner</option>
+            <option>Résidence principale</option>
+            <option>Résidence secondaire</option>
+            <option>Investissement locatif</option>
+            <option>Travaux</option>
+            <option>Rachat / regroupement de crédits</option>
+            <option>Locaux professionnels</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Banque prêteuse">
+            <label class="field-label">Banque prêteuse <span class="req">*</span></label>
+            <input class="field-input" name="banque" placeholder="Ex : Crédit Agricole">
+          </div>
+          <div class="field-group" data-req="Nombre d'emprunteurs">
+            <label class="field-label">Nombre d'emprunteurs à assurer <span class="req">*</span></label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="1" onchange="majEmprunteurs()"> 1</label>
+              <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="2" onchange="majEmprunteurs()"> 2</label>
+            </div>
+          </div>
+        </div>
+
+        <div id="bloc-nouveau" style="display:none">
+          <div class="field-row cols2">
+            <div class="field-group" data-req="Avancement du projet">
+              <label class="field-label">Avancement du projet <span class="req">*</span></label>
+              <select class="field-input" name="avancement">
+                <option value="">Veuillez sélectionner</option>
+                <option>Recherche de financement</option>
+                <option>Accord de principe obtenu</option>
+                <option>Offre de prêt émise</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Date prévue de signature chez le notaire</label>
+              <input class="field-input" name="date_signature_prevue" type="date">
+            </div>
+          </div>
+        </div>
+
+        <div id="bloc-changement" style="display:none">
+          <div class="field-row cols2">
+            <div class="field-group" data-req="Date de signature de l'offre de prêt">
+              <label class="field-label">Date de signature de l'offre de prêt <span class="req">*</span></label>
+              <input class="field-input" name="date_offre_initiale" type="date">
+            </div>
+            <div class="field-group" data-req="Assureur actuel">
+              <label class="field-label">Assureur actuel <span class="req">*</span></label>
+              <input class="field-input" name="assureur_actuel" placeholder="Ex : contrat groupe de la banque">
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Coût mensuel actuel de l'assurance (tous emprunteurs)</label>
+            <input class="field-input" name="cotisation_actuelle" placeholder="Ex : 45 €/mois" style="max-width:240px">
+          </div>
+        </div>
+
+        <div class="nav-row"><div></div><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+      </div>
+
+      <!-- ÉTAPE 2 -->
+      <div class="step-content" id="step1">
+        <div class="section-title">Le(s) prêt(s) à assurer</div>
+        <div class="section-desc">Ces éléments figurent dans votre offre de prêt ou votre tableau d'amortissement</div>
+
+        <div class="field-group" data-req="Nombre de prêts">
+          <label class="field-label">Nombre de prêts à assurer <span class="req">*</span><br><span class="hint">(un financement comporte souvent plusieurs lignes : prêt principal, PTZ, prêt Action Logement…)</span></label>
+          <select class="field-input" name="nb_prets" id="nb_prets" style="max-width:200px" onchange="majPrets()">
+            <option value="">Veuillez sélectionner</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+          </select>
+        </div>
+        <div id="prets-container"></div>
+
+        <div class="field-group" data-req="Garanties exigées">
+          <label class="field-label">Garanties exigées par la banque <span class="req">*</span><br><span class="hint">(indiquées dans la fiche standardisée d'information remise par la banque)</span></label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="Décès / PTIA"> Décès / PTIA</label>
+            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="ITT"> Incapacité temporaire (ITT)</label>
+            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="IPT"> Invalidité permanente totale (IPT)</label>
+            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="IPP"> Invalidité permanente partielle (IPP)</label>
+            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="Perte d'emploi"> Perte d'emploi</label>
+            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="Ne sait pas"> Je ne sais pas</label>
+          </div>
+        </div>
+
+        <div class="info-box">Pour un devis précis, vous pouvez transmettre par email à votre conseiller votre offre de prêt (ou le tableau d'amortissement) et la fiche standardisée d'information.</div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 -->
+      <div class="step-content" id="step2">
+        <div class="section-title">Le(s) emprunteur(s)</div>
+        <div class="section-desc">Ces critères servent à la tarification par les assureurs</div>
+
+        <div id="emp-container"></div>
+
+        <div class="info-box">Loi Lemoine : aucun questionnaire de santé n'est demandé lorsque la part assurée de vos prêts immobiliers n'excède pas 200 000 € par personne et que le remboursement se termine avant vos 60 ans. Dans les autres cas, les questions de santé seront posées directement par l'assureur, de façon confidentielle.</div>
+
+        <div class="field-group" data-req="Souhait d'échange confidentiel">
+          <label class="field-label">Souhaitez-vous échanger avec votre conseiller sur un point confidentiel avant l'étude ? <span class="req">*</span><br><span class="hint">(par exemple : droit à l'oubli, convention AERAS, situation particulière — ne rien détailler ici)</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="echange_confidentiel" value="Oui"> Oui, merci de me rappeler</label>
+            <label class="radio-label"><input type="radio" name="echange_confidentiel" value="Non"> Non</label>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 -->
+      <div class="step-content" id="step3">
+        <div class="section-title">Vos coordonnées pour recevoir votre devis</div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Prénom">
+            <label class="field-label">Prénom <span class="req">*</span></label>
+            <input class="field-input" name="prenom" placeholder="Prénom">
+          </div>
+          <div class="field-group" data-req="Nom">
+            <label class="field-label">Nom <span class="req">*</span></label>
+            <input class="field-input" name="nom" placeholder="NOM">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Email">
+            <label class="field-label">Email <span class="req">*</span></label>
+            <input class="field-input" name="email" type="email" placeholder="prenom.nom@email.fr">
+          </div>
+          <div class="field-group" data-req="Téléphone">
+            <label class="field-label">Téléphone <span class="req">*</span></label>
+            <input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Informations complémentaires</label>
+          <textarea class="textarea-input" name="informations_complementaires" placeholder="Questions, précisions sur votre projet…"></textarea>
+        </div>
+
+        <div class="field-group" data-req="Consentement">
+          <label class="checkbox-label"><input type="checkbox" name="consentement" value="Oui"> J'accepte que Girose Patrimoine utilise ces informations pour étudier ma demande et me transmettre des propositions d'assurance. <span class="req">*</span></label>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Envoyer ma demande</button>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="success-wrap" id="successWrap">
+      <span class="success-icon">✅</span>
+      <div class="success-title">Demande envoyée avec succès !</div>
+      <p class="success-text">Votre conseiller Girose Patrimoine a bien reçu votre demande de devis.<br>Vous serez contacté(e) dans les plus brefs délais.</p>
+    </div>
+  </div>
+  <div class="form-footer">Girose Patrimoine · Saint-Cloud · ORIAS 22003796 · Données transmises de manière sécurisée</div>
+</div>
+
+<script>
+var currentStep = 0;
+
+function goStep(n) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  document.querySelectorAll('.step-pill')[currentStep].classList.remove('active');
+  document.querySelectorAll('.step-pill')[currentStep].classList.add('done');
+  currentStep = n;
+  document.getElementById('step' + currentStep).classList.add('active');
+  document.querySelectorAll('.step-pill').forEach(function(p, i) {
+    p.classList.remove('active');
+    if (i === currentStep) p.classList.add('active');
+  });
+  document.getElementById('progressFill').style.width = ((currentStep + 1) / 4 * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep < 3) goStep(currentStep + 1);
+}
+function prevStep() {
+  if (currentStep > 0) goStep(currentStep - 1);
+}
+
+function radioValue(name) {
+  var c = document.querySelector('input[name="' + name + '"]:checked');
+  return c ? c.value : '';
+}
+
+function majDemarche() {
+  var changement = radioValue('demarche') === "Changer d'assurance sur un prêt en cours";
+  document.getElementById('bloc-nouveau').style.display = changement ? 'none' : 'block';
+  document.getElementById('bloc-changement').style.display = changement ? 'block' : 'none';
+  document.getElementById('info-changement').style.display = changement ? 'block' : 'none';
+  majPrets();
+}
+
+function opts(list) {
+  return '<option value="">Veuillez sélectionner</option>' + list.map(function(t) { return '<option>' + t + '</option>'; }).join('');
+}
+
+function radios(name, list, inline) {
+  return '<div class="radio-group' + (inline ? ' inline' : '') + '">' + list.map(function(v) {
+    return '<label class="radio-label"><input type="radio" name="' + name + '" value="' + v + '"> ' + v + '</label>';
+  }).join('') + '</div>';
+}
+
+// Conserve les valeurs saisies lorsque les blocs dynamiques sont régénérés
+function snapshot(container) {
+  var vals = {};
+  container.querySelectorAll('input,select').forEach(function(el) {
+    if (el.type === 'radio') { if (el.checked) vals[el.name] = el.value; }
+    else vals[el.name] = el.value;
+  });
+  return vals;
+}
+function restore(container, vals) {
+  container.querySelectorAll('input,select').forEach(function(el) {
+    if (!(el.name in vals)) return;
+    if (el.type === 'radio') el.checked = el.value === vals[el.name];
+    else el.value = vals[el.name];
+  });
+}
+
+function majPrets() {
+  var nb = parseInt(document.getElementById('nb_prets').value) || 0;
+  var changement = radioValue('demarche') === "Changer d'assurance sur un prêt en cours";
+  var container = document.getElementById('prets-container');
+  var vals = snapshot(container);
+  var html = '';
+  for (var i = 1; i <= nb; i++) {
+    var p = 'pret_' + i + '_';
+    html += '<div class="pret-block"><div class="block-title">Prêt n°' + i + '</div>'
+      + '<div class="field-row cols2">'
+      + '<div class="field-group" data-req="Type du prêt n°' + i + '"><label class="field-label">Type de prêt <span class="req">*</span></label><select class="field-input" name="' + p + 'type">' + opts(['Amortissable','In fine','Prêt à taux zéro (PTZ)','Prêt Action Logement','Prêt relais','Prêt à paliers / lissé','Autre']) + '</select></div>'
+      + '<div class="field-group" data-req="Montant du prêt n°' + i + '"><label class="field-label">Montant emprunté (€) <span class="req">*</span></label><input class="field-input" name="' + p + 'montant" type="number" min="0" placeholder="Ex : 250000"></div>'
+      + '</div><div class="field-row cols2">'
+      + '<div class="field-group" data-req="Durée du prêt n°' + i + '"><label class="field-label">Durée totale (mois) <span class="req">*</span></label><input class="field-input" name="' + p + 'duree_mois" type="number" min="1" placeholder="Ex : 300"></div>'
+      + '<div class="field-group"><label class="field-label">Taux nominal (%)</label><input class="field-input" name="' + p + 'taux" type="number" step="0.01" min="0" placeholder="Ex : 3,45"></div>'
+      + '</div>'
+      + '<div class="field-group"><label class="field-label">Différé d\'amortissement</label>' + radios(p + 'differe', ['Aucun','Partiel','Total'], true) + '</div>';
+    if (changement) {
+      html += '<div class="field-row cols2">'
+        + '<div class="field-group" data-req="Capital restant dû du prêt n°' + i + '"><label class="field-label">Capital restant dû (€) <span class="req">*</span></label><input class="field-input" name="' + p + 'capital_restant_du" type="number" min="0" placeholder="Ex : 180000"></div>'
+        + '<div class="field-group"><label class="field-label">Date de 1re échéance</label><input class="field-input" name="' + p + 'date_premiere_echeance" type="month"></div>'
+        + '</div>';
+    }
+    html += '</div>';
+  }
+  container.innerHTML = html;
+  restore(container, vals);
+}
+
+function majEmprunteurs() {
+  var nb = parseInt(radioValue('nb_emprunteurs')) || 0;
+  var container = document.getElementById('emp-container');
+  var vals = snapshot(container);
+  var html = '';
+  for (var i = 1; i <= nb; i++) {
+    var e = 'emprunteur_' + i + '_';
+    html += '<div class="emp-block"><div class="block-title">Emprunteur ' + i + '</div>'
+      + '<div class="field-row cols2">'
+      + '<div class="field-group" data-req="Date de naissance (emprunteur ' + i + ')"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="' + e + 'date_naissance" type="date"></div>'
+      + '<div class="field-group" data-req="Quotité (emprunteur ' + i + ')"><label class="field-label">Quotité assurée <span class="req">*</span><br><span class="hint">(part du prêt couverte sur cette tête)</span></label><select class="field-input" name="' + e + 'quotite">' + opts(['100 %','75 %','70 %','60 %','50 %','40 %','30 %','25 %','Ne sait pas']) + '</select></div>'
+      + '</div>'
+      + '<div class="field-group" data-req="Statut fumeur (emprunteur ' + i + ')"><label class="field-label">Avez-vous fumé (y compris cigarette électronique) au cours des 24 derniers mois ? <span class="req">*</span></label>' + radios(e + 'fumeur', ['Oui','Non'], true) + '</div>'
+      + '<div class="field-row cols2">'
+      + '<div class="field-group" data-req="Profession (emprunteur ' + i + ')"><label class="field-label">Profession exercée <span class="req">*</span></label><input class="field-input" name="' + e + 'profession" placeholder="Ex : ingénieur, infirmière…"></div>'
+      + '<div class="field-group" data-req="Statut professionnel (emprunteur ' + i + ')"><label class="field-label">Statut <span class="req">*</span></label><select class="field-input" name="' + e + 'statut">' + opts(['Salarié(e) en CDI','Salarié(e) en CDD / intérim','Fonctionnaire','Travailleur non salarié / indépendant','Profession libérale','Chef d\'entreprise','Retraité(e)','Sans activité','Autre']) + '</select></div>'
+      + '</div>'
+      + '<div class="field-group" data-req="Déplacements (emprunteur ' + i + ')"><label class="field-label">Parcourez-vous plus de 20 000 km par an pour votre activité professionnelle ? <span class="req">*</span></label>' + radios(e + 'deplacements_pro', ['Oui','Non'], true) + '</div>'
+      + '<div class="field-group" data-req="Activité manuelle (emprunteur ' + i + ')"><label class="field-label">Votre métier comporte-t-il des travaux manuels, de la manutention ou des travaux en hauteur (plus de 3 m) ? <span class="req">*</span></label>' + radios(e + 'travaux_risques', ['Oui','Non'], true) + '</div>'
+      + '<div class="field-group" data-req="Sports à risque (emprunteur ' + i + ')"><label class="field-label">Pratiquez-vous un sport à risque ? <span class="req">*</span><br><span class="hint">(sports aériens, mécaniques, de combat, plongée, alpinisme, compétition…)</span></label>' + radios(e + 'sport_risque', ['Oui','Non'], true)
+      + '<input class="field-input" name="' + e + 'sport_detail" placeholder="Si oui, lequel ?" style="margin-top:6px"></div>'
+      + '</div>';
+  }
+  container.innerHTML = html;
+  restore(container, vals);
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = '⚠️ ' + msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3500);
+}
+
+function groupIsEmpty(group) {
+  var choices = group.querySelectorAll('input[type=radio],input[type=checkbox]');
+  if (choices.length) return group.querySelectorAll('input:checked').length === 0;
+  var el = group.querySelector('input,select,textarea');
+  if (!el || !el.value.trim()) return true;
+  return el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+}
+
+function validateStep(step) {
+  var stepEl = document.getElementById('step' + step);
+  stepEl.querySelectorAll('.field-group.error').forEach(function(g) {
+    g.classList.remove('error');
+    var h = g.querySelector('.error-hint');
+    if (h) h.remove();
+  });
+  var firstGroup = null;
+  if (step === 2 && !document.querySelector('#emp-container .emp-block')) {
+    showToast("Indiquez d'abord le nombre d'emprunteurs (étape 1)");
+    return false;
+  }
+  stepEl.querySelectorAll('.field-group[data-req]').forEach(function(group) {
+    if (group.offsetParent === null || !groupIsEmpty(group)) return;
+    group.classList.add('error');
+    var hint = document.createElement('div');
+    hint.className = 'error-hint';
+    hint.textContent = '⚠ ' + group.getAttribute('data-req') + ' : réponse obligatoire';
+    group.appendChild(hint);
+    if (!firstGroup) firstGroup = group;
+  });
+  if (firstGroup) {
+    showToast('Veuillez répondre à toutes les questions obligatoires');
+    firstGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+  return true;
+}
+
+async function submitFormData() {
+  if (!validateStep(3)) return;
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  try {
+    var formData = new FormData(document.getElementById('mainForm'));
+    var response = await fetch('https://formspree.io/f/xwlpkzyn', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+    var data = await response.json();
+    if (data.ok) {
+      document.getElementById('mainForm').style.display = 'none';
+      document.querySelector('.progress-steps').style.display = 'none';
+      document.querySelector('.progress-bar').style.display = 'none';
+      document.getElementById('successWrap').style.display = 'block';
+    } else {
+      btn.textContent = '✓ Envoyer ma demande';
+      btn.disabled = false;
+      alert('Une erreur est survenue. Veuillez réessayer.');
+    }
+  } catch(err) {
+    btn.textContent = '✓ Envoyer ma demande';
+    btn.disabled = false;
+    alert('Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
+  }
+}
+</script>
+</body>
+</html>
