@@ -77,6 +77,7 @@ select.field-input{cursor:pointer}
   .step-pill{font-size:10px;padding:5px 1px}
 }
 .info-box{font-size:12px;color:#0C447C;background:#EBF4FF;border:1px solid #cfe2f7;border-radius:8px;padding:10px 12px;line-height:1.55;margin-bottom:10px}
+.info-box a{color:#0C447C}
 .pret-block,.emp-block{border:1px solid #e2e5ea;border-radius:10px;padding:14px;margin-bottom:12px;background:#fff}
 .block-title{font-size:13px;font-weight:600;color:#185FA5;margin-bottom:10px}
 .hint{font-size:11px;font-weight:400;color:#999}
@@ -89,13 +90,13 @@ select.field-input{cursor:pointer}
 <div class="form-wrap">
   <div class="form-header">
     <h1>🏦 Demande de devis — Assurance de prêt</h1>
-    <p>Ces informations nous permettent d'interroger les assureurs et de vous proposer une assurance emprunteur adaptée à votre financement. Aucune information médicale n'est demandée dans ce formulaire.</p>
+    <p>Pour établir votre devis, nous avons besoin de mieux vous connaître et de recueillir quelques informations vous concernant. Celles-ci nous permettront de sélectionner les meilleures solutions auprès de nos différents partenaires pour vous adresser une proposition adaptée à votre besoin et au meilleur prix.</p>
   </div>
   <div class="form-body">
     <div class="progress-steps">
       <div class="step-pill active">1. Projet</div>
-      <div class="step-pill">2. Prêt(s)</div>
-      <div class="step-pill">3. Emprunteur(s)</div>
+      <div class="step-pill">2. Emprunteur(s)</div>
+      <div class="step-pill">3. Prêt(s)</div>
       <div class="step-pill">4. Coordonnées</div>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
@@ -106,112 +107,48 @@ select.field-input{cursor:pointer}
 
       <!-- ÉTAPE 1 -->
       <div class="step-content active" id="step0">
-        <div class="section-title">Votre démarche</div>
+        <div class="section-title">Votre projet</div>
         <div class="section-desc">Nouveau financement ou changement d'assurance sur un prêt en cours</div>
 
-        <div class="field-group" data-req="Votre démarche">
-          <label class="field-label">Vous souhaitez <span class="req">*</span></label>
-          <div class="radio-group">
-            <label class="radio-label"><input type="radio" name="demarche" value="Assurer un nouveau prêt" onchange="majDemarche()"> Assurer un nouveau prêt (projet en cours)</label>
-            <label class="radio-label"><input type="radio" name="demarche" value="Changer d'assurance sur un prêt en cours" onchange="majDemarche()"> Changer d'assurance sur un prêt en cours</label>
+        <div class="field-group" data-req="Nature du projet">
+          <label class="field-label">Concernant votre projet, s'agit-il d'un : <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="demarche" value="Nouvel emprunt" onchange="majPrets()"> Nouvel emprunt</label>
+            <label class="radio-label"><input type="radio" name="demarche" value="Changement d'assurance" onchange="majPrets()"> Changement d'assurance</label>
           </div>
         </div>
 
-        <div class="info-box" id="info-changement" style="display:none">Depuis la loi Lemoine, vous pouvez changer d'assurance de prêt immobilier à tout moment, sans frais, à condition que le nouveau contrat présente des garanties équivalentes à celles exigées par votre banque.</div>
-
-        <div class="field-group" data-req="Objet du financement">
-          <label class="field-label">Objet du financement <span class="req">*</span></label>
-          <select class="field-input" name="objet_financement">
-            <option value="">Veuillez sélectionner</option>
+        <div class="field-group">
+          <label class="field-label">Sur quoi porte votre projet ?</label>
+          <select class="field-input" name="projet">
+            <option value="">Sélectionnez votre projet</option>
             <option>Résidence principale</option>
             <option>Résidence secondaire</option>
             <option>Investissement locatif</option>
-            <option>Travaux</option>
-            <option>Rachat / regroupement de crédits</option>
-            <option>Locaux professionnels</option>
-            <option>Autre</option>
+            <option>Travaux résidence principale</option>
+            <option>Travaux résidence secondaire</option>
           </select>
         </div>
 
-        <div class="field-row cols2">
-          <div class="field-group" data-req="Banque prêteuse">
-            <label class="field-label">Banque prêteuse <span class="req">*</span></label>
-            <input class="field-input" name="banque" placeholder="Ex : Crédit Agricole">
-          </div>
-          <div class="field-group" data-req="Nombre d'emprunteurs">
-            <label class="field-label">Nombre d'emprunteurs à assurer <span class="req">*</span></label>
-            <div class="radio-group inline">
-              <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="1" onchange="majEmprunteurs()"> 1</label>
-              <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="2" onchange="majEmprunteurs()"> 2</label>
-            </div>
+        <div class="field-group">
+          <label class="field-label">Nombre d'emprunteurs pour ce projet ?</label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="1" checked onchange="majEmprunteurs()"> 1</label>
+            <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="2" onchange="majEmprunteurs()"> 2</label>
           </div>
         </div>
 
-        <div id="bloc-nouveau" style="display:none">
-          <div class="field-row cols2">
-            <div class="field-group" data-req="Avancement du projet">
-              <label class="field-label">Avancement du projet <span class="req">*</span></label>
-              <select class="field-input" name="avancement">
-                <option value="">Veuillez sélectionner</option>
-                <option>Recherche de financement</option>
-                <option>Accord de principe obtenu</option>
-                <option>Offre de prêt émise</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label class="field-label">Date prévue de signature chez le notaire</label>
-              <input class="field-input" name="date_signature_prevue" type="date">
-            </div>
-          </div>
-        </div>
-
-        <div id="bloc-changement" style="display:none">
-          <div class="field-row cols2">
-            <div class="field-group" data-req="Date de signature de l'offre de prêt">
-              <label class="field-label">Date de signature de l'offre de prêt <span class="req">*</span></label>
-              <input class="field-input" name="date_offre_initiale" type="date">
-            </div>
-            <div class="field-group" data-req="Assureur actuel">
-              <label class="field-label">Assureur actuel <span class="req">*</span></label>
-              <input class="field-input" name="assureur_actuel" placeholder="Ex : contrat groupe de la banque">
-            </div>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Coût mensuel actuel de l'assurance (tous emprunteurs)</label>
-            <input class="field-input" name="cotisation_actuelle" placeholder="Ex : 45 €/mois" style="max-width:240px">
-          </div>
-        </div>
+        <div class="info-box">Les données sont recueillies par Girose Patrimoine en tant que responsable de traitement pour nous permettre de formuler une proposition d'assurance. Pour en savoir plus sur la gestion de vos données personnelles et pour exercer vos droits, reportez-vous à <a href="https://www.girose-patrimoine.fr/p/politique-de-protection-des-donnees" target="_blank" rel="noopener">notre politique</a>.</div>
 
         <div class="nav-row"><div></div><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
       </div>
 
       <!-- ÉTAPE 2 -->
       <div class="step-content" id="step1">
-        <div class="section-title">Le(s) prêt(s) à assurer</div>
-        <div class="section-desc">Ces éléments figurent dans votre offre de prêt ou votre tableau d'amortissement</div>
+        <div class="section-title">Informations sur le(s) emprunteur(s)</div>
+        <div class="section-desc">Ces critères servent à la tarification par les assureurs</div>
 
-        <div class="field-group" data-req="Nombre de prêts">
-          <label class="field-label">Nombre de prêts à assurer <span class="req">*</span><br><span class="hint">(un financement comporte souvent plusieurs lignes : prêt principal, PTZ, prêt Action Logement…)</span></label>
-          <select class="field-input" name="nb_prets" id="nb_prets" style="max-width:200px" onchange="majPrets()">
-            <option value="">Veuillez sélectionner</option>
-            <option>1</option><option>2</option><option>3</option><option>4</option>
-          </select>
-        </div>
-        <div id="prets-container"></div>
-
-        <div class="field-group" data-req="Garanties exigées">
-          <label class="field-label">Garanties exigées par la banque <span class="req">*</span><br><span class="hint">(indiquées dans la fiche standardisée d'information remise par la banque)</span></label>
-          <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="Décès / PTIA"> Décès / PTIA</label>
-            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="ITT"> Incapacité temporaire (ITT)</label>
-            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="IPT"> Invalidité permanente totale (IPT)</label>
-            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="IPP"> Invalidité permanente partielle (IPP)</label>
-            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="Perte d'emploi"> Perte d'emploi</label>
-            <label class="checkbox-label"><input type="checkbox" name="garanties_exigees" value="Ne sait pas"> Je ne sais pas</label>
-          </div>
-        </div>
-
-        <div class="info-box">Pour un devis précis, vous pouvez transmettre par email à votre conseiller votre offre de prêt (ou le tableau d'amortissement) et la fiche standardisée d'information.</div>
+        <div id="emp-container"></div>
 
         <div class="nav-row">
           <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
@@ -221,20 +158,18 @@ select.field-input{cursor:pointer}
 
       <!-- ÉTAPE 3 -->
       <div class="step-content" id="step2">
-        <div class="section-title">Le(s) emprunteur(s)</div>
-        <div class="section-desc">Ces critères servent à la tarification par les assureurs</div>
+        <div class="section-title">Le(s) prêt(s) à assurer</div>
+        <div class="section-desc">Ces éléments figurent dans votre offre de prêt ou votre tableau d'amortissement</div>
 
-        <div id="emp-container"></div>
-
-        <div class="info-box">Loi Lemoine : aucun questionnaire de santé n'est demandé lorsque la part assurée de vos prêts immobiliers n'excède pas 200 000 € par personne et que le remboursement se termine avant vos 60 ans. Dans les autres cas, les questions de santé seront posées directement par l'assureur, de façon confidentielle.</div>
-
-        <div class="field-group" data-req="Souhait d'échange confidentiel">
-          <label class="field-label">Souhaitez-vous échanger avec votre conseiller sur un point confidentiel avant l'étude ? <span class="req">*</span><br><span class="hint">(par exemple : droit à l'oubli, convention AERAS, situation particulière — ne rien détailler ici)</span></label>
+        <div class="field-group">
+          <label class="field-label">Nombre de prêt(s)</label>
           <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="echange_confidentiel" value="Oui"> Oui, merci de me rappeler</label>
-            <label class="radio-label"><input type="radio" name="echange_confidentiel" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="nb_prets" value="1" checked onchange="majPrets()"> 1</label>
+            <label class="radio-label"><input type="radio" name="nb_prets" value="2" onchange="majPrets()"> 2</label>
+            <label class="radio-label"><input type="radio" name="nb_prets" value="3" onchange="majPrets()"> 3</label>
           </div>
         </div>
+        <div id="prets-container"></div>
 
         <div class="nav-row">
           <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
@@ -246,38 +181,29 @@ select.field-input{cursor:pointer}
       <div class="step-content" id="step3">
         <div class="section-title">Vos coordonnées pour recevoir votre devis</div>
         <div class="field-row cols2">
-          <div class="field-group" data-req="Prénom">
-            <label class="field-label">Prénom <span class="req">*</span></label>
-            <input class="field-input" name="prenom" placeholder="Prénom">
+          <div class="field-group" data-req="Adresse mail">
+            <label class="field-label">Adresse mail <span class="req">*</span></label>
+            <input class="field-input" name="email" type="email" placeholder="exemple@exemple.com">
           </div>
-          <div class="field-group" data-req="Nom">
-            <label class="field-label">Nom <span class="req">*</span></label>
-            <input class="field-input" name="nom" placeholder="NOM">
-          </div>
-        </div>
-        <div class="field-row cols2">
-          <div class="field-group" data-req="Email">
-            <label class="field-label">Email <span class="req">*</span></label>
-            <input class="field-input" name="email" type="email" placeholder="prenom.nom@email.fr">
-          </div>
-          <div class="field-group" data-req="Téléphone">
-            <label class="field-label">Téléphone <span class="req">*</span></label>
-            <input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00">
+          <div class="field-group" data-req="Code postal">
+            <label class="field-label">Code postal <span class="req">*</span><br><span class="hint">Code postal de votre résidence</span></label>
+            <input class="field-input" name="code_postal" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="00000">
           </div>
         </div>
-
         <div class="field-group">
-          <label class="field-label">Informations complémentaires</label>
-          <textarea class="textarea-input" name="informations_complementaires" placeholder="Questions, précisions sur votre projet…"></textarea>
+          <label class="field-label">Numéro de téléphone</label>
+          <input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00" style="max-width:240px">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Indiquez le nom de la personne qui vous a recommandé Girose Patrimoine (facultatif)<br><span class="hint">Si un proche vous a recommandé Girose Patrimoine, indiquez son nom.</span></label>
+          <input class="field-input" name="recommande_par">
         </div>
 
-        <div class="field-group" data-req="Consentement">
-          <label class="checkbox-label"><input type="checkbox" name="consentement" value="Oui"> J'accepte que Girose Patrimoine utilise ces informations pour étudier ma demande et me transmettre des propositions d'assurance. <span class="req">*</span></label>
-        </div>
+        <div class="info-box">Pour gagner du temps ou si vous n'êtes pas certain des informations saisies, vous pouvez nous transmettre par email <strong>votre offre de prêt (ou le dernier avenant)</strong> et <strong>votre tableau d'amortissement</strong>, en réponse au message de votre conseiller.</div>
 
         <div class="nav-row">
           <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
-          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Envoyer ma demande</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Obtenir mon devis</button>
         </div>
       </div>
 
@@ -293,6 +219,8 @@ select.field-input{cursor:pointer}
 </div>
 
 <script>
+var STATUTS = ["Salarié cadre, ingénieur, assimilé cadre", "Salarié non cadre (hors employé de bureau), agent de maîtrise", "Employé de bureau, commercial sédentaire", "Dirigeant de société, gérant, chef d'entreprise (hors agricole)", "Profession libérale (hors médicale et paramédicale)", "Médecin (ou interne) généraliste ou spécialiste", "Autres métiers médicaux ou paramédicaux", "Fonctionnaire Classe A", "Fonctionnaire hors Classe A", "Artisan, métiers du BTP, auto-entrepreneur", "Commerçant", "Professions du transport, ouvrier, technicien", "Professions agricoles", "Retraité : cadre, assimilé cadre, fonctionnaire classe A, chef d'entreprise", "Autres retraités", "Intermittent", "Sans profession, étudiant, saisonnier"];
+var BANQUES = ["Non connu", "Allianz Banque", "Axa Banque", "Banque BCP", "Banque Chalus", "Banque Courtois", "Banque de France", "Banque de la Réunion", "Banque de Savoie", "Banque Dupuy de Parseval", "Banque Française Commerciale Océan Indien", "Banque Française Mutualiste contrat 7371M", "Banque Française Mutualiste contrat 7372N", "Banque Kolb", "Banque Laydernier", "Banque Marze", "Banque Nuger", "Banque Palatine", "Banque Populaire Alsace Lorraine Champagne", "Banque Populaire Aquitaine Centre Atlantique", "Banque Populaire AURA (Auvergne Rhône Alpes)", "Banque Populaire Bourgogne Franche-Comté", "Banque Populaire Casden", "Banque Populaire du Nord", "Banque Populaire du Sud", "Banque Populaire Grand Ouest", "Banque Populaire Méditerranée", "Banque Populaire Occitane", "Banque Populaire Rives de Paris", "Banque Populaire Val de France", "BRED", "Banque Postale", "Banque Privée Européenne", "Banque Rhône Alpes", "Banque Tarneaud", "BNP PARIBAS", "BNP PARIBAS Antille Guyane", "BNP PARIBAS Monaco", "BNP PARIBAS Personal Finance", "BNP PARIBAS Réunion", "Boursorama", "Caisse d'Epargne Aquitaine Poitou Charentes", "Caisse d'Epargne Bourgogne Franche-Comté", "Caisse d'Epargne Bretagne Pays de la Loire", "Caisse d'Epargne CEPAC", "Caisse d'Epargne Côte d'Azur", "Caisse d'Epargne Auvergne et Limousin", "Caisse d'Epargne Grand Est Europe", "Caisse d'Epargne Hauts de France", "Caisse d'Epargne Ile de France", "Caisse d'Epargne Languedoc Roussillon", "Caisse d'Epargne Loire Centre", "Caisse d'Epargne Loire Drôme Ardèche", "Caisse d'Epargne Midi Pyrénées", "Caisse d'Epargne Normandie", "Caisse d'Epargne Rhône Alpes", "CETELEM", "CFCAL", "CIC Est", "CIC Nord Ouest", "CIC Ouest", "CIC Sud Ouest", "Crédit Agricole Alpes Provence", "Crédit Agricole Alsace Vosges", "Crédit Agricole Atlantique Vendée", "Crédit Agricole Brie Picardie", "Crédit Agricole Centre Est", "Crédit Agricole Centre France", "Crédit Agricole Centre Loire", "Crédit Agricole Centre Ouest", "Crédit Agricole Champagne Bourgogne", "Crédit Agricole Charente Périgord", "Crédit Agricole Charente-Maritime Deux-Sèvres", "Crédit Agricole d'Aquitaine", "Crédit Agricole de Franche-Comté", "Crédit Agricole de Guadeloupe", "Crédit Agricole de la Corse", "Crédit Agricole de la Réunion", "Crédit Agricole de l'Anjou et du Maine", "Crédit Agricole de Loire Haute-Loire", "Crédit Agricole de Lorraine", "Crédit Agricole de Martinique Guyane", "Crédit Agricole de Normandie", "Crédit Agricole de Paris et d'Ile-de-France", "Crédit Agricole de Pyrénées Gascogne", "Crédit Agricole de Val de France", "Crédit Agricole des Côtes d'Armor", "Crédit Agricole des Savoie", "Crédit Agricole d'Ile et Vilaine", "Crédit Agricole du Finistère", "Crédit Agricole du Languedoc", "Crédit Agricole du Morbihan", "Crédit Agricole Nord de France", "Crédit Agricole Nord Est", "Crédit Agricole Nord Midi Pyrénées", "Crédit Agricole Normandie-Seine", "Crédit Agricole Provence Côte d'Azur", "Crédit Agricole Sud Méditerranée", "Crédit Agricole Sud Rhône Alpes", "Crédit Agricole Toulouse 31", "Crédit Agricole Touraine Poitou", "Crédit Coopératif", "Crédit du Nord", "Crédit Foncier", "Crédit Immobilier de France Développement", "Crédit Maritime Grand Ouest", "Crédit Maritime Méditerranée", "Crédit Mutuel", "Crédit Mutuel Arkéa", "Fortunéo Banque", "Groupama Banque", "Hello Bank", "HSBC Continental Europe (contrat Groupe)", "HSBC Continental Europe (contrat Solution Emprunteur)", "ING DIRECT", "LCL", "LCL Banque Privée", "Monabanq", "Orange Bank", "SBE Banque Populaire", "Société Générale", "Société Marseillaise de Crédit", "SOCRIF SOFIAP", "SOFIDER Océan Indien"];
 var currentStep = 0;
 
 function goStep(n) {
@@ -322,20 +250,12 @@ function radioValue(name) {
   return c ? c.value : '';
 }
 
-function majDemarche() {
-  var changement = radioValue('demarche') === "Changer d'assurance sur un prêt en cours";
-  document.getElementById('bloc-nouveau').style.display = changement ? 'none' : 'block';
-  document.getElementById('bloc-changement').style.display = changement ? 'block' : 'none';
-  document.getElementById('info-changement').style.display = changement ? 'block' : 'none';
-  majPrets();
+function opts(placeholder, list) {
+  return '<option value="">' + placeholder + '</option>' + list.map(function(t) { return '<option>' + t + '</option>'; }).join('');
 }
 
-function opts(list) {
-  return '<option value="">Veuillez sélectionner</option>' + list.map(function(t) { return '<option>' + t + '</option>'; }).join('');
-}
-
-function radios(name, list, inline) {
-  return '<div class="radio-group' + (inline ? ' inline' : '') + '">' + list.map(function(v) {
+function radios(name, list) {
+  return '<div class="radio-group inline">' + list.map(function(v) {
     return '<label class="radio-label"><input type="radio" name="' + name + '" value="' + v + '"> ' + v + '</label>';
   }).join('') + '</div>';
 }
@@ -357,56 +277,54 @@ function restore(container, vals) {
   });
 }
 
-function majPrets() {
-  var nb = parseInt(document.getElementById('nb_prets').value) || 0;
-  var changement = radioValue('demarche') === "Changer d'assurance sur un prêt en cours";
-  var container = document.getElementById('prets-container');
-  var vals = snapshot(container);
-  var html = '';
-  for (var i = 1; i <= nb; i++) {
-    var p = 'pret_' + i + '_';
-    html += '<div class="pret-block"><div class="block-title">Prêt n°' + i + '</div>'
-      + '<div class="field-row cols2">'
-      + '<div class="field-group" data-req="Type du prêt n°' + i + '"><label class="field-label">Type de prêt <span class="req">*</span></label><select class="field-input" name="' + p + 'type">' + opts(['Amortissable','In fine','Prêt à taux zéro (PTZ)','Prêt Action Logement','Prêt relais','Prêt à paliers / lissé','Autre']) + '</select></div>'
-      + '<div class="field-group" data-req="Montant du prêt n°' + i + '"><label class="field-label">Montant emprunté (€) <span class="req">*</span></label><input class="field-input" name="' + p + 'montant" type="number" min="0" placeholder="Ex : 250000"></div>'
-      + '</div><div class="field-row cols2">'
-      + '<div class="field-group" data-req="Durée du prêt n°' + i + '"><label class="field-label">Durée totale (mois) <span class="req">*</span></label><input class="field-input" name="' + p + 'duree_mois" type="number" min="1" placeholder="Ex : 300"></div>'
-      + '<div class="field-group"><label class="field-label">Taux nominal (%)</label><input class="field-input" name="' + p + 'taux" type="number" step="0.01" min="0" placeholder="Ex : 3,45"></div>'
-      + '</div>'
-      + '<div class="field-group"><label class="field-label">Différé d\'amortissement</label>' + radios(p + 'differe', ['Aucun','Partiel','Total'], true) + '</div>';
-    if (changement) {
-      html += '<div class="field-row cols2">'
-        + '<div class="field-group" data-req="Capital restant dû du prêt n°' + i + '"><label class="field-label">Capital restant dû (€) <span class="req">*</span></label><input class="field-input" name="' + p + 'capital_restant_du" type="number" min="0" placeholder="Ex : 180000"></div>'
-        + '<div class="field-group"><label class="field-label">Date de 1re échéance</label><input class="field-input" name="' + p + 'date_premiere_echeance" type="month"></div>'
-        + '</div>';
-    }
-    html += '</div>';
-  }
-  container.innerHTML = html;
-  restore(container, vals);
-}
-
 function majEmprunteurs() {
-  var nb = parseInt(radioValue('nb_emprunteurs')) || 0;
+  var nb = parseInt(radioValue('nb_emprunteurs')) || 1;
   var container = document.getElementById('emp-container');
   var vals = snapshot(container);
   var html = '';
   for (var i = 1; i <= nb; i++) {
     var e = 'emprunteur_' + i + '_';
-    html += '<div class="emp-block"><div class="block-title">Emprunteur ' + i + '</div>'
+    var qui = i === 1 ? 'Emprunteur' : 'Co-emprunteur';
+    html += '<div class="emp-block"><div class="block-title">' + qui + '</div>'
+      + '<div class="field-group">' + radios(e + 'civilite', ['Monsieur','Madame']) + '</div>'
       + '<div class="field-row cols2">'
-      + '<div class="field-group" data-req="Date de naissance (emprunteur ' + i + ')"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="' + e + 'date_naissance" type="date"></div>'
-      + '<div class="field-group" data-req="Quotité (emprunteur ' + i + ')"><label class="field-label">Quotité assurée <span class="req">*</span><br><span class="hint">(part du prêt couverte sur cette tête)</span></label><select class="field-input" name="' + e + 'quotite">' + opts(['100 %','75 %','70 %','60 %','50 %','40 %','30 %','25 %','Ne sait pas']) + '</select></div>'
+      + '<div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="' + e + 'nom"></div>'
+      + '<div class="field-group"><label class="field-label">Prénom</label><input class="field-input" name="' + e + 'prenom"></div>'
       + '</div>'
-      + '<div class="field-group" data-req="Statut fumeur (emprunteur ' + i + ')"><label class="field-label">Avez-vous fumé (y compris cigarette électronique) au cours des 24 derniers mois ? <span class="req">*</span></label>' + radios(e + 'fumeur', ['Oui','Non'], true) + '</div>'
+      + '<div class="field-group" data-req="Date de naissance (' + qui + ')"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="' + e + 'date_naissance" type="date" style="max-width:240px"></div>'
       + '<div class="field-row cols2">'
-      + '<div class="field-group" data-req="Profession (emprunteur ' + i + ')"><label class="field-label">Profession exercée <span class="req">*</span></label><input class="field-input" name="' + e + 'profession" placeholder="Ex : ingénieur, infirmière…"></div>'
-      + '<div class="field-group" data-req="Statut professionnel (emprunteur ' + i + ')"><label class="field-label">Statut <span class="req">*</span></label><select class="field-input" name="' + e + 'statut">' + opts(['Salarié(e) en CDI','Salarié(e) en CDD / intérim','Fonctionnaire','Travailleur non salarié / indépendant','Profession libérale','Chef d\'entreprise','Retraité(e)','Sans activité','Autre']) + '</select></div>'
+      + '<div class="field-group" data-req="Statut professionnel (' + qui + ')"><label class="field-label">Statut professionnel <span class="req">*</span></label><select class="field-input" name="' + e + 'statut">' + opts('Veuillez sélectionner', STATUTS) + '</select></div>'
+      + '<div class="field-group" data-req="Profession exacte (' + qui + ')"><label class="field-label">Profession exacte <span class="req">*</span></label><input class="field-input" name="' + e + 'profession"></div>'
       + '</div>'
-      + '<div class="field-group" data-req="Déplacements (emprunteur ' + i + ')"><label class="field-label">Parcourez-vous plus de 20 000 km par an pour votre activité professionnelle ? <span class="req">*</span></label>' + radios(e + 'deplacements_pro', ['Oui','Non'], true) + '</div>'
-      + '<div class="field-group" data-req="Activité manuelle (emprunteur ' + i + ')"><label class="field-label">Votre métier comporte-t-il des travaux manuels, de la manutention ou des travaux en hauteur (plus de 3 m) ? <span class="req">*</span></label>' + radios(e + 'travaux_risques', ['Oui','Non'], true) + '</div>'
-      + '<div class="field-group" data-req="Sports à risque (emprunteur ' + i + ')"><label class="field-label">Pratiquez-vous un sport à risque ? <span class="req">*</span><br><span class="hint">(sports aériens, mécaniques, de combat, plongée, alpinisme, compétition…)</span></label>' + radios(e + 'sport_risque', ['Oui','Non'], true)
-      + '<input class="field-input" name="' + e + 'sport_detail" placeholder="Si oui, lequel ?" style="margin-top:6px"></div>'
+      + '<div class="field-group" data-req="Tabac (' + qui + ')"><label class="field-label">Avez-vous fumé au cours des deux dernières années (y compris des cigarettes électroniques) ? <span class="req">*</span></label>' + radios(e + 'fumeur', ['Non','Oui']) + '</div>'
+      + '<div class="field-group" data-req="Déplacements (' + qui + ')"><label class="field-label">Réalisez-vous des déplacements professionnels supérieurs à 15 000 km par an ? <span class="req">*</span></label>' + radios(e + 'deplacements_pro', ['Non','Oui']) + '</div>'
+      + '<div class="field-group" data-req="Manutention (' + qui + ')"><label class="field-label">Exercez-vous une activité avec manutention régulière de charges lourdes supérieures à 15 kg ? <span class="req">*</span></label>' + radios(e + 'manutention', ['Non','Oui']) + '</div>'
+      + '<div class="field-group" data-req="Travail en hauteur (' + qui + ')"><label class="field-label">Exercez-vous un travail en hauteur ? <span class="req">*</span></label>' + radios(e + 'travail_hauteur', ['Non','Oui, à plus de 3 mètres','Oui, à plus de 15 mètres']) + '</div>'
+      + '</div>';
+  }
+  container.innerHTML = html;
+  restore(container, vals);
+}
+
+function majPrets() {
+  var nb = parseInt(radioValue('nb_prets')) || 1;
+  var nouveau = radioValue('demarche') === 'Nouvel emprunt';
+  var montantLabel = nouveau ? 'Montant emprunté (€)' : 'Capital restant dû (€)';
+  var container = document.getElementById('prets-container');
+  var vals = snapshot(container);
+  var noms = ['Premier prêt','Deuxième prêt','Troisième prêt'];
+  var html = '';
+  for (var i = 1; i <= nb; i++) {
+    var p = 'pret_' + i + '_';
+    html += '<div class="pret-block"><div class="block-title">' + noms[i - 1] + '</div>'
+      + '<div class="field-row cols2">'
+      + '<div class="field-group" data-req="Type de prêt (' + noms[i - 1] + ')"><label class="field-label">Type de prêt <span class="req">*</span></label><select class="field-input" name="' + p + 'type">' + opts('Sélectionnez le type de prêt', ['Prêt amortissable classique','Prêt à taux zéro','Prêt in fine','Prêt relais','Prêt à paliers']) + '</select></div>'
+      + '<div class="field-group" data-req="Organisme prêteur (' + noms[i - 1] + ')"><label class="field-label">Organisme prêteur <span class="req">*</span></label><select class="field-input" name="' + p + 'organisme">' + opts("Sélectionnez l'organisme prêteur", BANQUES) + '</select></div>'
+      + '</div><div class="field-row cols2">'
+      + '<div class="field-group" data-req="' + montantLabel + ' (' + noms[i - 1] + ')"><label class="field-label">' + montantLabel + ' <span class="req">*</span></label><input class="field-input" name="' + p + 'montant" type="number" min="0" placeholder="Ex : 200000"></div>'
+      + '<div class="field-group" data-req="Durée initiale (' + noms[i - 1] + ')"><label class="field-label">Durée initiale du prêt en années <span class="req">*</span></label><input class="field-input" name="' + p + 'duree_annees" type="number" min="1" max="40" placeholder="Ex : 25"></div>'
+      + '</div>'
+      + '<div class="field-group" data-req="Date de la première échéance (' + noms[i - 1] + ')"><label class="field-label">Date de la première échéance du prêt <span class="req">*</span>' + (nouveau ? '<br><span class="hint">(date prévisionnelle si le prêt n\'est pas encore débloqué)</span>' : '') + '</label><input class="field-input" name="' + p + 'date_premiere_echeance" type="date" style="max-width:240px"></div>'
       + '</div>';
   }
   container.innerHTML = html;
@@ -425,7 +343,9 @@ function groupIsEmpty(group) {
   if (choices.length) return group.querySelectorAll('input:checked').length === 0;
   var el = group.querySelector('input,select,textarea');
   if (!el || !el.value.trim()) return true;
-  return el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+  if (el.type === 'email') return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+  if (el.pattern) return !new RegExp('^(?:' + el.pattern + ')$').test(el.value.trim());
+  return false;
 }
 
 function validateStep(step) {
@@ -436,16 +356,12 @@ function validateStep(step) {
     if (h) h.remove();
   });
   var firstGroup = null;
-  if (step === 2 && !document.querySelector('#emp-container .emp-block')) {
-    showToast("Indiquez d'abord le nombre d'emprunteurs (étape 1)");
-    return false;
-  }
   stepEl.querySelectorAll('.field-group[data-req]').forEach(function(group) {
     if (group.offsetParent === null || !groupIsEmpty(group)) return;
     group.classList.add('error');
     var hint = document.createElement('div');
     hint.className = 'error-hint';
-    hint.textContent = '⚠ ' + group.getAttribute('data-req') + ' : réponse obligatoire';
+    hint.textContent = '⚠ ' + group.getAttribute('data-req') + ' : réponse obligatoire ou invalide';
     group.appendChild(hint);
     if (!firstGroup) firstGroup = group;
   });
@@ -476,16 +392,19 @@ async function submitFormData() {
       document.querySelector('.progress-bar').style.display = 'none';
       document.getElementById('successWrap').style.display = 'block';
     } else {
-      btn.textContent = '✓ Envoyer ma demande';
+      btn.textContent = '✓ Obtenir mon devis';
       btn.disabled = false;
       alert('Une erreur est survenue. Veuillez réessayer.');
     }
   } catch(err) {
-    btn.textContent = '✓ Envoyer ma demande';
+    btn.textContent = '✓ Obtenir mon devis';
     btn.disabled = false;
     alert('Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
   }
 }
+
+majEmprunteurs();
+majPrets();
 </script>
 </body>
 </html>
