@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Comparatif assurance habitation</title>
+<style>
+  :root {
+    --navy: #1B234A; --gold: #DEAD0F; --green: #2E7D4F;
+    --light-green: #E7F4EC; --light-navy: #EEF0F6;
+    --text: #222222; --muted: #5A5A5A; --bg: #FFFFFF;
+    --card-bg: #FFFFFF; --border: #D8D8D8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+      --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+    --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background: var(--bg); color: var(--text);
+    font-family: -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.5; }
+  .header { background: var(--navy); color:#fff; padding:28px 20px 24px; text-align:center; }
+  .header .logo { font-weight:700; letter-spacing:2px; font-size:14px; margin-bottom:10px; }
+  .header hr { border:none; border-top:2px solid var(--gold); width:140px; margin:10px auto 16px; }
+  .header h1 { margin:0 0 6px; font-size: clamp(20px,4vw,28px); }
+  .header .subtitle { color: var(--gold); font-weight:600; font-size:15px; margin-bottom:10px; }
+  .header .client { font-weight:700; font-size:17px; }
+  .container { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
+  .lead { text-align:center; color: var(--muted); max-width:640px; margin:0 auto 28px; font-size:14.5px; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; min-width:560px; font-size:14px; table-layout:fixed; }
+  @media (max-width: 600px) { table { min-width:0; font-size:12.5px; } thead th { font-size:12px; padding:10px 6px; } tbody td, tbody th { padding:8px 6px; overflow-wrap:anywhere; } }
+  th:nth-child(1), td:nth-child(1) { width: 32%; }
+  th:nth-child(2), td:nth-child(2) { width: 34.00%; }
+  th:nth-child(3), td:nth-child(3) { width: 34.00%; }
+
+  thead th { background: var(--navy); color:#fff; padding:12px 10px; text-align:center; font-size:13.5px; }
+  thead th:first-child { text-align:left; }
+  thead th.reco { background: var(--green); }
+  tbody td, tbody th { padding:10px 10px; border-bottom:1px solid var(--border); text-align:center; vertical-align:middle; }
+  tbody th { text-align:left; font-weight:600; background: var(--light-navy); }
+  tbody tr.diff td, tbody tr.diff th { background: var(--light-green); font-weight:600; }
+  td.reco-col { border-left:2px solid var(--navy); }
+  .price { font-weight:700; color: var(--navy); }
+  .footnote { font-size:12px; color: var(--muted); margin-top:10px; text-align:center; }
+  .reco-card { margin:32px 0 24px; border:1.5px solid var(--gold); border-radius:10px;
+    padding:18px 20px; display:flex; gap:16px; align-items:center; background: var(--card-bg); }
+  .reco-badge { flex:0 0 auto; width:44px; height:44px; border-radius:8px; background: var(--green);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; }
+  .reco-body .tag { color: var(--green); font-weight:700; font-size:12px; letter-spacing:0.5px; margin-bottom:4px; }
+  .reco-body .formule { font-weight:700; color: var(--text); font-size:15.5px; margin-bottom:4px; }
+  .reco-body .price-line { font-weight:700; color: var(--navy); font-size:17px; }
+  .why h2 { font-size:16px; margin-bottom:10px; }
+  .why ul { padding-left:18px; margin:0 0 16px; }
+  .why li { margin-bottom:8px; font-size:14.5px; }
+  .docs h2 { font-size:16px; margin-bottom:10px; }
+  .docs ul { padding-left:18px; margin:0 0 16px; }
+  .docs li { margin-bottom:6px; font-size:14.5px; }
+  .docs a { color: var(--navy); font-weight:600; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .docs a { color: var(--gold); } }
+  .contact { margin-top:36px; padding-top:20px; border-top:1px solid var(--border);
+    text-align:center; font-size:13px; color: var(--muted); }
+  .contact strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">GIROSE PATRIMOINE</div>
+    <hr>
+    <h1>Comparatif de votre assurance habitation</h1>
+    <div class="subtitle">Assurance Habitation</div>
+  </div>
+  <div class="container">
+    <p class="lead">Deux formules du contrat Zéphir Modul'Habitat ont été établies auprès du Groupe Zéphir (gestionnaire), pour un risque porté par la Caisse Meusienne d'Assurances Mutuelles (CMAM). Elles reposent sur les mêmes déclarations et le même capital mobilier (11 000 €) ; la formule Confort + ajoute la garantie Dommages électriques aux appareils et relève certains plafonds.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Garantie</th><th class="reco">Zéphir Modul'Habitat<br><span style="font-weight:400;">Formule Confort</span></th>
+<th class="">Zéphir Modul'Habitat<br><span style="font-weight:400;">Formule Confort +</span></th></tr></thead>
+        <tbody>
+          <tr class="diff"><th>Cotisation TTC annuelle / mensuelle</th><td class="reco-col">251 €/an<br/>22 €/mois</td><td class="">314 €/an<br/>27 €/mois</td></tr>
+<tr><th>Capital mobilier assuré</th><td class="reco-col">11 000 €</td><td class="">11 000 €</td></tr>
+<tr><th>Responsabilité civile vie privée</th><td class="reco-col">Corporels 10 000 000 €<br/>Matériels 1 500 000 €</td><td class="">Corporels 10 000 000 €<br/>Matériels 1 500 000 €</td></tr>
+<tr><th>Défense pénale et recours</th><td class="reco-col">15 000 € (seuil 250 €)</td><td class="">15 000 € (seuil 250 €)</td></tr>
+<tr><th>Incendie, explosion : bâtiment</th><td class="reco-col">Coût de reconstruction*</td><td class="">Coût de reconstruction*</td></tr>
+<tr class="diff"><th>Incendie, explosion : mobilier</th><td class="reco-col">5 000 € par pièce</td><td class="">7 500 € par pièce</td></tr>
+<tr class="diff"><th>Événements climatiques : mobilier</th><td class="reco-col">Jusqu'à 80 000 €</td><td class="">Jusqu'à 120 000 €</td></tr>
+<tr class="diff"><th>Dégâts des eaux : mobilier</th><td class="reco-col">30 % du capital mobilier</td><td class="">40 % du capital mobilier</td></tr>
+<tr class="diff"><th>Vol et vandalisme : mobilier</th><td class="reco-col">30 % du capital mobilier</td><td class="">40 % du capital mobilier</td></tr>
+<tr class="diff"><th>Vol : détériorations immobilières</th><td class="reco-col">8 000 €</td><td class="">10 000 €</td></tr>
+<tr class="diff"><th>Bris de glace : immobilier</th><td class="reco-col">8 000 € (franchise 70 €)</td><td class="">10 000 € (franchise 70 €)</td></tr>
+<tr class="diff"><th>Dommages électriques aux appareils</th><td class="reco-col">Non garanti</td><td class="">8 000 € (mobilier)<br/>appareils de moins de 10 ans</td></tr>
+<tr class="diff"><th>Objets de valeur / objets précieux</th><td class="reco-col">2 000 € / 2 000 €</td><td class="">5 000 € / 5 000 €</td></tr>
+<tr><th>Catastrophes naturelles et technologiques</th><td class="reco-col">Incluses (franchise légale)</td><td class="">Incluses (franchise légale)</td></tr>
+<tr><th>Assistance / Protection juridique</th><td class="reco-col">Incluses (PJ : seuil 230 €)</td><td class="">Incluses (PJ : seuil 230 €)</td></tr>
+<tr><th>Franchise générale</th><td class="reco-col">300 €</td><td class="">300 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">Les lignes surlignées en vert correspondent aux différences entre les deux formules. * Vétusté remboursée dans la limite de 30 %. Plafonds et franchises détaillés dans les Dispositions Générales réf. ZMODHAB/CG/0825. Première échéance majorée de la contribution attentats (6,50 €).</p>
+
+    <div class="reco-card">
+      <div class="reco-badge">&#10003;</div>
+      <div class="reco-body">
+        <div class="tag">SOLUTION RECOMMANDÉE</div>
+        <div class="formule">Groupe Zéphir (CMAM) — Zéphir Modul'Habitat, formule Confort</div>
+        <div class="price-line">251 € TTC/an — ou 22 € TTC/mois</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <h2>Pourquoi cette formule</h2>
+      <ul>
+        <li>Elle couvre l'essentiel de vos besoins de propriétaire occupant : responsabilité civile, incendie, dégâts des eaux, événements climatiques, vol et vandalisme, bris de glace, catastrophes naturelles, assistance et protection juridique.</li>
+<li>Vous n'avez déclaré aucun objet de valeur : le relèvement de ce plafond en formule Confort + ne vous apporte pas de protection utile.</li>
+<li>Avec un capital mobilier de 11 000 € et 3 pièces principales, le plafond de 5 000 € par pièce en incendie et ceux applicables en dégâts des eaux et en vol sont adaptés à votre situation.</li>
+<li>La garantie Dommages électriques de la formule Confort + exclut de toute façon les appareils de plus de 10 ans : son intérêt est limité au regard du supplément de 63 € par an.</li>
+      </ul>
+    </div>
+
+    <div class="why"><h2>Points d'attention</h2><ul><li><b>Dommages électriques non garantis</b> en formule Confort : les dommages causés à vos appareils par une surtension, la foudre ou un court-circuit ne seraient pas indemnisés.</li>
+<li><b>Appareils de plus de 10 ans</b> : quelle que soit la formule, le mobilier électroménager, audiovisuel et informatique de plus de 10 ans n'est pas indemnisé (Dispositions Générales, art. 14.6).</li>
+<li><b>Protection contre le vol</b> : le tarif intègre la pose d'un verrou sur les portes d'accès et la télésurveillance reliée à un centre. Ces équipements doivent être en place dès l'emménagement, et les volets fermés en cas d'absence de plus de 24 heures, faute de quoi la garantie vol pourrait ne pas être acquise.</li></ul></div>
+
+    <div class="docs">
+      <h2>Pour consulter le détail</h2>
+      <ul>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/IPID_Habitation_Zephir_ModulHabitat.pdf">Document d'information sur le produit (IPID)</a></li>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/CG_Habitation_Zephir_ModulHabitat_ZMODHAB-CG-0825.pdf">Dispositions générales Zéphir Modul'Habitat</a></li>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/girose-patrimoine-entree-en-relation-2026.pdf">Notre document d'entrée en relation</a></li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      La fiche d'information et de conseil complète vous a été transmise en pièce jointe.<br>
+      <strong>GIROSE PATRIMOINE</strong> — Alexandre Gravier · 06 70 35 40 53 · gravier@girose-patrimoine.fr<br>
+      13 Rue Henri Regnault, 92210 Saint-Cloud — ORIAS n°22003796
+    </div>
+  </div>
+</body>
+</html>
