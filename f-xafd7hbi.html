@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Devis Assurance de prêt — Girose Patrimoine</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:#1a1a1a;background:#f4f5f7;min-height:100vh;padding:24px 16px 48px}
+.form-wrap{max-width:680px;margin:0 auto}
+.form-header{background:#185FA5;color:#E6F1FB;padding:22px 28px;border-radius:12px 12px 0 0}
+.form-header h1{font-size:17px;font-weight:600;margin-bottom:6px}
+.form-header p{font-size:12px;opacity:.85;line-height:1.6}
+.form-body{background:#fff;border:1px solid #e2e5ea;border-top:none;border-radius:0 0 12px 12px;padding:24px 28px}
+.progress-steps{display:flex;margin-bottom:16px}
+.step-pill{flex:1;text-align:center;font-size:11px;padding:6px 2px;border-bottom:2px solid #e2e5ea;color:#888;cursor:pointer;transition:all .2s}
+.step-pill.active{border-color:#185FA5;color:#185FA5;font-weight:600}
+.step-pill.done{border-color:#1D9E75;color:#0F6E56}
+.progress-bar{height:4px;background:#f0f2f5;border-radius:2px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:#185FA5;border-radius:2px;transition:width .4s}
+.section-title{font-size:13px;font-weight:600;color:#185FA5;background:#EBF4FF;padding:8px 12px;border-radius:8px;margin:24px 0 4px;border-left:3px solid #378ADD}
+.section-title:first-child{margin-top:0}
+.section-desc{font-size:12px;color:#888;margin-bottom:20px;line-height:1.5}
+.field-group{display:flex;flex-direction:column;gap:8px;padding:16px;background:#fafbfc;border:1px solid #eef0f3;border-radius:10px;margin-bottom:10px}
+.field-group:hover{border-color:#d0dff0}
+.field-row{display:grid;gap:16px;margin-bottom:10px}
+.field-row.cols2{grid-template-columns:1fr 1fr}
+.field-row .field-group{margin-bottom:0}
+.field-label{font-size:13px;color:#222;font-weight:600;line-height:1.4}
+.req{color:#d63031}
+.field-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
+.field-input:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+select.field-input{cursor:pointer}
+.radio-group{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.radio-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px 20px}
+.radio-label{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.radio-label:hover{border-color:#185FA5;background:#EBF4FF}
+.radio-label input{width:15px;height:15px;accent-color:#185FA5;cursor:pointer;flex-shrink:0}
+.radio-label:has(input:checked){border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:500}
+.radio-group.inline .radio-label{padding:6px 14px}
+.checkbox-group{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin-top:2px}
+.checkbox-label{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.checkbox-label:hover{border-color:#185FA5;background:#EBF4FF}
+.checkbox-label input{width:15px;height:15px;accent-color:#185FA5;cursor:pointer;flex-shrink:0}
+.checkbox-label:has(input:checked){border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:500}
+.field-group.error{border-color:#d63031;background:#fff8f8}
+.field-group.error .field-label{color:#d63031}
+.error-hint{font-size:11px;color:#d63031;margin-top:4px}
+.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#d63031;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;box-shadow:0 4px 16px rgba(214,48,49,.3);max-width:90vw;text-align:center}
+.toast.show{display:block}
+.step-content{display:none}
+.step-content.active{display:block}
+.nav-row{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid #e2e5ea;gap:10px}
+.btn{padding:9px 20px;border-radius:8px;border:1px solid #c8d0db;background:#fff;color:#333;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:#f4f5f7}
+.btn-primary{background:#185FA5;color:#fff;border-color:#185FA5}
+.btn-primary:hover{background:#0C447C}
+.textarea-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;resize:vertical;min-height:80px;transition:border-color .15s}
+.textarea-input:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+.qualite-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+.qualite-card{border:1.5px solid #e2e5ea;border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;font-size:13px;color:#444}
+.qualite-card:hover{border-color:#185FA5;background:#EBF4FF}
+.qualite-card.selected{border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:600}
+.qualite-card .icon{font-size:24px;display:block;margin-bottom:6px}
+.sinistre-block{border:1px solid #e2e5ea;border-radius:8px;padding:12px;margin-bottom:10px;background:#fafbfc}
+.sinistre-title{font-size:12px;font-weight:600;color:#555;margin-bottom:10px}
+.success-wrap{text-align:center;padding:40px 20px;display:none}
+.success-icon{font-size:48px;margin-bottom:16px;display:block}
+.success-title{font-size:18px;font-weight:600;margin-bottom:8px;color:#0F6E56}
+.success-text{font-size:13px;color:#666;line-height:1.6}
+.form-footer{text-align:center;margin-top:16px;font-size:11px;color:#aaa}
+@media(max-width:500px){
+  .field-row.cols2{grid-template-columns:1fr}
+  .form-body{padding:18px 16px}
+  .qualite-cards{grid-template-columns:1fr}
+  .step-pill{font-size:10px;padding:5px 1px}
+}
+.info-box{font-size:12px;color:#0C447C;background:#EBF4FF;border:1px solid #cfe2f7;border-radius:8px;padding:10px 12px;line-height:1.55;margin-bottom:10px}
+.info-box a{color:#0C447C}
+.pret-block,.emp-block{border:1px solid #e2e5ea;border-radius:10px;padding:14px;margin-bottom:12px;background:#fff}
+.block-title{font-size:13px;font-weight:600;color:#185FA5;margin-bottom:10px}
+.hint{font-size:11px;font-weight:400;color:#999}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <h1>🏦 Demande de devis — Assurance de prêt</h1>
+    <p>Pour établir votre devis, nous avons besoin de mieux vous connaître et de recueillir quelques informations vous concernant. Celles-ci nous permettront de sélectionner les meilleures solutions auprès de nos différents partenaires pour vous adresser une proposition adaptée à votre besoin et au meilleur prix.</p>
+  </div>
+  <div class="form-body">
+    <div class="progress-steps">
+      <div class="step-pill active">1. Projet</div>
+      <div class="step-pill">2. Emprunteur(s)</div>
+      <div class="step-pill">3. Prêt(s)</div>
+      <div class="step-pill">4. Coordonnées</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+
+    <form id="mainForm" action="https://formspree.io/f/xwlpkzyn" method="POST">
+      <input type="hidden" name="_subject" value="Demande de devis — Assurance de prêt">
+      <input type="hidden" name="formulaire" value="Assurance de prêt">
+
+      <!-- ÉTAPE 1 -->
+      <div class="step-content active" id="step0">
+        <div class="section-title">Votre projet</div>
+        <div class="section-desc">Nouveau financement ou changement d'assurance sur un prêt en cours</div>
+
+        <div class="field-group" data-req="Nature du projet">
+          <label class="field-label">Concernant votre projet, s'agit-il d'un : <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="demarche" value="Nouvel emprunt" onchange="majPrets()"> Nouvel emprunt</label>
+            <label class="radio-label"><input type="radio" name="demarche" value="Changement d'assurance" onchange="majPrets()"> Changement d'assurance</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Sur quoi porte votre projet ?</label>
+          <select class="field-input" name="projet">
+            <option value="">Sélectionnez votre projet</option>
+            <option>Résidence principale</option>
+            <option>Résidence secondaire</option>
+            <option>Investissement locatif</option>
+            <option>Travaux résidence principale</option>
+            <option>Travaux résidence secondaire</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Nombre d'emprunteurs pour ce projet ?</label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="1" checked onchange="majEmprunteurs()"> 1</label>
+            <label class="radio-label"><input type="radio" name="nb_emprunteurs" value="2" onchange="majEmprunteurs()"> 2</label>
+          </div>
+        </div>
+
+        <div class="info-box">Les données sont recueillies par Girose Patrimoine en tant que responsable de traitement pour nous permettre de formuler une proposition d'assurance. Pour en savoir plus sur la gestion de vos données personnelles et pour exercer vos droits, reportez-vous à <a href="https://www.girose-patrimoine.fr/p/politique-de-protection-des-donnees" target="_blank" rel="noopener">notre politique</a>.</div>
+
+        <div class="nav-row"><div></div><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+      </div>
+
+      <!-- ÉTAPE 2 -->
+      <div class="step-content" id="step1">
+        <div class="section-title">Informations sur le(s) emprunteur(s)</div>
+        <div class="section-desc">Ces critères servent à la tarification par les assureurs</div>
+
+        <div id="emp-container"></div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 -->
+      <div class="step-content" id="step2">
+        <div class="section-title">Le(s) prêt(s) à assurer</div>
+        <div class="section-desc">Ces éléments figurent dans votre offre de prêt ou votre tableau d'amortissement</div>
+
+        <div class="field-group">
+          <label class="field-label">Nombre de prêt(s)</label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="nb_prets" value="1" checked onchange="majPrets()"> 1</label>
+            <label class="radio-label"><input type="radio" name="nb_prets" value="2" onchange="majPrets()"> 2</label>
+            <label class="radio-label"><input type="radio" name="nb_prets" value="3" onchange="majPrets()"> 3</label>
+          </div>
+        </div>
+        <div id="prets-container"></div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 -->
+      <div class="step-content" id="step3">
+        <div class="section-title">Vos coordonnées pour recevoir votre devis</div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Adresse mail">
+            <label class="field-label">Adresse mail <span class="req">*</span></label>
+            <input class="field-input" name="email" type="email" placeholder="exemple@exemple.com">
+          </div>
+          <div class="field-group" data-req="Code postal">
+            <label class="field-label">Code postal <span class="req">*</span><br><span class="hint">Code postal de votre résidence</span></label>
+            <input class="field-input" name="code_postal" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" placeholder="00000">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Numéro de téléphone</label>
+          <input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00" style="max-width:240px">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Indiquez le nom de la personne qui vous a recommandé Girose Patrimoine (facultatif)<br><span class="hint">Si un proche vous a recommandé Girose Patrimoine, indiquez son nom.</span></label>
+          <input class="field-input" name="recommande_par">
+        </div>
+
+        <div class="info-box">Pour gagner du temps ou si vous n'êtes pas certain des informations saisies, vous pouvez nous transmettre par email <strong>votre offre de prêt (ou le dernier avenant)</strong> et <strong>votre tableau d'amortissement</strong>, en réponse au message de votre conseiller.</div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Obtenir mon devis</button>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="success-wrap" id="successWrap">
+      <span class="success-icon">✅</span>
+      <div class="success-title">Demande envoyée avec succès !</div>
+      <p class="success-text">Votre conseiller Girose Patrimoine a bien reçu votre demande de devis.<br>Vous serez contacté(e) dans les plus brefs délais.</p>
+    </div>
+  </div>
+  <div class="form-footer">Girose Patrimoine · Saint-Cloud · ORIAS 22003796 · Données transmises de manière sécurisée</div>
+</div>
+
+<script>
+var STATUTS = ["Salarié cadre, ingénieur, assimilé cadre", "Salarié non cadre (hors employé de bureau), agent de maîtrise", "Employé de bureau, commercial sédentaire", "Dirigeant de société, gérant, chef d'entreprise (hors agricole)", "Profession libérale (hors médicale et paramédicale)", "Médecin (ou interne) généraliste ou spécialiste", "Autres métiers médicaux ou paramédicaux", "Fonctionnaire Classe A", "Fonctionnaire hors Classe A", "Artisan, métiers du BTP, auto-entrepreneur", "Commerçant", "Professions du transport, ouvrier, technicien", "Professions agricoles", "Retraité : cadre, assimilé cadre, fonctionnaire classe A, chef d'entreprise", "Autres retraités", "Intermittent", "Sans profession, étudiant, saisonnier"];
+var BANQUES = ["Non connu", "Allianz Banque", "Axa Banque", "Banque BCP", "Banque Chalus", "Banque Courtois", "Banque de France", "Banque de la Réunion", "Banque de Savoie", "Banque Dupuy de Parseval", "Banque Française Commerciale Océan Indien", "Banque Française Mutualiste contrat 7371M", "Banque Française Mutualiste contrat 7372N", "Banque Kolb", "Banque Laydernier", "Banque Marze", "Banque Nuger", "Banque Palatine", "Banque Populaire Alsace Lorraine Champagne", "Banque Populaire Aquitaine Centre Atlantique", "Banque Populaire AURA (Auvergne Rhône Alpes)", "Banque Populaire Bourgogne Franche-Comté", "Banque Populaire Casden", "Banque Populaire du Nord", "Banque Populaire du Sud", "Banque Populaire Grand Ouest", "Banque Populaire Méditerranée", "Banque Populaire Occitane", "Banque Populaire Rives de Paris", "Banque Populaire Val de France", "BRED", "Banque Postale", "Banque Privée Européenne", "Banque Rhône Alpes", "Banque Tarneaud", "BNP PARIBAS", "BNP PARIBAS Antille Guyane", "BNP PARIBAS Monaco", "BNP PARIBAS Personal Finance", "BNP PARIBAS Réunion", "Boursorama", "Caisse d'Epargne Aquitaine Poitou Charentes", "Caisse d'Epargne Bourgogne Franche-Comté", "Caisse d'Epargne Bretagne Pays de la Loire", "Caisse d'Epargne CEPAC", "Caisse d'Epargne Côte d'Azur", "Caisse d'Epargne Auvergne et Limousin", "Caisse d'Epargne Grand Est Europe", "Caisse d'Epargne Hauts de France", "Caisse d'Epargne Ile de France", "Caisse d'Epargne Languedoc Roussillon", "Caisse d'Epargne Loire Centre", "Caisse d'Epargne Loire Drôme Ardèche", "Caisse d'Epargne Midi Pyrénées", "Caisse d'Epargne Normandie", "Caisse d'Epargne Rhône Alpes", "CETELEM", "CFCAL", "CIC Est", "CIC Nord Ouest", "CIC Ouest", "CIC Sud Ouest", "Crédit Agricole Alpes Provence", "Crédit Agricole Alsace Vosges", "Crédit Agricole Atlantique Vendée", "Crédit Agricole Brie Picardie", "Crédit Agricole Centre Est", "Crédit Agricole Centre France", "Crédit Agricole Centre Loire", "Crédit Agricole Centre Ouest", "Crédit Agricole Champagne Bourgogne", "Crédit Agricole Charente Périgord", "Crédit Agricole Charente-Maritime Deux-Sèvres", "Crédit Agricole d'Aquitaine", "Crédit Agricole de Franche-Comté", "Crédit Agricole de Guadeloupe", "Crédit Agricole de la Corse", "Crédit Agricole de la Réunion", "Crédit Agricole de l'Anjou et du Maine", "Crédit Agricole de Loire Haute-Loire", "Crédit Agricole de Lorraine", "Crédit Agricole de Martinique Guyane", "Crédit Agricole de Normandie", "Crédit Agricole de Paris et d'Ile-de-France", "Crédit Agricole de Pyrénées Gascogne", "Crédit Agricole de Val de France", "Crédit Agricole des Côtes d'Armor", "Crédit Agricole des Savoie", "Crédit Agricole d'Ile et Vilaine", "Crédit Agricole du Finistère", "Crédit Agricole du Languedoc", "Crédit Agricole du Morbihan", "Crédit Agricole Nord de France", "Crédit Agricole Nord Est", "Crédit Agricole Nord Midi Pyrénées", "Crédit Agricole Normandie-Seine", "Crédit Agricole Provence Côte d'Azur", "Crédit Agricole Sud Méditerranée", "Crédit Agricole Sud Rhône Alpes", "Crédit Agricole Toulouse 31", "Crédit Agricole Touraine Poitou", "Crédit Coopératif", "Crédit du Nord", "Crédit Foncier", "Crédit Immobilier de France Développement", "Crédit Maritime Grand Ouest", "Crédit Maritime Méditerranée", "Crédit Mutuel", "Crédit Mutuel Arkéa", "Fortunéo Banque", "Groupama Banque", "Hello Bank", "HSBC Continental Europe (contrat Groupe)", "HSBC Continental Europe (contrat Solution Emprunteur)", "ING DIRECT", "LCL", "LCL Banque Privée", "Monabanq", "Orange Bank", "SBE Banque Populaire", "Société Générale", "Société Marseillaise de Crédit", "SOCRIF SOFIAP", "SOFIDER Océan Indien"];
+var currentStep = 0;
+
+function goStep(n) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  document.querySelectorAll('.step-pill')[currentStep].classList.remove('active');
+  document.querySelectorAll('.step-pill')[currentStep].classList.add('done');
+  currentStep = n;
+  document.getElementById('step' + currentStep).classList.add('active');
+  document.querySelectorAll('.step-pill').forEach(function(p, i) {
+    p.classList.remove('active');
+    if (i === currentStep) p.classList.add('active');
+  });
+  document.getElementById('progressFill').style.width = ((currentStep + 1) / 4 * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep < 3) goStep(currentStep + 1);
+}
+function prevStep() {
+  if (currentStep > 0) goStep(currentStep - 1);
+}
+
+function radioValue(name) {
+  var c = document.querySelector('input[name="' + name + '"]:checked');
+  return c ? c.value : '';
+}
+
+function opts(placeholder, list) {
+  return '<option value="">' + placeholder + '</option>' + list.map(function(t) { return '<option>' + t + '</option>'; }).join('');
+}
+
+function radios(name, list) {
+  return '<div class="radio-group inline">' + list.map(function(v) {
+    return '<label class="radio-label"><input type="radio" name="' + name + '" value="' + v + '"> ' + v + '</label>';
+  }).join('') + '</div>';
+}
+
+// Conserve les valeurs saisies lorsque les blocs dynamiques sont régénérés
+function snapshot(container) {
+  var vals = {};
+  container.querySelectorAll('input,select').forEach(function(el) {
+    if (el.type === 'radio') { if (el.checked) vals[el.name] = el.value; }
+    else vals[el.name] = el.value;
+  });
+  return vals;
+}
+function restore(container, vals) {
+  container.querySelectorAll('input,select').forEach(function(el) {
+    if (!(el.name in vals)) return;
+    if (el.type === 'radio') el.checked = el.value === vals[el.name];
+    else el.value = vals[el.name];
+  });
+}
+
+function majEmprunteurs() {
+  var nb = parseInt(radioValue('nb_emprunteurs')) || 1;
+  var container = document.getElementById('emp-container');
+  var vals = snapshot(container);
+  var html = '';
+  for (var i = 1; i <= nb; i++) {
+    var e = 'emprunteur_' + i + '_';
+    var qui = i === 1 ? 'Emprunteur' : 'Co-emprunteur';
+    html += '<div class="emp-block"><div class="block-title">' + qui + '</div>'
+      + '<div class="field-group">' + radios(e + 'civilite', ['Monsieur','Madame']) + '</div>'
+      + '<div class="field-row cols2">'
+      + '<div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="' + e + 'nom"></div>'
+      + '<div class="field-group"><label class="field-label">Prénom</label><input class="field-input" name="' + e + 'prenom"></div>'
+      + '</div>'
+      + '<div class="field-group" data-req="Date de naissance (' + qui + ')"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="' + e + 'date_naissance" type="date" style="max-width:240px"></div>'
+      + '<div class="field-row cols2">'
+      + '<div class="field-group" data-req="Statut professionnel (' + qui + ')"><label class="field-label">Statut professionnel <span class="req">*</span></label><select class="field-input" name="' + e + 'statut">' + opts('Veuillez sélectionner', STATUTS) + '</select></div>'
+      + '<div class="field-group" data-req="Profession exacte (' + qui + ')"><label class="field-label">Profession exacte <span class="req">*</span></label><input class="field-input" name="' + e + 'profession"></div>'
+      + '</div>'
+      + '<div class="field-group" data-req="Tabac (' + qui + ')"><label class="field-label">Avez-vous fumé au cours des deux dernières années (y compris des cigarettes électroniques) ? <span class="req">*</span></label>' + radios(e + 'fumeur', ['Non','Oui']) + '</div>'
+      + '<div class="field-group" data-req="Déplacements (' + qui + ')"><label class="field-label">Réalisez-vous des déplacements professionnels supérieurs à 15 000 km par an ? <span class="req">*</span></label>' + radios(e + 'deplacements_pro', ['Non','Oui']) + '</div>'
+      + '<div class="field-group" data-req="Manutention (' + qui + ')"><label class="field-label">Exercez-vous une activité avec manutention régulière de charges lourdes supérieures à 15 kg ? <span class="req">*</span></label>' + radios(e + 'manutention', ['Non','Oui']) + '</div>'
+      + '<div class="field-group" data-req="Travail en hauteur (' + qui + ')"><label class="field-label">Exercez-vous un travail en hauteur ? <span class="req">*</span></label>' + radios(e + 'travail_hauteur', ['Non','Oui, à plus de 3 mètres','Oui, à plus de 15 mètres']) + '</div>'
+      + '</div>';
+  }
+  container.innerHTML = html;
+  restore(container, vals);
+}
+
+function majPrets() {
+  var nb = parseInt(radioValue('nb_prets')) || 1;
+  var nouveau = radioValue('demarche') === 'Nouvel emprunt';
+  var montantLabel = nouveau ? 'Montant emprunté (€)' : 'Capital restant dû (€)';
+  var container = document.getElementById('prets-container');
+  var vals = snapshot(container);
+  var noms = ['Premier prêt','Deuxième prêt','Troisième prêt'];
+  var html = '';
+  for (var i = 1; i <= nb; i++) {
+    var p = 'pret_' + i + '_';
+    html += '<div class="pret-block"><div class="block-title">' + noms[i - 1] + '</div>'
+      + '<div class="field-row cols2">'
+      + '<div class="field-group" data-req="Type de prêt (' + noms[i - 1] + ')"><label class="field-label">Type de prêt <span class="req">*</span></label><select class="field-input" name="' + p + 'type">' + opts('Sélectionnez le type de prêt', ['Prêt amortissable classique','Prêt à taux zéro','Prêt in fine','Prêt relais','Prêt à paliers']) + '</select></div>'
+      + '<div class="field-group" data-req="Organisme prêteur (' + noms[i - 1] + ')"><label class="field-label">Organisme prêteur <span class="req">*</span></label><select class="field-input" name="' + p + 'organisme">' + opts("Sélectionnez l'organisme prêteur", BANQUES) + '</select></div>'
+      + '</div><div class="field-row cols2">'
+      + '<div class="field-group" data-req="' + montantLabel + ' (' + noms[i - 1] + ')"><label class="field-label">' + montantLabel + ' <span class="req">*</span></label><input class="field-input" name="' + p + 'montant" type="number" min="0" placeholder="Ex : 200000"></div>'
+      + '<div class="field-group" data-req="Durée initiale (' + noms[i - 1] + ')"><label class="field-label">Durée initiale du prêt en années <span class="req">*</span></label><input class="field-input" name="' + p + 'duree_annees" type="number" min="1" max="40" placeholder="Ex : 25"></div>'
+      + '</div>'
+      + '<div class="field-group" data-req="Date de la première échéance (' + noms[i - 1] + ')"><label class="field-label">Date de la première échéance du prêt <span class="req">*</span>' + (nouveau ? '<br><span class="hint">(date prévisionnelle si le prêt n\'est pas encore débloqué)</span>' : '') + '</label><input class="field-input" name="' + p + 'date_premiere_echeance" type="date" style="max-width:240px"></div>'
+      + '</div>';
+  }
+  container.innerHTML = html;
+  restore(container, vals);
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = '⚠️ ' + msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3500);
+}
+
+function groupIsEmpty(group) {
+  var choices = group.querySelectorAll('input[type=radio],input[type=checkbox]');
+  if (choices.length) return group.querySelectorAll('input:checked').length === 0;
+  var el = group.querySelector('input,select,textarea');
+  if (!el || !el.value.trim()) return true;
+  if (el.type === 'email') return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+  if (el.pattern) return !new RegExp('^(?:' + el.pattern + ')$').test(el.value.trim());
+  return false;
+}
+
+function validateStep(step) {
+  var stepEl = document.getElementById('step' + step);
+  stepEl.querySelectorAll('.field-group.error').forEach(function(g) {
+    g.classList.remove('error');
+    var h = g.querySelector('.error-hint');
+    if (h) h.remove();
+  });
+  var firstGroup = null;
+  stepEl.querySelectorAll('.field-group[data-req]').forEach(function(group) {
+    if (group.offsetParent === null || !groupIsEmpty(group)) return;
+    group.classList.add('error');
+    var hint = document.createElement('div');
+    hint.className = 'error-hint';
+    hint.textContent = '⚠ ' + group.getAttribute('data-req') + ' : réponse obligatoire ou invalide';
+    group.appendChild(hint);
+    if (!firstGroup) firstGroup = group;
+  });
+  if (firstGroup) {
+    showToast('Veuillez répondre à toutes les questions obligatoires');
+    firstGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+  return true;
+}
+
+async function submitFormData() {
+  if (!validateStep(3)) return;
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  try {
+    var formData = new FormData(document.getElementById('mainForm'));
+    var response = await fetch('https://formspree.io/f/xwlpkzyn', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+    var data = await response.json();
+    if (data.ok) {
+      document.getElementById('mainForm').style.display = 'none';
+      document.querySelector('.progress-steps').style.display = 'none';
+      document.querySelector('.progress-bar').style.display = 'none';
+      document.getElementById('successWrap').style.display = 'block';
+    } else {
+      btn.textContent = '✓ Obtenir mon devis';
+      btn.disabled = false;
+      alert('Une erreur est survenue. Veuillez réessayer.');
+    }
+  } catch(err) {
+    btn.textContent = '✓ Obtenir mon devis';
+    btn.disabled = false;
+    alert('Erreur de connexion. Vérifiez votre connexion internet et réessayez.');
+  }
+}
+
+majEmprunteurs();
+majPrets();
+</script>
+</body>
+</html>
