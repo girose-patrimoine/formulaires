@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Comparatif complémentaire santé</title>
+<style>
+  :root {
+    --navy: #1B234A; --gold: #DEAD0F; --green: #2E7D4F;
+    --light-green: #E7F4EC; --light-navy: #EEF0F6;
+    --text: #222222; --muted: #5A5A5A; --bg: #FFFFFF;
+    --card-bg: #FFFFFF; --border: #D8D8D8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+      --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+    --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background: var(--bg); color: var(--text);
+    font-family: -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.5; }
+  .header { background: var(--navy); color:#fff; padding:28px 20px 24px; text-align:center; }
+  .header .logo { font-weight:700; letter-spacing:2px; font-size:14px; margin-bottom:10px; }
+  .header hr { border:none; border-top:2px solid var(--gold); width:140px; margin:10px auto 16px; }
+  .header h1 { margin:0 0 6px; font-size: clamp(20px,4vw,28px); }
+  .header .subtitle { color: var(--gold); font-weight:600; font-size:15px; margin-bottom:10px; }
+  .header .client { font-weight:700; font-size:17px; }
+  .container { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
+  .lead { text-align:center; color: var(--muted); max-width:640px; margin:0 auto 28px; font-size:14.5px; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; min-width:560px; font-size:14px; table-layout:fixed; }
+  @media (max-width: 600px) { table.focus-table { min-width:0; } table {  font-size:12.5px; } thead th { font-size:12px; padding:10px 6px; } tbody td, tbody th { padding:8px 6px; overflow-wrap:anywhere; } }
+  table.main { min-width:640px; }
+  table.main th:nth-child(1), table.main td:nth-child(1) { width: 28%; }
+  table.main th:nth-child(n+2), table.main td:nth-child(n+2) { width: 24%; }
+  thead th.cur { background:#5A6075; }
+  td.cur-col { color: var(--muted); }
+  tbody tr.section th { background: var(--navy); color:#fff; text-align:left; font-size:13px; letter-spacing:0.5px; }
+  .up { color: var(--green); font-weight:700; }
+  .down { color:#B3261E; font-weight:700; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .down { color:#F2B8B5; } :root:not([data-theme="light"]) .up { color:#7FD19B; } }
+  :root[data-theme="dark"] .down { color:#F2B8B5; } :root[data-theme="dark"] .up { color:#7FD19B; }
+
+  thead th { background: var(--navy); color:#fff; padding:12px 10px; text-align:center; font-size:13.5px; }
+  thead th:first-child { text-align:left; }
+  thead th.reco { background: var(--green); }
+  tbody td, tbody th { padding:10px 10px; border-bottom:1px solid var(--border); text-align:center; vertical-align:middle; }
+  tbody th { text-align:left; font-weight:600; background: var(--light-navy); }
+  tbody tr.diff td, tbody tr.diff th { background: var(--light-green); font-weight:600; }
+  td.reco-col { border-left:2px solid var(--navy); }
+  .price { font-weight:700; color: var(--navy); }
+  .footnote { font-size:12px; color: var(--muted); margin-top:10px; text-align:center; }
+  .reco-card { margin:32px 0 24px; border:1.5px solid var(--gold); border-radius:10px;
+    padding:18px 20px; display:flex; gap:16px; align-items:center; background: var(--card-bg); }
+  .reco-badge { flex:0 0 auto; width:44px; height:44px; border-radius:8px; background: var(--green);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; }
+  .reco-body .tag { color: var(--green); font-weight:700; font-size:12px; letter-spacing:0.5px; margin-bottom:4px; }
+  .reco-body .formule { font-weight:700; color: var(--text); font-size:15.5px; margin-bottom:4px; }
+  .reco-body .price-line { font-weight:700; color: var(--navy); font-size:17px; }
+  .why h2 { font-size:16px; margin-bottom:10px; }
+  .why ul { padding-left:18px; margin:0 0 16px; }
+  .why li { margin-bottom:8px; font-size:14.5px; }
+  .focus { margin-top:32px; }
+  .focus h2 { font-size:16px; margin-bottom:6px; }
+  .focus p { font-size:14.5px; color: var(--muted); margin:0 0 12px; }
+  .focus-table th:nth-child(1), .focus-table td:nth-child(1) { width:40%; }
+  .focus-table th:nth-child(2), .focus-table td:nth-child(2),
+  .focus-table th:nth-child(3), .focus-table td:nth-child(3) { width:30%; }
+  td.focus-reco { background: var(--light-green); }
+  .docs h2 { font-size:16px; margin-bottom:10px; }
+  .docs ul { padding-left:18px; margin:0 0 16px; }
+  .docs li { margin-bottom:6px; font-size:14.5px; }
+  .docs a { color: var(--navy); font-weight:600; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .docs a { color: var(--gold); } }
+  .contact { margin-top:36px; padding-top:20px; border-top:1px solid var(--border);
+    text-align:center; font-size:13px; color: var(--muted); }
+  .contact strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">GIROSE PATRIMOINE</div>
+    <hr>
+    <h1>Comparatif de votre complémentaire santé</h1>
+    <div class="subtitle">Complémentaire santé – couple de retraités – effet au 1<sup>er</sup> janvier 2027</div>
+  </div>
+  <div class="container">
+    <p class="lead">Votre contrat actuel passe à 292,10 € par mois au 1<sup>er</sup> janvier 2027. Nous avons étudié deux propositions qui restent dans votre budget : Henner Solutions Seniors Santé, formule Bien-être 2, et APICIL API Santé, formule Sérénité 2 avec le Pack confort Senior 1. Elles se distinguent surtout par le dentaire, la chambre particulière, les soins courants et le prix.</p>
+    <div class="table-wrap">
+      <table class="main">
+        <thead><tr><th>Garantie</th><th class="cur">Contrat actuel<br><span style="font-weight:400;">APICIL My Profil'R Senior F2</span></th><th class="reco">Henner Seniors Santé<br><span style="font-weight:400;">Bien-être 2</span></th><th>APICIL API Santé<br><span style="font-weight:400;">Sérénité 2 + Pack confort</span></th></tr></thead>
+        <tbody>
+<tr class="section"><th colspan="4">COTISATION</th></tr>
+<tr class="diff"><th>Cotisation mensuelle (couple, TTC)</th><td class="cur-col">292,10 €<br>(tarif 2027)</td><td class="reco-col"><span class="price">271,98 €</span></td><td><span class="price">253,47 €</span></td></tr>
+<tr class="diff"><th>Économie par rapport au contrat actuel 2027</th><td class="cur-col">–</td><td class="reco-col">−20,12 €/mois<br>soit −241 €/an</td><td>−38,63 €/mois<br>soit −464 €/an</td></tr>
+<tr><th>Gestionnaire / assureur</th><td class="cur-col">APICIL Mutuelle</td><td class="reco-col">Henner / [ASSUREUR À CONFIRMER]</td><td>APICIL Mutuelle</td></tr>
+<tr class="section"><th colspan="4">HOSPITALISATION</th></tr>
+<tr><th>Frais de séjour, forfait journalier</th><td class="cur-col">100 % frais réels</td><td class="reco-col">100 % frais réels</td><td>100 % frais réels</td></tr>
+<tr><th>Honoraires chirurgicaux – médecin OPTAM</th><td class="cur-col">250 %</td><td class="reco-col"><span class="down">▼</span> 200 %</td><td><span class="down">▼</span> 200 %</td></tr>
+<tr><th>Honoraires chirurgicaux – médecin non OPTAM</th><td class="cur-col">200 %</td><td class="reco-col"><span class="down">▼</span> 180 %</td><td><span class="down">▼</span> 180 %</td></tr>
+<tr class="diff"><th>Chambre particulière</th><td class="cur-col">60 €/jour</td><td class="reco-col"><span class="up">▲</span> 70 €/jour<br><small>(délai d'attente 3 mois, sauf accident)</small></td><td><span class="down">▼</span> 50 €/jour</td></tr>
+<tr class="diff"><th>Chambre particulière en ambulatoire</th><td class="cur-col">40 €/jour</td><td class="reco-col">Non précisé</td><td><span class="down">▼</span> 30 €/jour</td></tr>
+<tr class="diff"><th>Frais d'accompagnant</th><td class="cur-col">30 €/jour</td><td class="reco-col"><span class="up">▲</span> 50 €/jour (30 j/an)</td><td><span class="down">▼</span> 20 €/jour</td></tr>
+<tr class="section"><th colspan="4">SOINS COURANTS</th></tr>
+<tr><th>Généralistes et spécialistes – médecin OPTAM</th><td class="cur-col">220 %</td><td class="reco-col"><span class="down">▼</span> 200 %<br><small>215 % en 2<sup>e</sup> année, 230 % dès la 3<sup>e</sup></small></td><td><span class="down">▼</span> 200 %</td></tr>
+<tr><th>Généralistes et spécialistes – médecin non OPTAM</th><td class="cur-col">200 %</td><td class="reco-col"><span class="down">▼</span> 180 %</td><td><span class="down">▼</span> 180 %</td></tr>
+<tr class="diff"><th>Analyses et examens de laboratoire</th><td class="cur-col">150 %</td><td class="reco-col"><span class="up">▲</span> 200 %</td><td><span class="down">▼</span> 130 %</td></tr>
+<tr class="diff"><th>Auxiliaires médicaux (kiné, infirmier…)</th><td class="cur-col">150 %</td><td class="reco-col"><span class="up">▲</span> 200 %</td><td><span class="down">▼</span> 130 %</td></tr>
+<tr><th>Pharmacie remboursée</th><td class="cur-col">100 %</td><td class="reco-col">100 %</td><td>100 %</td></tr>
+<tr class="section"><th colspan="4">OPTIQUE (1 équipement tous les 2 ans)</th></tr>
+<tr class="diff"><th>Monture + verres simples</th><td class="cur-col">200 €<br><small>dont monture 80 €</small></td><td class="reco-col">200 €<br><small>dont monture 100 €</small></td><td>200 €<br><small>dont monture 80 €</small></td></tr>
+<tr><th>Monture + verres progressifs / complexes</th><td class="cur-col">350 €</td><td class="reco-col"><span class="down">▼</span> 300 €</td><td><span class="down">▼</span> 300 €</td></tr>
+<tr><th>Monture + verres très complexes</th><td class="cur-col">400 €</td><td class="reco-col"><span class="down">▼</span> 350 €</td><td><span class="down">▼</span> 350 €</td></tr>
+<tr class="diff"><th>Bonus fidélité optique</th><td class="cur-col">–</td><td class="reco-col"><span class="up">▲</span> +50 € en 2<sup>e</sup> année, +75 € dès la 3<sup>e</sup></td><td>–</td></tr>
+<tr class="section"><th colspan="4">DENTAIRE</th></tr>
+<tr class="diff"><th>Soins dentaires</th><td class="cur-col">120 %</td><td class="reco-col"><span class="up">▲</span> 200 %</td><td><span class="up">▲</span> 150 %</td></tr>
+<tr class="diff"><th>Prothèses remboursées par la Sécurité sociale</th><td class="cur-col">250 % (dents visibles)<br>150 % (autres)</td><td class="reco-col">200 %<br><small>225 % en 2<sup>e</sup> année, 250 % dès la 3<sup>e</sup></small></td><td>250 % (dents visibles)<br>200 % (autres)</td></tr>
+<tr class="diff"><th>Prothèses non remboursées par la Sécurité sociale</th><td class="cur-col">100 €/an</td><td class="reco-col"><span class="up">▲</span> 150 €/dent (2 dents/an)<br><small>200 €/dent dès la 3<sup>e</sup> année</small></td><td><span class="up">▲</span> 200 €/an</td></tr>
+<tr class="diff"><th>Implants dentaires</th><td class="cur-col">Dans les 100 € ci-dessus</td><td class="reco-col"><span class="up">▲</span> 400 €/an</td><td><span class="up">▲</span> 250 €/implant (2 max/an)</td></tr>
+<tr class="diff"><th>Parodontologie non remboursée</th><td class="cur-col">100 €/an</td><td class="reco-col"><span class="up">▲</span> 150 €/an<br><small>200 € dès la 3<sup>e</sup> année</small></td><td><span class="up">▲</span> 150 €/an</td></tr>
+<tr class="diff"><th>Plafond annuel prothèses et implants</th><td class="cur-col">800 €</td><td class="reco-col"><span class="up">▲</span> 1 200 € la 1<sup>re</sup> année<br>1 600 € ensuite</td><td><span class="up">▲</span> 700 € la 1<sup>re</sup> année<br>1 000 € ensuite</td></tr>
+<tr class="section"><th colspan="4">AUTRES POSTES</th></tr>
+<tr><th>Aides auditives classe II (par oreille)</th><td class="cur-col">100 % BR + 500 €</td><td class="reco-col"><span class="down">▼</span> 100 % BR + 300 €</td><td><span class="down">▼</span> 100 % BR + 300 €</td></tr>
+<tr class="diff"><th>Médecines douces (ostéopathe, acupuncteur…)</th><td class="cur-col">150 €/an<br><small>(5 séances × 30 €)</small></td><td class="reco-col"><span class="down">▼</span> 120 €/an<br><small>140 € en 2<sup>e</sup> année, 160 € dès la 3<sup>e</sup></small></td><td>150 €/an<br><small>(5 séances × 30 €)</small></td></tr>
+<tr class="diff"><th>Cure thermale (en plus de la Sécurité sociale)</th><td class="cur-col">250 €/an</td><td class="reco-col"><span class="down">▼</span> 125 €/an</td><td><span class="down">▼</span> Pas de forfait</td></tr>
+<tr><th>Vaccins et médicaments prescrits non remboursés</th><td class="cur-col">35 €/an</td><td class="reco-col"><span class="up">▲</span> 55 €/an</td><td><span class="up">▲</span> 40 €/an</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">Pourcentages exprimés en % de la base de remboursement de la Sécurité sociale, remboursement de la Sécurité sociale inclus ; forfaits optique Sécurité sociale incluse. <span class="up">▲</span> / <span class="down">▼</span> : meilleur / moins bon que votre contrat actuel. Les lignes surlignées en vert correspondent aux principales différences entre les deux propositions. Forfaits par personne et par an. Détail, limites et exclusions dans les conditions générales de chaque contrat.</p>
+
+    <div class="reco-card">
+      <div class="reco-badge">&#10003;</div>
+      <div class="reco-body">
+        <div class="tag">SOLUTION RECOMMANDÉE</div>
+        <div class="formule">Henner ([ASSUREUR À CONFIRMER]) — Henner Solutions Seniors Santé, formule Bien-être 2</div>
+        <div class="price-line">271,98 € TTC/mois pour vous deux, au 1<sup>er</sup> janvier 2027</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <h2>Pourquoi cette formule</h2>
+      <ul>
+        <li>Elle reste dans votre budget : 20 € de moins par mois que votre contrat actuel en 2027, soit 241 € d'économie sur l'année.</li>
+        <li>Le dentaire est nettement mieux couvert : soins à 200 %, 400 € par an pour les implants, prothèses non remboursées prises en charge par dent, et un plafond porté à 1 600 € par an et par personne dès la 2<sup>e</sup> année (800 € aujourd'hui).</li>
+        <li>Les soins courants restent à un bon niveau : consultations à 200 %, puis 230 % dès la 3<sup>e</sup> année grâce au bonus fidélité, laboratoire et auxiliaires médicaux à 200 %.</li>
+        <li>À l'hôpital, la chambre particulière (70 €/jour) et les frais d'accompagnant (50 €/jour) sont mieux pris en charge qu'aujourd'hui.</li>
+      </ul>
+    </div>
+
+    <div class="why"><h2>Points d'attention</h2><ul>
+      <li><b>Honoraires chirurgicaux</b> : 200 % chez un médecin OPTAM, contre 250 % aujourd'hui. Avant une intervention programmée, demandez le devis du chirurgien : nous vérifierons ensemble le reste à charge éventuel.</li>
+      <li><b>Délai d'attente Henner</b> : la chambre particulière n'est prise en charge qu'après 3 mois (sauf accident).</li>
+      <li><b>Bonus fidélité</b> : plusieurs garanties Henner (consultations, prothèses, optique, médecines douces) progressent en 2<sup>e</sup> et 3<sup>e</sup> année ; la 1<sup>re</sup> année, elles sont légèrement inférieures à votre contrat actuel.</li>
+      <li><b>Aides auditives</b> : le forfait par oreille baisse dans les deux propositions (300 € contre 500 €).</li>
+      <li><b>APICIL Sérénité 2</b> : c'est l'option la plus économique (−464 €/an), mais elle baisse la plupart des garanties (hospitalisation, chambre particulière, soins courants, optique) ; seul le dentaire progresse.</li>
+    </ul></div>
+
+    <div class="docs">
+      <h2>Pour consulter le détail</h2>
+      <ul>
+        <li>[LIEN IPID Henner Solutions Seniors Santé]</li>
+        <li>[LIEN Conditions générales Henner Solutions Seniors Santé]</li>
+        <li>[LIEN IPID APICIL API Santé]</li>
+        <li>[LIEN Conditions générales APICIL API Santé]</li>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/girose-patrimoine-entree-en-relation-2026.pdf">Notre document d'entrée en relation</a></li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      La fiche d'information et de conseil complète vous a été transmise en pièce jointe.<br>
+      <strong>GIROSE PATRIMOINE</strong> — Alexandre Gravier · 06 70 35 40 53 · gravier@girose-patrimoine.fr<br>
+      13 Rue Henri Regnault, 92210 Saint-Cloud — ORIAS n°22003796
+    </div>
+  </div>
+</body>
+</html>
