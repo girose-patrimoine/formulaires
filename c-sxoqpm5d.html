@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Révision complémentaire santé</title>
+<style>
+  :root {
+    --navy: #1B234A; --gold: #DEAD0F; --green: #2E7D4F;
+    --light-green: #E7F4EC; --light-navy: #EEF0F6;
+    --text: #222222; --muted: #5A5A5A; --bg: #FFFFFF;
+    --card-bg: #FFFFFF; --border: #D8D8D8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+      --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+    --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background: var(--bg); color: var(--text);
+    font-family: -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.5; }
+  .header { background: var(--navy); color:#fff; padding:28px 20px 24px; text-align:center; }
+  .header .logo { font-weight:700; letter-spacing:2px; font-size:14px; margin-bottom:10px; }
+  .header hr { border:none; border-top:2px solid var(--gold); width:140px; margin:10px auto 16px; }
+  .header h1 { margin:0 0 6px; font-size: clamp(20px,4vw,28px); }
+  .header .subtitle { color: var(--gold); font-weight:600; font-size:15px; margin-bottom:10px; }
+  .header .client { font-weight:700; font-size:17px; }
+  .container { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
+  .lead { text-align:center; color: var(--muted); max-width:640px; margin:0 auto 28px; font-size:14.5px; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; min-width:560px; font-size:14px; table-layout:fixed; }
+  @media (max-width: 600px) { table.focus-table { min-width:0; } table {  font-size:12.5px; } thead th { font-size:12px; padding:10px 6px; } tbody td, tbody th { padding:8px 6px; overflow-wrap:anywhere; } }
+  table.main { min-width:640px; }
+  table.main th:nth-child(1), table.main td:nth-child(1) { width: 28%; }
+  table.main th:nth-child(n+2), table.main td:nth-child(n+2) { width: 24%; }
+  thead th.cur { background:#5A6075; }
+  td.cur-col { color: var(--muted); }
+  tbody tr.section th { background: var(--navy); color:#fff; text-align:left; font-size:13px; letter-spacing:0.5px; }
+  .up { color: var(--green); font-weight:700; }
+  .down { color:#B3261E; font-weight:700; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .down { color:#F2B8B5; } :root:not([data-theme="light"]) .up { color:#7FD19B; } }
+  :root[data-theme="dark"] .down { color:#F2B8B5; } :root[data-theme="dark"] .up { color:#7FD19B; }
+
+  thead th { background: var(--navy); color:#fff; padding:12px 10px; text-align:center; font-size:13.5px; }
+  thead th:first-child { text-align:left; }
+  thead th.reco { background: var(--green); }
+  tbody td, tbody th { padding:10px 10px; border-bottom:1px solid var(--border); text-align:center; vertical-align:middle; }
+  tbody th { text-align:left; font-weight:600; background: var(--light-navy); }
+  tbody tr.diff td, tbody tr.diff th { background: var(--light-green); font-weight:600; }
+  td.reco-col { border-left:2px solid var(--navy); }
+  .price { font-weight:700; color: var(--navy); }
+  .footnote { font-size:12px; color: var(--muted); margin-top:10px; text-align:center; }
+  .reco-card { margin:32px 0 24px; border:1.5px solid var(--gold); border-radius:10px;
+    padding:18px 20px; display:flex; gap:16px; align-items:center; background: var(--card-bg); }
+  .reco-badge { flex:0 0 auto; width:44px; height:44px; border-radius:8px; background: var(--green);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; }
+  .reco-body .tag { color: var(--green); font-weight:700; font-size:12px; letter-spacing:0.5px; margin-bottom:4px; }
+  .reco-body .formule { font-weight:700; color: var(--text); font-size:15.5px; margin-bottom:4px; }
+  .reco-body .price-line { font-weight:700; color: var(--navy); font-size:17px; }
+  .why h2 { font-size:16px; margin-bottom:10px; }
+  .why ul { padding-left:18px; margin:0 0 16px; }
+  .why li { margin-bottom:8px; font-size:14.5px; }
+  .focus { margin-top:32px; }
+  .focus h2 { font-size:16px; margin-bottom:6px; }
+  .focus p { font-size:14.5px; color: var(--muted); margin:0 0 12px; }
+  .focus-table th:nth-child(1), .focus-table td:nth-child(1) { width:40%; }
+  .focus-table th:nth-child(2), .focus-table td:nth-child(2),
+  .focus-table th:nth-child(3), .focus-table td:nth-child(3) { width:30%; }
+  td.focus-reco { background: var(--light-green); }
+  .docs h2 { font-size:16px; margin-bottom:10px; }
+  .docs ul { padding-left:18px; margin:0 0 16px; }
+  .docs li { margin-bottom:6px; font-size:14.5px; }
+  .docs a { color: var(--navy); font-weight:600; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .docs a { color: var(--gold); } }
+  .contact { margin-top:36px; padding-top:20px; border-top:1px solid var(--border);
+    text-align:center; font-size:13px; color: var(--muted); }
+  .contact strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">GIROSE PATRIMOINE</div>
+    <hr>
+    <h1>Révision de votre complémentaire santé</h1>
+    <div class="subtitle">APRIL Santé Mix Proximité – famille – effet au 1<sup>er</sup> janvier 2027</div>
+  </div>
+  <div class="container">
+    <p class="lead">Votre contrat actuel (niveau 6) passe à 408,74 € par mois en 2027 (+3,5 %). Sans changer de contrat, vous pouvez baisser d'un ou deux niveaux sur les trois modules (Hospitalisation, Frais de santé, Renfort Famille). Les tarifs indiqués sont des tarifs 2027.</p>
+    <div class="table-wrap">
+      <table class="main">
+        <thead><tr><th>Garantie</th><th class="cur">Niveau 6<br><span style="font-weight:400;">contrat actuel</span></th><th class="reco">Niveau 5<br><span style="font-weight:400;">recommandé</span></th><th>Niveau 4</th></tr></thead>
+        <tbody>
+<tr class="section"><th colspan="4">COTISATION</th></tr>
+<tr class="diff"><th>Cotisation mensuelle (famille, TTC, 2027)</th><td class="cur-col">408,74 €<br><small>(+3,5 % en 2027)</small></td><td class="reco-col"><span class="price">347,84 €</span></td><td><span class="price">277,38 €</span></td></tr>
+<tr class="diff"><th>Économie par rapport au niveau actuel</th><td class="cur-col">–</td><td class="reco-col">−60,90 €/mois<br>soit −730,80 €/an</td><td>−131,36 €/mois<br>soit −1 576,32 €/an</td></tr>
+<tr><th>Gestionnaire / assureur</th><td class="cur-col">APRIL Santé Prévoyance / QUATREM</td><td class="reco-col">APRIL Santé Prévoyance / QUATREM</td><td>APRIL Santé Prévoyance / QUATREM</td></tr>
+<tr class="section"><th colspan="4">HOSPITALISATION</th></tr>
+<tr><th>Frais de séjour, forfait journalier</th><td class="cur-col">Frais réels</td><td class="reco-col">Frais réels</td><td>Frais réels</td></tr>
+<tr class="diff"><th>Honoraires – médecin DPTAM</th><td class="cur-col">300 %</td><td class="reco-col"><span class="down">▼</span> 250 %</td><td><span class="down">▼</span> 200 %</td></tr>
+<tr class="diff"><th>Honoraires – médecin non DPTAM</th><td class="cur-col">200 %</td><td class="reco-col">200 %</td><td><span class="down">▼</span> 175 %</td></tr>
+<tr class="diff"><th>Chambre particulière</th><td class="cur-col">100 €/jour</td><td class="reco-col"><span class="down">▼</span> 85 €/jour</td><td><span class="down">▼</span> 70 €/jour</td></tr>
+<tr class="diff"><th>Frais d'accompagnant</th><td class="cur-col">35 €/jour</td><td class="reco-col">35 €/jour</td><td><span class="down">▼</span> 30 €/jour</td></tr>
+<tr class="section"><th colspan="4">SOINS COURANTS</th></tr>
+<tr class="diff"><th>Consultations – médecin DPTAM</th><td class="cur-col">300 %</td><td class="reco-col"><span class="down">▼</span> 250 %</td><td><span class="down">▼</span> 200 %</td></tr>
+<tr class="diff"><th>Consultations – médecin non DPTAM</th><td class="cur-col">200 %</td><td class="reco-col">200 %</td><td><span class="down">▼</span> 175 %</td></tr>
+<tr class="diff"><th>Auxiliaires médicaux, analyses, matériel médical</th><td class="cur-col">200 %</td><td class="reco-col"><span class="down">▼</span> 175 %</td><td><span class="down">▼</span> 150 %</td></tr>
+<tr><th>Pharmacie remboursée</th><td class="cur-col">100 %</td><td class="reco-col">100 %</td><td>100 %</td></tr>
+<tr class="diff"><th>Médecines naturelles (par an et par personne)</th><td class="cur-col">120 €</td><td class="reco-col"><span class="down">▼</span> 100 €</td><td><span class="down">▼</span> 80 €</td></tr>
+<tr class="section"><th colspan="4">DENTAIRE</th></tr>
+<tr class="diff"><th>Soins dentaires</th><td class="cur-col">250 %</td><td class="reco-col"><span class="down">▼</span> 200 %</td><td><span class="down">▼</span> 175 %</td></tr>
+<tr class="diff"><th>Prothèses (hors 100 % Santé)</th><td class="cur-col">350 %</td><td class="reco-col"><span class="down">▼</span> 300 %</td><td><span class="down">▼</span> 250 %</td></tr>
+<tr class="diff"><th>Plafond annuel prothèses</th><td class="cur-col">1 800 €</td><td class="reco-col"><span class="down">▼</span> 1 600 €</td><td><span class="down">▼</span> 1 500 €</td></tr>
+<tr><th>Soins et prothèses 100 % Santé</th><td class="cur-col">Frais réels</td><td class="reco-col">Frais réels</td><td>Frais réels</td></tr>
+<tr class="section"><th colspan="4">OPTIQUE (1 équipement tous les 2 ans)</th></tr>
+<tr class="diff"><th>Monture + verres simples</th><td class="cur-col">300 €</td><td class="reco-col"><span class="down">▼</span> 250 €</td><td><span class="down">▼</span> 200 €</td></tr>
+<tr class="diff"><th>Monture + verres complexes</th><td class="cur-col">500 €</td><td class="reco-col"><span class="down">▼</span> 425 €</td><td><span class="down">▼</span> 350 €</td></tr>
+<tr class="diff"><th>Lentilles acceptées par la Sécurité sociale</th><td class="cur-col">100 % + 220 €</td><td class="reco-col"><span class="down">▼</span> 100 % + 170 €</td><td><span class="down">▼</span> 100 % + 120 €</td></tr>
+<tr class="diff"><th>Chirurgie réfractive (laser)</th><td class="cur-col">300 €</td><td class="reco-col"><span class="down">▼</span> 250 €</td><td><span class="down">▼</span> 200 €</td></tr>
+<tr class="section"><th colspan="4">RENFORT FAMILLE (par an et par personne)</th></tr>
+<tr class="diff"><th>Orthodontie remboursée</th><td class="cur-col">700 €</td><td class="reco-col"><span class="down">▼</span> 600 €</td><td><span class="down">▼</span> 500 €</td></tr>
+<tr class="diff"><th>Dentaire non remboursé (implants, parodontologie…)</th><td class="cur-col">350 €</td><td class="reco-col"><span class="down">▼</span> 300 €</td><td><span class="down">▼</span> 250 €</td></tr>
+<tr class="diff"><th>Pharmacie prescrite non remboursée</th><td class="cur-col">80 €</td><td class="reco-col"><span class="down">▼</span> 70 €</td><td><span class="down">▼</span> 60 €</td></tr>
+<tr class="diff"><th>Forfait naissance ou adoption</th><td class="cur-col">250 €</td><td class="reco-col"><span class="down">▼</span> 220 €</td><td><span class="down">▼</span> 190 €</td></tr>
+<tr class="section"><th colspan="4">AUTRES POSTES</th></tr>
+<tr><th>Aides auditives classe II</th><td class="cur-col">100 %</td><td class="reco-col">100 %</td><td>100 %</td></tr>
+<tr><th>Tiers payant Kalixia, téléconsultation</th><td class="cur-col">Inclus</td><td class="reco-col">Inclus</td><td>Inclus</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">Pourcentages exprimés en % de la base de remboursement de la Sécurité sociale, remboursement de la Sécurité sociale inclus. <span class="down">▼</span> : inférieur au niveau actuel. Les lignes surlignées en vert correspondent aux différences entre les niveaux. Forfaits par personne. Détail, limites et exclusions dans les conditions générales du contrat.</p>
+
+    <div class="reco-card">
+      <div class="reco-badge">&#10003;</div>
+      <div class="reco-body">
+        <div class="tag">SOLUTION RECOMMANDÉE</div>
+        <div class="formule">APRIL Santé Prévoyance (QUATREM) — APRIL Santé Mix Proximité, niveau 5 sur les trois modules</div>
+        <div class="price-line">347,84 € TTC/mois pour la famille, au 1<sup>er</sup> janvier 2027</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <h2>Pourquoi cette formule</h2>
+      <ul>
+        <li>Elle compense largement la hausse : 60,90 € de moins par mois qu'au niveau 6 en 2027, soit 730,80 € d'économie sur l'année, et une cotisation inférieure à celle de 2026.</li>
+        <li>L'hospitalisation reste très bien couverte : honoraires à 250 % (DPTAM), 200 % chez les médecins non DPTAM comme aujourd'hui, chambre particulière à 85 €/jour.</li>
+        <li>Les soins courants restent à un bon niveau : consultations à 250 % (DPTAM) et 200 % (non DPTAM, inchangé).</li>
+        <li>Dentaire et optique baissent de façon mesurée (prothèses à 300 %, plafond de 1 600 €/an ; lunettes jusqu'à 425 €), sans nouvelle adhésion ni changement de gestionnaire.</li>
+      </ul>
+    </div>
+
+    <div class="why"><h2>Points d'attention</h2><ul>
+      <li><b>Soins en cours</b> : APRIL n'accepte la baisse de garanties qu'en l'absence de prise en charge ou de devis en cours (hospitalisation programmée, devis dentaire ou optique). Signalez-nous tout soin important prévu avant de valider.</li>
+      <li><b>Délai</b> : la demande doit parvenir à APRIL avant le 1<sup>er</sup> janvier 2027 ; des frais d'avenant de 10 € s'appliquent.</li>
+      <li><b>Niveau 4</b> : c'est l'option la plus économique (−1 576,32 €/an), mais la baisse est plus marquée, notamment sur les dépassements d'honoraires (175 % chez les médecins non DPTAM), la chambre particulière (70 €/jour) et le dentaire.</li>
+    </ul></div>
+
+    <div class="docs">
+      <h2>Pour consulter le détail</h2>
+      <ul>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/girose-patrimoine-entree-en-relation-2026.pdf">Notre document d'entrée en relation</a></li>
+      </ul>
+    </div>
+
+    <div class="contact">
+      La fiche d'information et de conseil complète vous a été transmise en pièce jointe.<br>
+      <strong>GIROSE PATRIMOINE</strong> — Alexandre Gravier · 06 70 35 40 53 · gravier@girose-patrimoine.fr<br>
+      13 Rue Henri Regnault, 92210 Saint-Cloud — ORIAS n°22003796
+    </div>
+  </div>
+</body>
+</html>
