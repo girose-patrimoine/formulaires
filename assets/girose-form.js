@@ -7,7 +7,7 @@
  *  - affichage conditionnel : [data-if="champ=valeur1|valeur2;autre=val"], [data-if-gt="champ:0"] ;
  *  - case exclusive : <input type="checkbox" data-exclusive> (décoche les autres cases du même nom) ;
  *  - compteurs (boutons − / +), bulles d'aide (.info-btn[data-tip]), ventilations à 100 % (.vent) ;
- *  - pré-remplissage par lien (#d=…) et mode conseiller (#conseiller) ;
+ *  - pré-remplissage par lien (#d=…) et mode conseiller (#conseiller) ; cfg.noLink exclut des champs du lien ;
  *  - pied de page légal, mentions RGPD, envoi Formspree.
  * Aucune donnée client n'est écrite dans la page : elles ne transitent que par le fragment # du lien.
  */
@@ -20,7 +20,7 @@
     '<div class="legal-line"><strong>Girose Patrimoine</strong> — 13 rue Henri Regnault, 92210 Saint-Cloud — 01 88 61 25 65 — <a href="mailto:contact@girose-patrimoine.fr">contact@girose-patrimoine.fr</a> — <a href="https://www.girose-patrimoine.fr" target="_blank" rel="noopener">www.girose-patrimoine.fr</a></div>' +
     '<div class="legal-line">SAS au capital de 5 000 € — SIREN 913 770 160 — RCS Nanterre — TVA intracommunautaire FR88913770160 — Enregistrée à l\'ORIAS sous le n° 22003796 (<a href="https://www.orias.fr" target="_blank" rel="noopener">www.orias.fr</a>) en qualité de courtier en assurances (catégorie B), membre de l\'association Endya, association professionnelle agréée par l\'ACPR. Garantie financière et assurance de RCP souscrites auprès de MMA IARD (n° 233206).</div>' +
     '<details class="legal"><summary>Mentions légales et protection des données personnelles</summary>' +
-    '<p><strong>Protection des données personnelles.</strong> Les informations recueillies dans ce formulaire sont collectées et traitées par Girose Patrimoine, en qualité de responsable de traitement au sens du Règlement Général sur la Protection des Données (RGPD), afin d\'étudier votre demande et d\'établir une proposition d\'assurance. Elles pourront être communiquées aux partenaires et fournisseurs de Girose Patrimoine dans le cadre des propositions et services fournis en sa qualité d\'intermédiaire. Sauf exceptions, elles sont conservées pendant toute la durée de la relation contractuelle, puis archivées pendant cinq ans. Conformément à la loi Informatique et Libertés n° 78-17 du 6 janvier 1978 modifiée et au règlement (UE) 2016/679, vous disposez d\'un droit d\'opposition, d\'accès, de rectification, de suppression, de limitation, de portabilité et de directive après décès sur les données vous concernant, en écrivant à <a href="mailto:dpo@girose-patrimoine.fr">dpo@girose-patrimoine.fr</a>. En cas d\'insatisfaction, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>).</p>' +
+    '<p><strong>Protection des données personnelles.</strong> Les informations recueillies dans ce formulaire sont collectées et traitées par Girose Patrimoine, en qualité de responsable de traitement au sens du Règlement Général sur la Protection des Données (RGPD), afin d\'étudier votre demande et de vous adresser une proposition adaptée. Elles pourront être communiquées aux partenaires et fournisseurs de Girose Patrimoine dans le cadre des propositions et services fournis en sa qualité d\'intermédiaire. Sauf exceptions, elles sont conservées pendant toute la durée de la relation contractuelle, puis archivées pendant cinq ans. Conformément à la loi Informatique et Libertés n° 78-17 du 6 janvier 1978 modifiée et au règlement (UE) 2016/679, vous disposez d\'un droit d\'opposition, d\'accès, de rectification, de suppression, de limitation, de portabilité et de directive après décès sur les données vous concernant, en écrivant à <a href="mailto:dpo@girose-patrimoine.fr">dpo@girose-patrimoine.fr</a>. En cas d\'insatisfaction, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>).</p>' +
     '<p><strong>Réclamations et médiation.</strong> Vous pouvez adresser une réclamation à votre conseiller habituel, qui en accusera réception sous 10 jours et y répondra dans un délai de deux mois à compter de sa réception. À défaut d\'arrangement amiable, vous pouvez saisir La Médiation de l\'Assurance — TSA 50110 — 75441 Paris Cedex 09 — <a href="mailto:le.mediateur@mediation-assurance.org">le.mediateur@mediation-assurance.org</a>.</p>' +
     '<p><strong>Autorité de tutelle.</strong> Autorité de Contrôle Prudentiel et de Résolution (ACPR) — 4 place de Budapest — CS 92459 — 75436 Paris Cedex 09.</p>' +
     '<p><a href="girose-patrimoine-entree-en-relation-2026.pdf" target="_blank" rel="noopener">Consulter notre document d\'entrée en relation (PDF)</a></p></details>';
@@ -177,7 +177,7 @@
   function collect() {
     var data = {};
     Array.prototype.forEach.call(form.elements, function (el) {
-      if (!el.name || el.type === 'button') return;
+      if (!el.name || el.type === 'button' || (cfg.noLink && cfg.noLink.test(el.name))) return;
       if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; return; }
       if (el.type === 'checkbox') {
         if (!el.checked) return;
@@ -279,7 +279,7 @@
     var footer = document.createElement('div'); footer.className = 'form-footer'; footer.innerHTML = FOOTER_HTML;
     document.querySelector('.form-wrap').appendChild(footer);
     var bar = document.createElement('div'); bar.className = 'admin-bar'; bar.innerHTML = ADMIN_HTML; document.body.appendChild(bar);
-    document.querySelectorAll('[data-gp="rgpd"]').forEach(function (el) { el.className = 'info-box'; el.innerHTML = RGPD_HTML; });
+    document.querySelectorAll('[data-gp="rgpd"]').forEach(function (el) { el.className = 'info-box'; el.innerHTML = cfg.rgpdHtml || RGPD_HTML; });
     document.querySelectorAll('[data-gp="declaration"]').forEach(function (el) { el.className = 'info-box'; el.innerHTML = DECLARATION_HTML; });
     if (!document.getElementById('successWrap')) {
       var sw = document.createElement('div'); sw.className = 'success-wrap'; sw.id = 'successWrap';
