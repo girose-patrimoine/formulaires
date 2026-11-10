@@ -5,126 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <title>Recueil des besoins RC Décennale — Girose Patrimoine</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;color:#1a1a1a;background:#f4f5f7;min-height:100vh;padding:24px 16px 48px}
-body.admin{padding-bottom:170px}
-.form-wrap{max-width:780px;margin:0 auto}
-.form-header{background:#1B2249;color:#ffffff;padding:26px 28px 22px;border-radius:12px 12px 0 0;text-align:center}
-.form-header .logo{display:block;margin:0 auto 16px;height:auto;width:84px}
-.form-header h1{font-size:22px;font-weight:600;margin-bottom:8px;letter-spacing:.2px}
-.form-header p{font-size:14px;opacity:.85;line-height:1.6;text-align:left}
-.form-body{background:#fff;border:1px solid #e2e5ea;border-top:none;border-radius:0 0 12px 12px;padding:24px 28px}
-.progress-steps{display:flex;margin-bottom:16px}
-.step-pill{flex:1;text-align:center;font-size:13px;padding:6px 2px;border-bottom:2px solid #e2e5ea;color:#888;cursor:pointer;transition:all .2s}
-.step-pill.active{border-color:#1B2249;color:#1B2249;font-weight:600}
-.step-pill.done{border-color:#1D9E75;color:#0F6E56}
-.step-pill.done.active{border-color:#1B2249;color:#1B2249}
-.progress-bar{height:4px;background:#f0f2f5;border-radius:2px;margin-bottom:20px;overflow:hidden}
-.progress-fill{height:100%;background:#1B2249;border-radius:2px;transition:width .4s}
-.section-title{font-size:15px;font-weight:600;color:#1B2249;background:#EEF0F7;padding:8px 12px;border-radius:8px;margin:24px 0 12px;border-left:3px solid #0462C1}
-.step-content>.section-title:first-child{margin-top:0}
-.field-group{display:flex;flex-direction:column;gap:8px;padding:16px;background:#fafbfc;border:1px solid #eef0f3;border-radius:10px;margin-bottom:10px}
-.field-group:hover{border-color:#c9cee3}
-.field-row{display:grid;gap:10px 16px;margin-bottom:10px}
-.field-row.cols2{grid-template-columns:1fr 1fr}
-.field-row .field-group{margin-bottom:0}
-.field-label{font-size:15px;color:#222;font-weight:600;line-height:1.4}
-.req{color:#d63031}
-.field-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:15px;color:#1a1a1a;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
-.field-input:focus{border-color:#1B2249;box-shadow:0 0 0 3px rgba(27,34,73,.12)}
-.field-input[readonly]{background:#f4f5f7;color:#555}
-select.field-input{cursor:pointer}
-textarea.field-input{resize:vertical;min-height:70px}
-.radio-group{display:flex;flex-direction:column;gap:8px;margin-top:2px}
-.radio-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px 12px}
-.radio-label,.checkbox-label{display:flex;align-items:center;gap:9px;font-size:15px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
-.radio-label:hover,.checkbox-label:hover{border-color:#1B2249;background:#EEF0F7}
-.radio-label input,.checkbox-label input{width:15px;height:15px;accent-color:#1B2249;cursor:pointer;flex-shrink:0}
-.radio-label:has(input:checked),.checkbox-label:has(input:checked){border-color:#1B2249;background:#EEF0F7;color:#1B2249;font-weight:500}
-.radio-group.inline .radio-label{padding:6px 16px}
-ul.bullets{margin:2px 0 4px 18px;font-size:15px;color:#333;line-height:1.7}
-.field-group.error{border-color:#d63031;background:#fff8f8}
-.field-group.error>.field-label,.field-group.error>.label-row .field-label{color:#d63031}
-.error-hint{font-size:13px;color:#d63031;margin-top:4px}
-.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#d63031;color:#fff;padding:12px 20px;border-radius:10px;font-size:15px;font-weight:500;z-index:999;box-shadow:0 4px 16px rgba(214,48,49,.3);max-width:90vw;text-align:center}
-.toast.show{display:block}
-.toast.ok{background:#1D9E75}
-.step-content{display:none}
-.step-content.active{display:block}
-.cond-hidden{display:none!important}
-.nav-row{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid #e2e5ea;gap:10px}
-.btn{padding:9px 20px;border-radius:8px;border:1px solid #c8d0db;background:#fff;color:#333;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
-.btn:hover{background:#f4f5f7}
-.btn-primary{background:#1B2249;color:#fff;border-color:#1B2249}
-.btn-primary:hover{background:#0462C1}
-.btn:disabled{opacity:.6;cursor:default}
-.hint{font-size:13px;font-weight:400;color:#888;line-height:1.5}
-.note{font-size:14px;font-style:italic;color:#777}
-.info-box{font-size:14px;color:#0462C1;background:#EEF0F7;border:1px solid #d5d9ea;border-radius:8px;padding:10px 12px;line-height:1.6;margin-bottom:10px}
-.sub-block{border-left:3px solid #d5d9ea;padding-left:12px;margin-top:4px;display:flex;flex-direction:column;gap:10px}
-/* Bulles d'aide */
-.label-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.info-btn{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1.5px solid #1B2249;background:#fff;color:#1B2249;font:italic 700 14px Georgia,serif;cursor:pointer;line-height:1}
-.info-btn[aria-expanded="true"]{background:#1B2249;color:#fff}
-.tip{display:none;font-size:14px;line-height:1.55;color:#fff;background:#4a5563;border-radius:8px;padding:10px 12px}
-.tip.open{display:block}
-.tip strong{color:#fff}
-.tip ul{margin:4px 0 0 16px}
-.inline-def .info-btn{margin-left:6px;vertical-align:middle}
-/* Compteurs */
-.counter{display:inline-flex;border:1px solid #c8d0db;border-radius:8px;overflow:hidden;max-width:220px}
-.counter button{width:42px;border:none;background:#f4f5f7;font-size:22px;cursor:pointer;color:#1B2249}
-.counter button:hover{background:#EEF0F7}
-.counter input{width:100%;border:none;border-left:1px solid #dde1e7;border-right:1px solid #dde1e7;text-align:center;padding:10px 6px;font-size:17px;font-family:inherit;outline:none;-moz-appearance:textfield}
-.counter input::-webkit-outer-spin-button,.counter input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-/* Activités */
-.act-list{max-height:340px;overflow-y:auto;border:1px solid #e2e5ea;border-radius:8px;background:#fff}
-.act-row{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border-bottom:1px solid #f0f2f5;font-size:15px;cursor:pointer;line-height:1.4}
-.act-row:last-child{border-bottom:none}
-.act-row:hover{background:#f4f5fa}
-.act-row input{margin-top:2px;width:15px;height:15px;accent-color:#1B2249;flex-shrink:0}
-.act-row:has(input:checked){background:#EEF0F7;color:#1B2249;font-weight:500}
-.act-empty{padding:12px;font-size:14px;color:#888;display:none}
-.pct-row{display:grid;grid-template-columns:1fr 110px;gap:10px;align-items:center;font-size:15px;padding:6px 0;border-bottom:1px dashed #e2e5ea}
-.pct-input{display:flex;align-items:center;gap:4px}
-.pct-input input{text-align:right}
-.total{font-size:14px;font-weight:600;color:#d63031}
-.total.ok{color:#0F6E56}
-/* Ventilation */
-.vent-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.vent-grid .label-row{margin-bottom:6px}
-input[type=range]{width:100%;accent-color:#1B2249}
-.success-wrap{text-align:center;padding:40px 20px;display:none}
-.success-icon{font-size:48px;margin-bottom:16px;display:block}
-.success-title{font-size:22px;font-weight:600;margin-bottom:8px;color:#0F6E56}
-.success-text{font-size:15px;color:#666;line-height:1.6}
-.form-footer{margin-top:18px;font-size:13px;color:#6b7086;line-height:1.6;text-align:center}
-.form-footer a{color:#1B2249}
-.legal-line{margin-bottom:6px}
-details.legal{margin-top:10px;text-align:left;background:#fff;border:1px solid #e2e5ea;border-radius:10px;padding:10px 14px}
-details.legal summary{cursor:pointer;font-weight:600;color:#1B2249;text-align:center}
-details.legal p{margin-top:8px}
-/* Mode courtier */
-.admin-bar{display:none;position:fixed;left:0;right:0;bottom:0;background:#1f2937;color:#e5e7eb;padding:12px 16px;z-index:500;box-shadow:0 -4px 16px rgba(0,0,0,.2)}
-body.admin .admin-bar{display:block}
-.admin-bar .inner{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
-.admin-bar .title{font-size:14px;font-weight:600;color:#fbbf24}
-.admin-bar .desc{font-size:13px;color:#cbd5e1;line-height:1.5}
-.admin-bar .row{display:flex;gap:8px}
-.admin-bar input{flex:1;min-width:0;padding:7px 10px;border-radius:6px;border:1px solid #475569;background:#111827;color:#e5e7eb;font-size:14px}
-.admin-bar .btn{padding:7px 14px;font-size:14px}
-@media(max-width:560px){
-  .field-row.cols2,.vent-grid{grid-template-columns:1fr}
-  .form-body{padding:18px 16px}
-  .step-pill{font-size:12px;padding:5px 1px}
-  .radio-group.inline .radio-label{flex:1 1 auto}
-}
-</style>
+<link rel="stylesheet" href="assets/girose-form.css?v=1">
 </head>
 <body>
-
-<div class="toast" id="toast"></div>
 
 <div class="form-wrap">
   <div class="form-header">
@@ -203,7 +86,7 @@ body.admin .admin-bar{display:block}
         </div>
         <div class="field-group" data-req="CA prévisionnel de l'exercice en cours">
           <label class="field-label">Quel est le chiffre d'affaires HT prévisionnel sur l'exercice en cours (€) ? <span class="req">*</span></label>
-          <input class="field-input" name="ca_previsionnel" type="number" min="0" step="1" placeholder="Ex : 250000" style="max-width:300px" oninput="refresh()">
+          <input class="field-input" name="ca_previsionnel" type="number" min="0" step="1" placeholder="Ex : 250000" style="max-width:300px">
         </div>
 
         <div class="section-title">Redressement judiciaire</div>
@@ -333,7 +216,7 @@ body.admin .admin-bar{display:block}
             <label class="radio-label"><input type="radio" name="type_antecedent" value="Responsabilité civile"> Responsabilité civile</label>
             <label class="radio-label"><input type="radio" name="type_antecedent" value="Responsabilité décennale"> Responsabilité décennale</label>
           </div>
-          <label class="checkbox-label"><input type="checkbox" name="jamais_assure" value="Oui" onchange="refresh()"> L'entreprise n'a jamais été assurée pour le même risque</label>
+          <label class="checkbox-label"><input type="checkbox" name="jamais_assure" value="Oui"> L'entreprise n'a jamais été assurée pour le même risque</label>
         </div>
 
         <div data-if="jamais_assure=">
@@ -405,7 +288,7 @@ body.admin .admin-bar{display:block}
         <div class="section-title">Sinistres</div>
         <div class="field-group" data-req="Nombre de sinistres">
           <label class="field-label">Combien de sinistres (ayant un coût &gt; 0 €) l'entreprise a-t-elle déclarés au cours des 5 dernières années ? <span class="req">*</span></label>
-          <div class="counter"><button type="button" onclick="step('nb_sinistres',-1)">−</button><input type="number" name="nb_sinistres" min="0" max="99" inputmode="numeric" oninput="refresh()"><button type="button" onclick="step('nb_sinistres',1)">+</button></div>
+          <div class="counter"><button type="button" onclick="step('nb_sinistres',-1)">−</button><input type="number" name="nb_sinistres" min="0" max="99" inputmode="numeric"><button type="button" onclick="step('nb_sinistres',1)">+</button></div>
         </div>
         <div data-if-gt="nb_sinistres:0">
           <div class="field-group" data-req="Montant total des sinistres">
@@ -465,7 +348,7 @@ body.admin .admin-bar{display:block}
 
         <div class="section-title">Qualifications de l'entreprise</div>
         <div class="field-group" id="qualifGroup">
-          <label class="checkbox-label"><input type="checkbox" name="aucune_qualification" value="Oui" onchange="refresh()"> Aucune qualification ne peut être justifiée au sein de l'entreprise</label>
+          <label class="checkbox-label"><input type="checkbox" name="aucune_qualification" value="Oui"> Aucune qualification ne peut être justifiée au sein de l'entreprise</label>
           <div data-if="aucune_qualification=" style="display:flex;flex-direction:column;gap:8px">
             <div class="label-row">
               <label class="field-label">Quelles qualifications peuvent être déclarées au sein de l'entreprise ? <span class="req">*</span></label>
@@ -591,8 +474,8 @@ body.admin .admin-bar{display:block}
         </div>
 
         <div class="info-box">Pour accélérer l'étude de votre dossier, vous pouvez nous transmettre par email, en réponse au message de votre conseiller : <strong>extrait Kbis</strong>, <strong>attestation d'assurance</strong> du contrat actuel ou précédent, <strong>relevé de sinistralité</strong> et <strong>justificatifs d'expérience ou de qualification</strong>.</div>
-        <div class="info-box">Vos données sont traitées par Girose Patrimoine pour l'étude de votre demande et pourront être transmises aux assureurs consultés. Vous disposez de droits sur ces données (accès, rectification, suppression…) : voir les mentions légales en bas de page ou écrire à <a href="mailto:dpo@girose-patrimoine.fr" style="color:inherit">dpo@girose-patrimoine.fr</a>.</div>
-        <div class="info-box">En validant ce formulaire, vous certifiez l'exactitude des informations déclarées. Toute réticence ou fausse déclaration intentionnelle peut entraîner la nullité du contrat (art. L.113-8 du Code des assurances) ; toute omission ou déclaration inexacte peut entraîner une réduction des indemnités (art. L.113-9).</div>
+        <div data-gp="rgpd"></div>
+        <div data-gp="declaration"></div>
 
         <div class="nav-row">
           <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
@@ -601,41 +484,11 @@ body.admin .admin-bar{display:block}
       </div>
     </form>
 
-    <div class="success-wrap" id="successWrap">
-      <span class="success-icon">✅</span>
-      <div class="success-title">Demande envoyée avec succès !</div>
-      <p class="success-text">Votre conseiller Girose Patrimoine a bien reçu vos informations.<br>Il revient vers vous dans les plus brefs délais avec une proposition.</p>
-    </div>
-  </div>
-  <div class="form-footer">
-    <div class="legal-line"><strong>Girose Patrimoine</strong> — 13 rue Henri Regnault, 92210 Saint-Cloud — 01 88 61 25 65 — <a href="mailto:contact@girose-patrimoine.fr">contact@girose-patrimoine.fr</a> — <a href="https://www.girose-patrimoine.fr" target="_blank" rel="noopener">www.girose-patrimoine.fr</a></div>
-    <div class="legal-line">SAS au capital de 5 000 € — SIREN 913 770 160 — RCS Nanterre — TVA intracommunautaire FR88913770160 — Enregistrée à l'ORIAS sous le n° 22003796 (<a href="https://www.orias.fr" target="_blank" rel="noopener">www.orias.fr</a>) en qualité de courtier en assurances (catégorie B), membre de l'association Endya, association professionnelle agréée par l'ACPR. Garantie financière et assurance de RCP souscrites auprès de MMA IARD (n° 233206).</div>
-    <details class="legal">
-      <summary>Mentions légales et protection des données personnelles</summary>
-      <p><strong>Protection des données personnelles.</strong> Les informations recueillies dans ce formulaire sont collectées et traitées par Girose Patrimoine, en qualité de responsable de traitement au sens du Règlement Général sur la Protection des Données (RGPD), afin d'étudier votre demande et d'établir une proposition d'assurance. Elles pourront être communiquées aux partenaires et fournisseurs de Girose Patrimoine dans le cadre des propositions et services fournis en sa qualité d'intermédiaire. Sauf exceptions, elles sont conservées pendant toute la durée de la relation contractuelle, puis archivées pendant cinq ans. Conformément à la loi Informatique et Libertés n° 78-17 du 6 janvier 1978 modifiée et au règlement (UE) 2016/679, vous disposez d'un droit d'opposition, d'accès, de rectification, de suppression, de limitation, de portabilité et de directive après décès sur les données vous concernant, en écrivant à <a href="mailto:dpo@girose-patrimoine.fr">dpo@girose-patrimoine.fr</a>. En cas d'insatisfaction, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>).</p>
-      <p><strong>Réclamations et médiation.</strong> Vous pouvez adresser une réclamation à votre conseiller habituel, qui en accusera réception sous 10 jours et y répondra dans un délai de deux mois à compter de sa réception. À défaut d'arrangement amiable, vous pouvez saisir La Médiation de l'Assurance — TSA 50110 — 75441 Paris Cedex 09 — <a href="mailto:le.mediateur@mediation-assurance.org">le.mediateur@mediation-assurance.org</a>.</p>
-      <p><strong>Autorité de tutelle.</strong> Autorité de Contrôle Prudentiel et de Résolution (ACPR) — 4 place de Budapest — CS 92459 — 75436 Paris Cedex 09.</p>
-      <p><a href="girose-patrimoine-entree-en-relation-2026.pdf" target="_blank" rel="noopener">Consulter notre document d'entrée en relation (PDF)</a></p>
-    </details>
   </div>
 </div>
 
-<div class="admin-bar">
-  <div class="inner">
-    <div class="title">Mode conseiller — non visible par le client</div>
-    <div class="desc">Vérifiez et complétez les réponses : aucune réponse n'est obligatoire dans ce mode, les étapes et le bouton « Suivant » ne bloquent pas, puis générez le lien à envoyer au client. Les données figurent uniquement dans le lien, pas dans la page.</div>
-    <div class="row">
-      <button type="button" class="btn btn-primary" onclick="makeClientLink()">Générer le lien client</button>
-      <input id="clientLink" readonly placeholder="Le lien client apparaîtra ici">
-      <button type="button" class="btn" onclick="copyLink()">Copier</button>
-    </div>
-  </div>
-</div>
-
+<script src="assets/girose-form.js?v=1"></script>
 <script>
-var FORMSPREE = 'https://formspree.io/f/xwlpkzyn';
-var NB_STEPS = 5;
-
 // Liste des activités
 var ACTIVITES = [
 "Démolition sans utilisation d'explosifs","Démolition avec utilisation d'explosifs","Terrassement","Amélioration des sols","Voiries Réseaux Divers (VRD)","Paysagiste","Montage d'echafaudage, Etaiements","Traitement amiante","Traitement curatif (insectes xylophages-champignons)","Assainissement autonome","Assèchement des murs","Fondations spéciales","Maçonnerie et béton armé sauf précontraint in situ","Enduits hydrauliques","Taille de pierre","Béton précontraint in situ","Charpente et structures en bois","Charpente et structures métalliques","Couverture","Zinguerie","Etanchéité de toiture, terrasse","Etanchéité plancher intérieur à l'exclusion de la pose de membranes d'étanchéité photovoltaïques","Etanchéité et imperméabilisation de cuvelage, réservoirs hors piscines","Calfeutrement protection, imperméabilité et étanchéité des façades hors isolation thermique par l'extérieur","Menuiseries extérieures à l'exclusion des vérandas","Vérandas","Verrières","Menuiseries extérieures et Terrasses extérieures en decks à l'exclusion des vérandas","Bardages de façades","Façades-rideaux","Structures et couvertures textiles",
@@ -652,20 +505,15 @@ var MOTIFS = ["Résiliation pour non paiement","Résiliation à l'échéance par
 var QUALIFS = ["Qualibat 2121","Qualibat 2132","Qualibat 2171","Qualibat 6422","Qualibat 7131","Qualibat 7132","Qualifelec","Certificat RGE","QualiPV","Certificat IRVE","Autre"];
 
 var form = document.getElementById('mainForm');
-var currentStep = 0;
-var isAdmin = false;
+var esc = GP.esc, norm = GP.norm, val = GP.val;
 
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
-function norm(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }
-
-// ---------- Construction des listes ----------
+// ---------- Listes ----------
 function buildLists() {
   var opt = function(list, ph) { return '<option value="">' + ph + '</option>' + list.map(function(v){ return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join(''); };
   document.getElementById('assureurSelect').innerHTML = opt(ASSUREURS, 'Sélectionnez');
-  document.querySelectorAll('.motif-select').forEach(function(s){ s.innerHTML = opt(MOTIFS, 'Sélectionnez le motif'); s.addEventListener('change', refresh); });
-  document.getElementById('assureurSelect').addEventListener('change', refresh);
+  document.querySelectorAll('.motif-select').forEach(function(s){ s.innerHTML = opt(MOTIFS, 'Sélectionnez le motif'); });
   document.getElementById('qualifList').innerHTML = QUALIFS.map(function(q){
-    return '<label class="checkbox-label"><input type="checkbox" name="qualifications" value="' + esc(q) + '" onchange="refresh()"> ' + esc(q) + '</label>';
+    return '<label class="checkbox-label"><input type="checkbox" name="qualifications" value="' + esc(q) + '"> ' + esc(q) + '</label>';
   }).join('');
   document.getElementById('actList').innerHTML = ACTIVITES.map(function(a, i){
     return '<label class="act-row" data-i="' + i + '"><input type="checkbox" name="act" value="' + i + '" onchange="updatePct()"> <span>' + esc(a) + '</span></label>';
@@ -673,61 +521,6 @@ function buildLists() {
   document.getElementById('pctList').innerHTML = ACTIVITES.map(function(a, i){
     return '<div class="pct-row cond-hidden" data-i="' + i + '"><span>' + esc(a) + '</span><span class="pct-input"><input class="field-input" type="number" min="0" max="100" inputmode="numeric" name="pct_' + i + '" oninput="updatePct()"> %</span></div>';
   }).join('');
-}
-
-// ---------- Bulles d'aide ----------
-document.addEventListener('click', function(e){
-  var b = e.target.closest('.info-btn');
-  if (!b) return;
-  e.preventDefault();
-  var t = document.getElementById(b.getAttribute('data-tip'));
-  var open = !t.classList.contains('open');
-  t.classList.toggle('open', open);
-  b.setAttribute('aria-expanded', open);
-});
-
-// ---------- Valeurs et conditions ----------
-function val(name) {
-  var els = form.querySelectorAll('[name="' + name + '"]');
-  if (!els.length) return '';
-  var el = els[0];
-  if (el.type === 'radio') { var c = form.querySelector('[name="' + name + '"]:checked'); return c ? c.value : ''; }
-  if (el.type === 'checkbox') {
-    if (els.length === 1) return el.checked ? el.value : '';
-    return Array.prototype.filter.call(els, function(x){ return x.checked; }).map(function(x){ return x.value; });
-  }
-  return el.value;
-}
-function condOk(cond) {
-  return cond.split(';').every(function(part){
-    var k = part.indexOf('='), name = part.slice(0, k), wanted = part.slice(k + 1).split('|');
-    var v = val(name);
-    if (Array.isArray(v)) return wanted.some(function(w){ return v.indexOf(w) >= 0; });
-    return wanted.indexOf(v) >= 0;
-  });
-}
-function refresh() {
-  document.querySelectorAll('[data-if]').forEach(function(el){ el.classList.toggle('cond-hidden', !condOk(el.getAttribute('data-if'))); });
-  document.querySelectorAll('[data-if-gt]').forEach(function(el){
-    var p = el.getAttribute('data-if-gt').split(':');
-    el.classList.toggle('cond-hidden', !((parseFloat(val(p[0])) || 0) > parseFloat(p[1])));
-  });
-  // Qualifications : "Aucune" désactive la liste
-  var aucune = val('aucune_qualification') === 'Oui';
-  form.querySelectorAll('[name="qualifications"]').forEach(function(q){ if (aucune) q.checked = false; });
-  // CA déclaré
-  var ca = parseFloat(val('ca_previsionnel'));
-  document.getElementById('caDeclare').value = isNaN(ca) ? 'À renseigner à l\'étape 1' : ca.toLocaleString('fr-FR') + ' €';
-}
-form.addEventListener('change', function(e){ if (e.target.type === 'radio') refresh(); });
-
-// ---------- Compteurs ----------
-function step(name, d) {
-  var el = form.querySelector('[name="' + name + '"]');
-  var v = el.value === '' ? 0 : (parseInt(el.value, 10) || 0) + d;
-  v = Math.max(parseInt(el.min, 10) || 0, Math.min(parseInt(el.max, 10) || 999, v));
-  el.value = v;
-  refresh();
 }
 
 // ---------- Activités ----------
@@ -758,229 +551,47 @@ function updatePct() {
   return tot;
 }
 function syncEntrepriseGenerale() {
-  var c = form.querySelector('[name="act"][value="' + IDX_EG + '"]');
-  c.checked = val('entreprise_generale') === 'Oui';
+  form.querySelector('[name="act"][value="' + IDX_EG + '"]').checked = val('entreprise_generale') === 'Oui';
   updatePct();
 }
 
-// ---------- Ventilations liées (total 100 %) ----------
-function initVent(group) {
-  var a = form.querySelector('[name="' + group.dataset.a + '"]'), b = form.querySelector('[name="' + group.dataset.b + '"]');
-  var range = group.querySelector('input[type=range]'), total = group.querySelector('.total');
-  function show() {
-    var t = (parseFloat(a.value) || 0) + (parseFloat(b.value) || 0);
-    total.textContent = 'Ventilation totale ' + t + ' %';
-    total.classList.toggle('ok', t === 100 && a.value !== '' && b.value !== '');
-    if (a.value !== '') range.value = a.value;
-  }
-  function clamp(x) { return Math.max(0, Math.min(100, Math.round(parseFloat(x) || 0))); }
-  a.addEventListener('input', function(){ if (a.value !== '') { a.value = clamp(a.value); b.value = 100 - a.value; } show(); });
-  b.addEventListener('input', function(){ if (b.value !== '') { b.value = clamp(b.value); a.value = 100 - b.value; } show(); });
-  range.addEventListener('input', function(){ a.value = range.value; b.value = 100 - range.value; show(); });
-  group._show = show;
-  show();
-}
-
-// ---------- Navigation ----------
-function goStep(n) {
-  var pills = document.querySelectorAll('.step-pill');
-  document.getElementById('step' + currentStep).classList.remove('active');
-  pills[currentStep].classList.remove('active');
-  if (n > currentStep) pills[currentStep].classList.add('done');
-  currentStep = n;
-  document.getElementById('step' + currentStep).classList.add('active');
-  pills.forEach(function(p, i){ p.classList.toggle('active', i === currentStep); });
-  document.getElementById('progressFill').style.width = ((currentStep + 1) / NB_STEPS * 100) + '%';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-function pillClick(n) {
-  if (isAdmin || n < currentStep) { goStep(n); return; }
-  for (var s = currentStep; s < n; s++) { if (!validateStep(s)) { if (s !== currentStep) goStep(s); return; } }
-  goStep(n);
-}
-function nextStep() {
-  // Mode conseiller : navigation libre, sans contrôle des réponses obligatoires
-  if ((isAdmin || validateStep(currentStep)) && currentStep < NB_STEPS - 1) goStep(currentStep + 1);
-}
-function prevStep() { if (currentStep > 0) goStep(currentStep - 1); }
-
-function showToast(msg, ok) {
-  var t = document.getElementById('toast');
-  t.textContent = (ok ? '✓ ' : '⚠️ ') + msg;
-  t.classList.toggle('ok', !!ok);
-  t.classList.add('show');
-  clearTimeout(t._h);
-  t._h = setTimeout(function(){ t.classList.remove('show'); }, 3500);
-}
-
-function hidden(el) { return !!el.closest('.cond-hidden'); }
-
-function groupIsEmpty(group) {
-  var choices = group.querySelectorAll('input[type=radio],input[type=checkbox]');
-  if (choices.length) return Array.prototype.filter.call(choices, function(c){ return c.checked && !hidden(c); }).length === 0;
-  var el = Array.prototype.find.call(group.querySelectorAll('input,select,textarea'), function(x){ return !hidden(x); });
-  if (!el || !el.value.trim()) return true;
-  if (el.type === 'email') return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
-  if (el.pattern) return !new RegExp('^(?:' + el.pattern + ')$').test(el.value.trim());
-  if (el.type === 'number') { var n = parseFloat(el.value); if ((el.min !== '' && n < +el.min) || (el.max !== '' && n > +el.max)) return true; }
-  return false;
-}
-function markError(group, msg) {
-  group.classList.add('error');
-  var hint = document.createElement('div');
-  hint.className = 'error-hint';
-  hint.textContent = '⚠ ' + msg;
-  group.appendChild(hint);
-}
-
-function validateStep(s) {
-  var stepEl = document.getElementById('step' + s);
-  stepEl.querySelectorAll('.field-group.error').forEach(function(g){
-    g.classList.remove('error');
-    g.querySelectorAll(':scope > .error-hint').forEach(function(h){ h.remove(); });
-  });
-  var errors = [];
-  stepEl.querySelectorAll('.field-group[data-req]').forEach(function(group){
-    if (hidden(group) || !groupIsEmpty(group)) return;
-    markError(group, group.getAttribute('data-req') + ' : réponse obligatoire ou invalide');
-    errors.push(group);
-  });
-  if (s === 1) {
-    var acts = checkedActs(), ag = document.getElementById('actGroup'), pg = document.getElementById('pctGroup');
-    if (!acts.length) { markError(ag, 'Cochez au moins une activité'); errors.push(ag); }
-    else {
-      var missing = acts.some(function(i){ return form.querySelector('[name="pct_' + i + '"]').value === ''; });
-      var tot = updatePct();
-      if (missing || tot !== 100) { markError(pg, missing ? 'Indiquez la part de chaque activité cochée' : 'Le total doit être égal à 100 % (actuellement ' + tot + ' %)'); errors.push(pg); }
-    }
-  }
-  if (s === 2 && val('reprise_passe') === 'Oui' && val('reprise_passe_date') && val('date_effet')) {
-    var eff = new Date(val('date_effet')), rep = new Date(val('reprise_passe_date')), lim = new Date(eff);
-    lim.setFullYear(lim.getFullYear() - 1);
-    var rg = document.getElementById('repriseGroup');
-    if (rep < lim) { markError(rg, 'La reprise du passé est limitée à un an avant la date d\'effet (au plus tôt le ' + lim.toLocaleDateString('fr-FR') + ')'); errors.push(rg); }
-    else if (rep > eff) { markError(rg, 'La date de reprise du passé doit être antérieure à la date d\'effet'); errors.push(rg); }
-  }
-  if (s === 3) {
-    var qg = document.getElementById('qualifGroup');
-    if (val('aucune_qualification') !== 'Oui' && !val('qualifications').length) { markError(qg, 'Cochez au moins une qualification, ou « Aucune qualification »'); errors.push(qg); }
-    document.querySelectorAll('.vent').forEach(function(g){
-      var a = val(g.dataset.a), b = val(g.dataset.b);
-      if (a === '' || b === '' || (+a) + (+b) !== 100) { markError(g, 'La ventilation doit totaliser 100 %'); errors.push(g); }
-    });
-  }
-  if (errors.length) {
-    showToast('Veuillez compléter les réponses signalées');
-    errors[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return false;
-  }
-  return true;
-}
-
-// ---------- Lien pré-rempli (données dans le fragment #, jamais transmis au serveur) ----------
-function collect() {
-  var data = {};
-  Array.prototype.forEach.call(form.elements, function(el){
-    if (!el.name || el.type === 'button') return;
-    if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; return; }
-    if (el.type === 'checkbox') {
-      if (!el.checked) return;
-      if (form.querySelectorAll('[name="' + el.name + '"]').length > 1) (data[el.name] = data[el.name] || []).push(el.value);
-      else data[el.name] = el.value;
-      return;
-    }
-    if (el.value !== '') data[el.name] = el.value;
-  });
-  return data;
-}
-function encode(obj) {
-  return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-}
-function decode(s) {
-  s = s.replace(/-/g,'+').replace(/_/g,'/');
-  while (s.length % 4) s += '=';
-  return JSON.parse(decodeURIComponent(escape(atob(s))));
-}
-function applyData(data) {
-  Object.keys(data).forEach(function(name){
-    var v = data[name];
-    form.querySelectorAll('[name="' + name + '"]').forEach(function(el){
-      if (el.type === 'radio') el.checked = el.value === v;
-      else if (el.type === 'checkbox') el.checked = Array.isArray(v) ? v.indexOf(el.value) >= 0 : el.value === v;
-      else el.value = v;
-    });
-  });
-}
-function readHash() {
-  var h = location.hash.replace(/^#/, ''), params = {};
-  h.split('&').forEach(function(p){ if (!p) return; var k = p.indexOf('='); if (k < 0) params[p] = true; else params[p.slice(0, k)] = p.slice(k + 1); });
-  return params;
-}
-function makeClientLink() {
-  var url = location.href.split('#')[0] + '#d=' + encode(collect());
-  var input = document.getElementById('clientLink');
-  input.value = url;
-  input.select();
-  showToast('Lien client généré', true);
-}
-function copyLink() {
-  var input = document.getElementById('clientLink');
-  if (!input.value) makeClientLink();
-  (navigator.clipboard ? navigator.clipboard.writeText(input.value) : Promise.reject()).then(function(){ showToast('Lien copié', true); }, function(){ input.select(); document.execCommand('copy'); showToast('Lien copié', true); });
-}
-
-// ---------- Envoi ----------
-function fmtDate(v) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v); return m ? m[3] + '/' + m[2] + '/' + m[1] : v; }
-async function submitFormData() {
-  if (isAdmin) { showToast('Mode conseiller : utilisez « Générer le lien client » pour envoyer le formulaire au client'); return; }
-  for (var s = 0; s < NB_STEPS; s++) { if (!validateStep(s)) { goStep(s); setTimeout(function(){ validateStep(currentStep); }, 50); return; } }
-  var btn = document.getElementById('submitBtn');
-  btn.textContent = 'Envoi en cours…';
-  btn.disabled = true;
-  var fd = new FormData();
-  fd.append('_subject', 'Recueil des besoins RC Décennale — ' + (val('raison_sociale') || ''));
-  fd.append('formulaire', 'Recueil des besoins RC Décennale');
-  var lists = {};
-  Array.prototype.forEach.call(form.elements, function(el){
-    if (!el.name || el.name === 'act' || /^pct_/.test(el.name) || hidden(el)) return;
-    if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
-    if (el.type === 'checkbox' && form.querySelectorAll('[name="' + el.name + '"]').length > 1) { (lists[el.name] = lists[el.name] || []).push(el.value); return; }
-    if (el.value === '') return;
-    fd.append(el.name, el.type === 'date' ? fmtDate(el.value) : el.value);
-  });
-  Object.keys(lists).forEach(function(k){ fd.append(k, lists[k].join(' ; ')); });
-  var lignes = checkedActs().map(function(i){
-    return '- ' + ACTIVITES[i] + ' : ' + form.querySelector('[name="pct_' + i + '"]').value + ' %';
-  });
-  fd.append('activites_declarees', lignes.join('\n'));
-  try {
-    var response = await fetch(FORMSPREE, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
-    var data = await response.json();
-    if (data.ok) {
-      form.style.display = 'none';
-      document.querySelector('.progress-steps').style.display = 'none';
-      document.querySelector('.progress-bar').style.display = 'none';
-      document.getElementById('successWrap').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else throw new Error('ko');
-  } catch (err) {
-    btn.textContent = '✓ Envoyer ma demande';
-    btn.disabled = false;
-    alert('Une erreur est survenue lors de l\'envoi. Vérifiez votre connexion internet et réessayez.');
-  }
-}
-
-// ---------- Initialisation ----------
 buildLists();
-document.querySelectorAll('.vent').forEach(initVent);
-(function(){
-  var p = readHash();
-  if (p.d) { try { applyData(decode(p.d)); } catch (e) { console.warn('Lien de pré-remplissage illisible'); } }
-  if (p.conseiller) { isAdmin = true; document.body.classList.add('admin'); }
-})();
-document.querySelectorAll('.vent').forEach(function(g){ g._show(); });
-updatePct();
-refresh();
+GP.init({
+  formulaire: 'Recueil des besoins RC Décennale',
+  subject: function(){ return 'Recueil des besoins RC Décennale — ' + (val('raison_sociale') || ''); },
+  skip: /^(act|pct_\d+)$/,
+  onRefresh: function(){
+    if (val('aucune_qualification') === 'Oui') form.querySelectorAll('[name="qualifications"]').forEach(function(q){ q.checked = false; });
+    var ca = parseFloat(val('ca_previsionnel'));
+    document.getElementById('caDeclare').value = isNaN(ca) ? 'À renseigner à l\'étape 1' : ca.toLocaleString('fr-FR') + ' €';
+  },
+  afterRestore: updatePct,
+  validate: function(s, err){
+    if (s === 1) {
+      var acts = checkedActs();
+      if (!acts.length) err(document.getElementById('actGroup'), 'Cochez au moins une activité');
+      else {
+        var missing = acts.some(function(i){ return form.querySelector('[name="pct_' + i + '"]').value === ''; });
+        var tot = updatePct();
+        if (missing || tot !== 100) err(document.getElementById('pctGroup'), missing ? 'Indiquez la part de chaque activité cochée' : 'Le total doit être égal à 100 % (actuellement ' + tot + ' %)');
+      }
+    }
+    if (s === 2 && val('reprise_passe') === 'Oui' && val('reprise_passe_date') && val('date_effet')) {
+      var eff = new Date(val('date_effet')), rep = new Date(val('reprise_passe_date')), lim = new Date(eff);
+      lim.setFullYear(lim.getFullYear() - 1);
+      var rg = document.getElementById('repriseGroup');
+      if (rep < lim) err(rg, 'La reprise du passé est limitée à un an avant la date d\'effet (au plus tôt le ' + lim.toLocaleDateString('fr-FR') + ')');
+      else if (rep > eff) err(rg, 'La date de reprise du passé doit être antérieure à la date d\'effet');
+    }
+    if (s === 3 && val('aucune_qualification') !== 'Oui' && !val('qualifications').length)
+      err(document.getElementById('qualifGroup'), 'Cochez au moins une qualification, ou « Aucune qualification »');
+  },
+  beforeSubmit: function(fd){
+    fd.append('activites_declarees', checkedActs().map(function(i){
+      return '- ' + ACTIVITES[i] + ' : ' + form.querySelector('[name="pct_' + i + '"]').value + ' %';
+    }).join('\n'));
+  }
+});
 </script>
 </body>
 </html>
