@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Devis RC Décennale — Girose Patrimoine</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:14px;color:#1a1a1a;background:#f4f5f7;min-height:100vh;padding:24px 16px 48px}
+body.admin{padding-bottom:170px}
+.form-wrap{max-width:720px;margin:0 auto}
+.form-header{background:#185FA5;color:#E6F1FB;padding:22px 28px;border-radius:12px 12px 0 0}
+.form-header h1{font-size:17px;font-weight:600;margin-bottom:6px}
+.form-header p{font-size:12px;opacity:.85;line-height:1.6}
+.form-body{background:#fff;border:1px solid #e2e5ea;border-top:none;border-radius:0 0 12px 12px;padding:24px 28px}
+.progress-steps{display:flex;margin-bottom:16px}
+.step-pill{flex:1;text-align:center;font-size:11px;padding:6px 2px;border-bottom:2px solid #e2e5ea;color:#888;cursor:pointer;transition:all .2s}
+.step-pill.active{border-color:#185FA5;color:#185FA5;font-weight:600}
+.step-pill.done{border-color:#1D9E75;color:#0F6E56}
+.progress-bar{height:4px;background:#f0f2f5;border-radius:2px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:#185FA5;border-radius:2px;transition:width .4s}
+.section-title{font-size:13px;font-weight:600;color:#185FA5;background:#EBF4FF;padding:8px 12px;border-radius:8px;margin:24px 0 12px;border-left:3px solid #378ADD}
+.step-content>.section-title:first-child{margin-top:0}
+.field-group{display:flex;flex-direction:column;gap:8px;padding:16px;background:#fafbfc;border:1px solid #eef0f3;border-radius:10px;margin-bottom:10px}
+.field-group:hover{border-color:#d0dff0}
+.field-row{display:grid;gap:10px 16px;margin-bottom:10px}
+.field-row.cols2{grid-template-columns:1fr 1fr}
+.field-row .field-group{margin-bottom:0}
+.field-label{font-size:13px;color:#222;font-weight:600;line-height:1.4}
+.req{color:#d63031}
+.field-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:13px;color:#1a1a1a;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
+.field-input:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.1)}
+.field-input[readonly]{background:#f4f5f7;color:#555}
+select.field-input{cursor:pointer}
+textarea.field-input{resize:vertical;min-height:70px}
+.radio-group{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.radio-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px 12px}
+.radio-label,.checkbox-label{display:flex;align-items:center;gap:9px;font-size:13px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.radio-label:hover,.checkbox-label:hover{border-color:#185FA5;background:#EBF4FF}
+.radio-label input,.checkbox-label input{width:15px;height:15px;accent-color:#185FA5;cursor:pointer;flex-shrink:0}
+.radio-label:has(input:checked),.checkbox-label:has(input:checked){border-color:#185FA5;background:#EBF4FF;color:#185FA5;font-weight:500}
+.radio-group.inline .radio-label{padding:6px 16px}
+ul.bullets{margin:2px 0 4px 18px;font-size:13px;color:#333;line-height:1.7}
+.field-group.error{border-color:#d63031;background:#fff8f8}
+.field-group.error>.field-label,.field-group.error>.label-row .field-label{color:#d63031}
+.error-hint{font-size:11px;color:#d63031;margin-top:4px}
+.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#d63031;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;box-shadow:0 4px 16px rgba(214,48,49,.3);max-width:90vw;text-align:center}
+.toast.show{display:block}
+.toast.ok{background:#1D9E75}
+.step-content{display:none}
+.step-content.active{display:block}
+.cond-hidden{display:none!important}
+.nav-row{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid #e2e5ea;gap:10px}
+.btn{padding:9px 20px;border-radius:8px;border:1px solid #c8d0db;background:#fff;color:#333;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:#f4f5f7}
+.btn-primary{background:#185FA5;color:#fff;border-color:#185FA5}
+.btn-primary:hover{background:#0C447C}
+.btn:disabled{opacity:.6;cursor:default}
+.hint{font-size:11px;font-weight:400;color:#888;line-height:1.5}
+.note{font-size:12px;font-style:italic;color:#777}
+.info-box{font-size:12px;color:#0C447C;background:#EBF4FF;border:1px solid #cfe2f7;border-radius:8px;padding:10px 12px;line-height:1.6;margin-bottom:10px}
+.sub-block{border-left:3px solid #cfe2f7;padding-left:12px;margin-top:4px;display:flex;flex-direction:column;gap:10px}
+/* Bulles d'aide */
+.label-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.info-btn{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1.5px solid #185FA5;background:#fff;color:#185FA5;font:italic 700 12px Georgia,serif;cursor:pointer;line-height:1}
+.info-btn[aria-expanded="true"]{background:#185FA5;color:#fff}
+.tip{display:none;font-size:12px;line-height:1.55;color:#fff;background:#4a5563;border-radius:8px;padding:10px 12px}
+.tip.open{display:block}
+.tip strong{color:#fff}
+.tip ul{margin:4px 0 0 16px}
+.inline-def .info-btn{margin-left:6px;vertical-align:middle}
+/* Compteurs */
+.counter{display:inline-flex;border:1px solid #c8d0db;border-radius:8px;overflow:hidden;max-width:220px}
+.counter button{width:42px;border:none;background:#f4f5f7;font-size:18px;cursor:pointer;color:#185FA5}
+.counter button:hover{background:#EBF4FF}
+.counter input{width:100%;border:none;border-left:1px solid #dde1e7;border-right:1px solid #dde1e7;text-align:center;padding:9px 6px;font-size:14px;font-family:inherit;outline:none;-moz-appearance:textfield}
+.counter input::-webkit-outer-spin-button,.counter input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+/* Activités */
+.act-list{max-height:340px;overflow-y:auto;border:1px solid #e2e5ea;border-radius:8px;background:#fff}
+.act-row{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border-bottom:1px solid #f0f2f5;font-size:13px;cursor:pointer;line-height:1.4}
+.act-row:last-child{border-bottom:none}
+.act-row:hover{background:#f6f9fd}
+.act-row input{margin-top:2px;width:15px;height:15px;accent-color:#185FA5;flex-shrink:0}
+.act-row:has(input:checked){background:#EBF4FF;color:#185FA5;font-weight:500}
+.act-empty{padding:12px;font-size:12px;color:#888;display:none}
+.pct-row{display:grid;grid-template-columns:1fr 96px;gap:10px;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px dashed #e2e5ea}
+.pct-input{display:flex;align-items:center;gap:4px}
+.pct-input input{text-align:right}
+.total{font-size:12px;font-weight:600;color:#d63031}
+.total.ok{color:#0F6E56}
+/* Ventilation */
+.vent-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vent-grid .label-row{margin-bottom:6px}
+input[type=range]{width:100%;accent-color:#185FA5}
+.success-wrap{text-align:center;padding:40px 20px;display:none}
+.success-icon{font-size:48px;margin-bottom:16px;display:block}
+.success-title{font-size:18px;font-weight:600;margin-bottom:8px;color:#0F6E56}
+.success-text{font-size:13px;color:#666;line-height:1.6}
+.form-footer{text-align:center;margin-top:16px;font-size:11px;color:#aaa}
+/* Mode courtier */
+.admin-bar{display:none;position:fixed;left:0;right:0;bottom:0;background:#1f2937;color:#e5e7eb;padding:12px 16px;z-index:500;box-shadow:0 -4px 16px rgba(0,0,0,.2)}
+body.admin .admin-bar{display:block}
+.admin-bar .inner{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.admin-bar .title{font-size:12px;font-weight:600;color:#fbbf24}
+.admin-bar .desc{font-size:11px;color:#cbd5e1;line-height:1.5}
+.admin-bar .row{display:flex;gap:8px}
+.admin-bar input{flex:1;min-width:0;padding:7px 10px;border-radius:6px;border:1px solid #475569;background:#111827;color:#e5e7eb;font-size:12px}
+.admin-bar .btn{padding:7px 14px;font-size:12px}
+@media(max-width:560px){
+  .field-row.cols2,.vent-grid{grid-template-columns:1fr}
+  .form-body{padding:18px 16px}
+  .step-pill{font-size:10px;padding:5px 1px}
+  .radio-group.inline .radio-label{flex:1 1 auto}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <h1>🏗️ Demande de devis — Responsabilité civile et décennale</h1>
+    <p>Pour établir votre devis, nous avons besoin de recueillir quelques informations sur votre entreprise et votre activité. Certaines réponses ont déjà été renseignées par votre conseiller : merci de les vérifier, de les corriger si besoin et de compléter les autres. Elles nous permettront de consulter nos partenaires assureurs et de vous adresser une proposition adaptée à votre besoin.</p>
+  </div>
+  <div class="form-body">
+    <div class="progress-steps">
+      <div class="step-pill active" onclick="pillClick(0)">1. Entreprise</div>
+      <div class="step-pill" onclick="pillClick(1)">2. Activités</div>
+      <div class="step-pill" onclick="pillClick(2)">3. Assurance</div>
+      <div class="step-pill" onclick="pillClick(3)">4. Profil</div>
+      <div class="step-pill" onclick="pillClick(4)">5. Envoi</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+
+    <form id="mainForm" onsubmit="return false">
+
+      <!-- ÉTAPE 1 : ENTREPRISE -->
+      <div class="step-content active" id="step0">
+        <div class="section-title">Informations sur l'entreprise</div>
+
+        <div class="field-row cols2">
+          <div class="field-group" data-req="N° SIREN">
+            <label class="field-label">N° SIREN de l'entreprise <span class="req">*</span></label>
+            <input class="field-input" name="siren" inputmode="numeric" placeholder="123 456 789" pattern="\d{3} ?\d{3} ?\d{3}">
+          </div>
+          <div class="field-group" data-req="Raison sociale">
+            <label class="field-label">Raison sociale <span class="req">*</span></label>
+            <input class="field-input" name="raison_sociale">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Forme juridique">
+            <label class="field-label">Forme juridique <span class="req">*</span></label>
+            <select class="field-input" name="forme_juridique">
+              <option value="">Sélectionnez</option>
+              <option>Entreprise individuelle (EI)</option>
+              <option>Micro-entreprise</option>
+              <option>Entreprise unipersonnelle à responsabilité limitée (EURL)</option>
+              <option>Société à responsabilité limitée (SARL)</option>
+              <option>Société par actions simplifiée unipersonnelle (SASU)</option>
+              <option>Société par actions simplifiée (SAS)</option>
+              <option>Société anonyme (SA)</option>
+              <option>Société en nom collectif (SNC)</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field-group" data-req="Date de création">
+            <label class="field-label">Date de création <span class="req">*</span></label>
+            <input class="field-input" name="date_creation" type="date">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Code postal">
+            <label class="field-label">Code postal <span class="req">*</span></label>
+            <input class="field-input" name="code_postal" inputmode="numeric" pattern="\d{5}" maxlength="5">
+          </div>
+          <div class="field-group" data-req="Ville">
+            <label class="field-label">Ville <span class="req">*</span></label>
+            <input class="field-input" name="ville">
+          </div>
+        </div>
+
+        <div class="section-title">Chiffre d'affaires annuel</div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="CA du dernier exercice clos">
+            <label class="field-label">Chiffre d'affaires HT du dernier exercice clos (€) <span class="req">*</span></label>
+            <input class="field-input" name="ca_dernier_exercice" type="number" min="0" step="1" placeholder="Ex : 250000">
+          </div>
+          <div class="field-group" data-req="Date de clôture du dernier exercice">
+            <label class="field-label">Date de clôture de ce dernier exercice <span class="req">*</span></label>
+            <input class="field-input" name="date_cloture_dernier_exercice" type="date">
+          </div>
+        </div>
+        <div class="field-group" data-req="CA prévisionnel de l'exercice en cours">
+          <label class="field-label">Quel est le chiffre d'affaires HT prévisionnel sur l'exercice en cours (€) ? <span class="req">*</span></label>
+          <input class="field-input" name="ca_previsionnel" type="number" min="0" step="1" placeholder="Ex : 250000" style="max-width:300px" oninput="refresh()">
+        </div>
+
+        <div class="section-title">Redressement judiciaire</div>
+        <div class="field-group" data-req="Redressement judiciaire">
+          <label class="field-label">L'entreprise a-t-elle fait l'objet d'une mise en redressement judiciaire au cours des 5 dernières années ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="redressement_judiciaire" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="redressement_judiciaire" value="Oui"> Oui</label>
+          </div>
+          <div class="sub-block" data-if="redressement_judiciaire=Oui">
+            <div class="field-group" data-req="Précisions sur le redressement judiciaire">
+              <label class="field-label">Précisez la date du jugement et la situation actuelle (plan de redressement en cours, clôture…) <span class="req">*</span></label>
+              <textarea class="field-input" name="redressement_precisions"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <span></span>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 2 : MARCHÉS ET ACTIVITÉS -->
+      <div class="step-content" id="step1">
+        <div class="section-title">Marchés de l'entreprise</div>
+
+        <div class="field-group" data-req="Maîtrise d'œuvre / BET / AMO">
+          <label class="field-label">L'entreprise intervient-elle en qualité de maître d'œuvre, Bureau d'étude (BET) ou Assistance à Maîtrise d'Ouvrage (AMO) ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="moe_bet_amo" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="moe_bet_amo" value="Oui"> Oui</label>
+          </div>
+          <div class="sub-block" data-if="moe_bet_amo=Oui">
+            <div class="field-group" data-req="Précisions maîtrise d'œuvre / BET / AMO">
+              <label class="field-label">Précisez la nature de la mission et la part du chiffre d'affaires concernée <span class="req">*</span></label>
+              <textarea class="field-input" name="moe_bet_amo_precisions"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" data-req="Marchés particuliers">
+          <label class="field-label">L'entreprise intervient-elle sur l'un des marchés suivants : <span class="req">*</span></label>
+          <ul class="bullets">
+            <li><span class="inline-def">marchés en qualité de contractant général <button type="button" class="info-btn" data-tip="tip-cg" aria-expanded="false" aria-label="Définition">i</button></span>
+              <div class="tip" id="tip-cg"><strong>Contractant général</strong> : interlocuteur unique du client dans le cadre d'un projet de construction. Il assume tout ou partie des missions de maîtrise d'œuvre (conception et suivi de chantier) et sous-traite tous les travaux. Il n'effectue aucuns travaux.</div></li>
+            <li><span class="inline-def">marchés en qualité de Constructeur de Maisons Individuelles (CMI) <button type="button" class="info-btn" data-tip="tip-cmi" aria-expanded="false" aria-label="Définition">i</button></span>
+              <div class="tip" id="tip-cmi"><strong>CMI</strong> : répond aux obligations de la Loi du 19/12/1990
+                <ul><li>Signer un Contrat de Construction de Maison Individuelle (CCMI)</li><li>Construire des maisons individuelles dans sa globalité sur le terrain de son client</li><li>Souscrire une assurance RCD en tant que réalisateur</li><li>Souscrire une assurance DO pour le maître d'ouvrage</li><li>Obtenir une garantie de livraison à prix et délai convenus (garantie financière)</li></ul></div></li>
+            <li><span class="inline-def">marchés en qualité de promoteur immobilier <button type="button" class="info-btn" data-tip="tip-promo" aria-expanded="false" aria-label="Définition">i</button></span>
+              <div class="tip" id="tip-promo"><strong>Promoteur immobilier (VIC)</strong> : il prend l'initiative de réaliser un programme immobilier sur un foncier lui appartenant – construction destinée à la vente. Il vend son programme en VEFA (vente en état futur d'achèvement) ou à terme (vente à terme).</div></li>
+            <li><span class="inline-def">marchés avec des travaux de Technique Non Courante (TNC) <button type="button" class="info-btn" data-tip="tip-tnc" aria-expanded="false" aria-label="Définition">i</button></span>
+              <div class="tip" id="tip-tnc">Les TNC correspondent aux règles professionnelles non répertoriées dans les DTU ou non reconnues par l'AQC C2P ainsi qu'aux procédés et produits ne bénéficiant pas d'avis technique du CSTB (il s'agit souvent de procédés nouveaux ou innovants pour lesquels le CSTB n'a pas encore donné son avis de faisabilité).</div></li>
+            <li>ouvrages dont le coût total de construction est supérieur à 15 000 000 €</li>
+            <li>ouvrage exceptionnel et/ou inusuel</li>
+          </ul>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="marches_particuliers" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="marches_particuliers" value="Oui"> Oui</label>
+          </div>
+          <div class="sub-block" data-if="marches_particuliers=Oui">
+            <div class="field-group" data-req="Marchés particuliers concernés">
+              <label class="field-label">Lesquels ? <span class="req">*</span></label>
+              <div class="radio-group">
+                <label class="checkbox-label"><input type="checkbox" name="marches_concernes" value="Contractant général"> Contractant général</label>
+                <label class="checkbox-label"><input type="checkbox" name="marches_concernes" value="Constructeur de Maisons Individuelles (CMI)"> Constructeur de Maisons Individuelles (CMI)</label>
+                <label class="checkbox-label"><input type="checkbox" name="marches_concernes" value="Promoteur immobilier"> Promoteur immobilier</label>
+                <label class="checkbox-label"><input type="checkbox" name="marches_concernes" value="Technique Non Courante (TNC)"> Technique Non Courante (TNC)</label>
+                <label class="checkbox-label"><input type="checkbox" name="marches_concernes" value="Ouvrages > 15 000 000 €"> Ouvrages dont le coût total de construction est supérieur à 15 000 000 €</label>
+                <label class="checkbox-label"><input type="checkbox" name="marches_concernes" value="Ouvrage exceptionnel et/ou inusuel"> Ouvrage exceptionnel et/ou inusuel</label>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Précisions <span class="hint">(facultatif)</span></label>
+              <textarea class="field-input" name="marches_precisions"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Activités de l'entreprise</div>
+
+        <div class="field-group" data-req="Entreprise générale">
+          <div class="label-row">
+            <label class="field-label">La société intervient-elle sur des marchés en qualité d'entreprise générale ? <span class="req">*</span></label>
+            <button type="button" class="info-btn" data-tip="tip-eg" aria-expanded="false" aria-label="Définition">i</button>
+          </div>
+          <div class="tip" id="tip-eg">Entreprise qui peut réaliser l'ensemble des travaux (tous corps d'état) qui lui sont confiés ou solliciter des sous-traitants pour les exécuter.</div>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="entreprise_generale" value="Non" onchange="syncEntrepriseGenerale()"> Non</label>
+            <label class="radio-label"><input type="radio" name="entreprise_generale" value="Oui" onchange="syncEntrepriseGenerale()"> Oui</label>
+          </div>
+        </div>
+
+        <div class="field-group" id="actGroup">
+          <label class="field-label">Quelles activités l'entreprise exerce-t-elle ? <span class="req">*</span></label>
+          <span class="hint">Recherchez vos activités par mots clés, puis cochez toutes celles que vous exercez.</span>
+          <input class="field-input" id="actSearch" type="search" placeholder="Saisir les premières lettres de votre activité" oninput="filterActivities()">
+          <div class="act-list" id="actList"></div>
+        </div>
+
+        <div class="field-group" id="pctGroup">
+          <label class="field-label">Part du chiffre d'affaires représentée par chaque activité (en %) <span class="req">*</span></label>
+          <span class="hint" id="pctEmpty">Cochez au moins une activité ci-dessus.</span>
+          <div id="pctList"></div>
+          <div class="total" id="pctTotal">Ventilation totale 0 %</div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Autre activité exercée non listée ci-dessus <span class="hint">(facultatif)</span></label>
+          <textarea class="field-input" name="autre_activite" placeholder="Décrivez l'activité et sa part du chiffre d'affaires"></textarea>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 : ASSURANCE -->
+      <div class="step-content" id="step2">
+        <div class="section-title">Antécédents d'assurance</div>
+
+        <div class="field-group" data-req="Antécédents d'assurance">
+          <label class="field-label">L'entreprise est ou a déjà été assurée pour le même risque en : <span class="req">*</span></label>
+          <div class="radio-group inline" data-if="jamais_assure=">
+            <label class="radio-label"><input type="radio" name="type_antecedent" value="Responsabilité civile et décennale"> Responsabilité civile et décennale</label>
+            <label class="radio-label"><input type="radio" name="type_antecedent" value="Responsabilité civile"> Responsabilité civile</label>
+            <label class="radio-label"><input type="radio" name="type_antecedent" value="Responsabilité décennale"> Responsabilité décennale</label>
+          </div>
+          <label class="checkbox-label"><input type="checkbox" name="jamais_assure" value="Oui" onchange="refresh()"> L'entreprise n'a jamais été assurée pour le même risque</label>
+        </div>
+
+        <div data-if="jamais_assure=">
+          <div class="field-group" data-req="Contrat en cours ou résilié">
+            <label class="field-label">Votre contrat d'assurance est-il actuellement en cours ou résilié ? <span class="req">*</span></label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="statut_contrat" value="Actuellement en cours"> Actuellement en cours</label>
+              <label class="radio-label"><input type="radio" name="statut_contrat" value="Résilié"> Résilié</label>
+            </div>
+          </div>
+
+          <div class="field-row cols2">
+            <div class="field-group" data-req="Antécédents justifiables depuis">
+              <label class="field-label">Depuis quand l'entreprise peut-elle justifier ses antécédents d'assurance ? <span class="req">*</span></label>
+              <input class="field-input" name="antecedents_depuis" type="date">
+            </div>
+            <div class="field-group" data-req="Dernier assureur">
+              <label class="field-label">Quel est le dernier assureur de l'entreprise ? <span class="req">*</span></label>
+              <select class="field-input" name="dernier_assureur" id="assureurSelect"></select>
+              <div data-if="dernier_assureur=Autres">
+                <div class="field-group" data-req="Nom du dernier assureur" style="padding:0;border:none;background:none">
+                  <input class="field-input" name="dernier_assureur_autre" placeholder="Nom de l'assureur">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrat résilié -->
+          <div class="field-group" data-if="statut_contrat=Résilié" data-req="Motif de la résiliation">
+            <label class="field-label">Quel est le motif de la résiliation ? <span class="req">*</span></label>
+            <select class="field-input motif-select" name="resiliation_motif"></select>
+          </div>
+          <div class="field-group" data-if="statut_contrat=Résilié;resiliation_motif=Résiliation pour aggravation du risque (indiquer le motif pour étude)|Résiliation autres (indiquer le motif pour étude)" data-req="Précision du motif de résiliation">
+            <label class="field-label">Précisez le motif <span class="req">*</span></label>
+            <textarea class="field-input" name="resiliation_motif_precision"></textarea>
+          </div>
+          <div class="field-group" data-if="statut_contrat=Résilié" data-req="Date de résiliation">
+            <label class="field-label">Date de résiliation <span class="req">*</span></label>
+            <input class="field-input" name="resiliation_date" type="date" style="max-width:240px">
+          </div>
+
+          <!-- Contrat en cours -->
+          <div data-if="statut_contrat=Actuellement en cours">
+            <div class="section-title">Résiliation</div>
+            <div class="field-group" data-req="Résiliation programmée">
+              <label class="field-label">Une résiliation est-elle programmée ? <span class="req">*</span></label>
+              <div class="radio-group inline">
+                <label class="radio-label"><input type="radio" name="resiliation_programmee" value="Non"> Non</label>
+                <label class="radio-label"><input type="radio" name="resiliation_programmee" value="Oui"> Oui</label>
+              </div>
+            </div>
+            <div data-if="resiliation_programmee=Oui">
+              <div class="field-group" data-req="Motif de la résiliation programmée">
+                <label class="field-label">Quel est le motif de la résiliation ? <span class="req">*</span></label>
+                <select class="field-input motif-select" name="resiliation_prog_motif"></select>
+              </div>
+              <div class="field-group" data-if="resiliation_prog_motif=Résiliation pour aggravation du risque (indiquer le motif pour étude)|Résiliation autres (indiquer le motif pour étude)" data-req="Précision du motif de résiliation programmée">
+                <label class="field-label">Précisez le motif <span class="req">*</span></label>
+                <textarea class="field-input" name="resiliation_prog_motif_precision"></textarea>
+              </div>
+              <div class="field-group" data-req="Date de la résiliation programmée">
+                <label class="field-label">Quand aura lieu la résiliation ? <span class="req">*</span></label>
+                <input class="field-input" name="resiliation_prog_date" type="date" style="max-width:240px">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Sinistres</div>
+        <div class="field-group" data-req="Nombre de sinistres">
+          <label class="field-label">Combien de sinistres (ayant un coût &gt; 0 €) l'entreprise a-t-elle déclarés au cours des 5 dernières années ? <span class="req">*</span></label>
+          <div class="counter"><button type="button" onclick="step('nb_sinistres',-1)">−</button><input type="number" name="nb_sinistres" min="0" max="99" inputmode="numeric" oninput="refresh()"><button type="button" onclick="step('nb_sinistres',1)">+</button></div>
+        </div>
+        <div data-if-gt="nb_sinistres:0">
+          <div class="field-group" data-req="Montant total des sinistres">
+            <label class="field-label">Quel est le montant total des sinistres déclarés (en €) ? <span class="req">*</span></label>
+            <input class="field-input" name="montant_total_sinistres" type="number" min="0" step="1" style="max-width:300px">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Description succincte des sinistres <span class="hint">(facultatif : date, nature, montant, réglé ou en cours)</span></label>
+            <textarea class="field-input" name="sinistres_description"></textarea>
+          </div>
+        </div>
+
+        <div class="section-title">Reprise du passé</div>
+        <div class="field-group" data-req="Reprise du passé">
+          <div class="label-row">
+            <label class="field-label">Souhaitez-vous souscrire à la reprise du passé ? <span class="req">*</span></label>
+            <button type="button" class="info-btn" data-tip="tip-rp" aria-expanded="false" aria-label="Définition">i</button>
+          </div>
+          <div class="tip" id="tip-rp">Cette garantie peut être <u>souscrite</u> afin de garantir en Responsabilité Décennale obligatoire, des chantiers qui auraient été réalisés (ou commencés) sans être garantis, <u>dans la limite d'un an maximum</u> (exemple : entreprise nouvellement créée et non assurée ou entreprise avec contrat résilié).</div>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="reprise_passe" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="reprise_passe" value="Oui"> Oui</label>
+          </div>
+          <div class="sub-block" data-if="reprise_passe=Oui">
+            <div class="field-group" data-req="Date de la reprise du passé" id="repriseGroup">
+              <label class="field-label">À partir de quelle date souhaitez-vous souscrire cette garantie ? <span class="req">*</span></label>
+              <input class="field-input" name="reprise_passe_date" type="date" style="max-width:240px">
+              <span class="hint">Au plus tôt un an avant la date d'effet souhaitée du nouveau contrat.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Date d'effet</div>
+        <div class="field-group" data-req="Date d'effet souhaitée" id="effetGroup">
+          <label class="field-label">À quelle date souhaitez-vous que le nouveau contrat prenne effet ? <span class="req">*</span></label>
+          <input class="field-input" name="date_effet" type="date" style="max-width:240px">
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 : EXPÉRIENCE, QUALIFICATIONS, VENTILATION -->
+      <div class="step-content" id="step3">
+        <div class="section-title">Expérience dans les activités déclarées</div>
+        <div class="field-group" data-req="Années d'expérience">
+          <div class="label-row">
+            <label class="field-label">Combien d'années d'expérience professionnelle peuvent être justifiées au sein de l'effectif de l'entreprise ? <span class="req">*</span></label>
+            <button type="button" class="info-btn" data-tip="tip-exp" aria-expanded="false" aria-label="Aide">i</button>
+          </div>
+          <div class="tip" id="tip-exp">Si le gérant n'a pas d'expérience professionnelle en lien avec les activités souscrites, l'expérience des salariés en CDI peut être prise en compte.<br>Si aucune expérience ne peut être justifiée au sein de l'entreprise, indiquez 0 dans le champ Années d'expérience.</div>
+          <div class="counter"><button type="button" onclick="step('annees_experience',-1)">−</button><input type="number" name="annees_experience" min="0" max="60" inputmode="numeric"><button type="button" onclick="step('annees_experience',1)">+</button></div>
+          <span class="note">Des justificatifs d'expérience seront demandés à la souscription.</span>
+        </div>
+
+        <div class="section-title">Qualifications de l'entreprise</div>
+        <div class="field-group" id="qualifGroup">
+          <label class="checkbox-label"><input type="checkbox" name="aucune_qualification" value="Oui" onchange="refresh()"> Aucune qualification ne peut être justifiée au sein de l'entreprise</label>
+          <div data-if="aucune_qualification=" style="display:flex;flex-direction:column;gap:8px">
+            <div class="label-row">
+              <label class="field-label">Quelles qualifications peuvent être déclarées au sein de l'entreprise ? <span class="req">*</span></label>
+              <button type="button" class="info-btn" data-tip="tip-qualif" aria-expanded="false" aria-label="Aide">i</button>
+            </div>
+            <div class="tip" id="tip-qualif">Les qualifications provenant des organismes suivants sont retenues : Qualibat et Qualifelec, ainsi que les certificats RGE, QualiPV et certificat IRVE.</div>
+            <div class="radio-group inline" id="qualifList"></div>
+            <div data-if="qualifications=Autre">
+              <div class="field-group" data-req="Précision de la qualification" style="padding:0;border:none;background:none">
+                <label class="field-label">Précisez la qualification <span class="req">*</span></label>
+                <input class="field-input" name="qualification_autre">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Ventilation du chiffre d'affaires</div>
+        <div class="field-group">
+          <label class="field-label">Chiffre d'affaires annuel déclaré</label>
+          <input class="field-input" id="caDeclare" readonly style="max-width:300px">
+          <span class="hint">Chiffre d'affaires prévisionnel de l'exercice en cours, saisi à l'étape 1.</span>
+        </div>
+
+        <div class="field-group vent" id="ventClients" data-a="part_particuliers" data-b="part_entreprises">
+          <label class="field-label">Quelle est la ventilation du chiffre d'affaires par typologie de clients (en %) ? <span class="req">*</span></label>
+          <input type="range" min="0" max="100" step="5" value="50" aria-label="Curseur de ventilation">
+          <div class="vent-grid">
+            <div>
+              <div class="label-row"><span class="field-label">Particuliers</span><button type="button" class="info-btn" data-tip="tip-part" aria-expanded="false" aria-label="Définition">i</button></div>
+              <div class="tip" id="tip-part" style="margin-bottom:6px">Clientèle particulier : travaux effectués pour des chantiers à usage d'habitation (en rénovation ou en neuf)</div>
+              <div class="pct-input"><input class="field-input" name="part_particuliers" type="number" min="0" max="100" inputmode="numeric"> %</div>
+            </div>
+            <div>
+              <div class="label-row"><span class="field-label">Entreprises</span><button type="button" class="info-btn" data-tip="tip-ent" aria-expanded="false" aria-label="Définition">i</button></div>
+              <div class="tip" id="tip-ent" style="margin-bottom:6px">Clientèle professionnelle : travaux effectués pour des chantiers à usage professionnel (en rénovation ou en neuf)</div>
+              <div class="pct-input"><input class="field-input" name="part_entreprises" type="number" min="0" max="100" inputmode="numeric"> %</div>
+            </div>
+          </div>
+          <div class="total">Ventilation totale 0 %</div>
+        </div>
+
+        <div class="field-group vent" id="ventTravaux" data-a="part_travaux_neufs" data-b="part_travaux_renovation">
+          <label class="field-label">Quelle est la ventilation du chiffre d'affaires par nature de travaux (en %) ? <span class="req">*</span></label>
+          <input type="range" min="0" max="100" step="5" value="50" aria-label="Curseur de ventilation">
+          <div class="vent-grid">
+            <div>
+              <div class="label-row"><span class="field-label">Travaux neufs</span><button type="button" class="info-btn" data-tip="tip-neuf" aria-expanded="false" aria-label="Définition">i</button></div>
+              <div class="tip" id="tip-neuf" style="margin-bottom:6px">Travaux neufs : travaux réalisés sur un site sans construction existante. Ils peuvent toutefois être annexes ou complémentaires à une construction existante, mais sans intervention sur cette dernière</div>
+              <div class="pct-input"><input class="field-input" name="part_travaux_neufs" type="number" min="0" max="100" inputmode="numeric"> %</div>
+            </div>
+            <div>
+              <div class="label-row"><span class="field-label">Travaux de rénovation</span><button type="button" class="info-btn" data-tip="tip-renov" aria-expanded="false" aria-label="Définition">i</button></div>
+              <div class="tip" id="tip-renov" style="margin-bottom:6px">Travaux de réhabilitation : travaux réalisés sur un bâtiment existant, quelle que soit la nature des travaux</div>
+              <div class="pct-input"><input class="field-input" name="part_travaux_renovation" type="number" min="0" max="100" inputmode="numeric"> %</div>
+            </div>
+          </div>
+          <div class="total">Ventilation totale 0 %</div>
+        </div>
+
+        <div class="section-title">Sous-traitance et négoce</div>
+        <div class="field-group" data-req="Négoce">
+          <div class="label-row">
+            <label class="field-label">Réalisez-vous plus de 20 % d'activité de négoce et fabrication de matériaux non suivie de pose ? <span class="req">*</span></label>
+            <button type="button" class="info-btn" data-tip="tip-negoce" aria-expanded="false" aria-label="Définition">i</button>
+          </div>
+          <div class="tip" id="tip-negoce">Fourniture d'un produit ou d'un matériau non suivie de l'application ou de sa pose.</div>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="negoce_plus_20" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="negoce_plus_20" value="Oui"> Oui</label>
+          </div>
+          <div class="sub-block" data-if="negoce_plus_20=Oui">
+            <div class="field-group" data-req="Part du CA en négoce">
+              <label class="field-label">Part du chiffre d'affaires en négoce (%) <span class="req">*</span></label>
+              <div class="pct-input" style="max-width:140px"><input class="field-input" name="part_negoce" type="number" min="0" max="100" inputmode="numeric"> %</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" data-req="Sous-traitance réalisée">
+          <div class="label-row">
+            <label class="field-label">Quel est le pourcentage de travaux que vous réalisez en sous-traitance ? <span class="req">*</span></label>
+            <button type="button" class="info-btn" data-tip="tip-str" aria-expanded="false" aria-label="Exemple">i</button>
+          </div>
+          <div class="tip" id="tip-str">Exemple : j'exécute en tant qu'entrepreneur les cloisons (placo) pour le compte d'une autre entreprise (constructeur de maison individuelle, contractant général, autre entreprise du bâtiment,…), comme je facture mes travaux à cette entreprise et non au client final : on parle alors de sous-traitance réalisée.</div>
+          <div class="counter"><button type="button" onclick="step('sous_traitance_realisee',-1)">−</button><input type="number" name="sous_traitance_realisee" min="0" max="100" inputmode="numeric" placeholder="%"><button type="button" onclick="step('sous_traitance_realisee',1)">+</button></div>
+        </div>
+
+        <div class="field-group" data-req="Sous-traitance confiée">
+          <div class="label-row">
+            <label class="field-label">Quel est le pourcentage de travaux que vous confiez en sous-traitance ? <span class="req">*</span></label>
+            <button type="button" class="info-btn" data-tip="tip-stc" aria-expanded="false" aria-label="Exemple">i</button>
+          </div>
+          <div class="tip" id="tip-stc">Exemple : je suis une entreprise ayant signé un marché placo + isolation (activités pour lesquelles je suis assuré) et je sous-traite les travaux d'isolation à une autre entreprise, assurée aussi pour cela. <u>Comme je facture les travaux de placo ET d'isolation au client final : on parle bien alors de sous-traitance confiée.</u></div>
+          <div class="counter"><button type="button" onclick="step('sous_traitance_confiee',-1)">−</button><input type="number" name="sous_traitance_confiee" min="0" max="100" inputmode="numeric" placeholder="%"><button type="button" onclick="step('sous_traitance_confiee',1)">+</button></div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 5 : COORDONNÉES ET ENVOI -->
+      <div class="step-content" id="step4">
+        <div class="section-title">Vos coordonnées</div>
+        <div class="field-group" data-req="Nom et prénom">
+          <label class="field-label">Nom et prénom du dirigeant ou de l'interlocuteur <span class="req">*</span></label>
+          <input class="field-input" name="interlocuteur">
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Email">
+            <label class="field-label">Email <span class="req">*</span></label>
+            <input class="field-input" name="email" type="email">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Téléphone</label>
+            <input class="field-input" name="telephone" type="tel">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Commentaires <span class="hint">(facultatif)</span></label>
+          <textarea class="field-input" name="commentaires"></textarea>
+        </div>
+
+        <div class="info-box">Pour accélérer l'étude de votre dossier, vous pouvez nous transmettre par email, en réponse au message de votre conseiller : <strong>extrait Kbis</strong>, <strong>attestation d'assurance</strong> du contrat actuel ou précédent, <strong>relevé de sinistralité</strong> et <strong>justificatifs d'expérience ou de qualification</strong>.</div>
+        <div class="info-box">En validant ce formulaire, vous certifiez l'exactitude des informations déclarées. Toute réticence ou fausse déclaration intentionnelle peut entraîner la nullité du contrat (art. L.113-8 du Code des assurances) ; toute omission ou déclaration inexacte peut entraîner une réduction des indemnités (art. L.113-9).</div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Envoyer ma demande</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="success-wrap" id="successWrap">
+      <span class="success-icon">✅</span>
+      <div class="success-title">Demande envoyée avec succès !</div>
+      <p class="success-text">Votre conseiller Girose Patrimoine a bien reçu vos informations.<br>Il revient vers vous dans les plus brefs délais avec une proposition.</p>
+    </div>
+  </div>
+  <div class="form-footer">Girose Patrimoine · Saint-Cloud · ORIAS 22003796 · Données transmises de manière sécurisée</div>
+</div>
+
+<div class="admin-bar">
+  <div class="inner">
+    <div class="title">Mode conseiller — non visible par le client</div>
+    <div class="desc">Vérifiez et complétez les réponses (les étapes sont accessibles librement), puis générez le lien à envoyer au client. Les données figurent uniquement dans le lien, pas dans la page.</div>
+    <div class="row">
+      <button type="button" class="btn btn-primary" onclick="makeClientLink()">Générer le lien client</button>
+      <input id="clientLink" readonly placeholder="Le lien client apparaîtra ici">
+      <button type="button" class="btn" onclick="copyLink()">Copier</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var FORMSPREE = 'https://formspree.io/f/xwlpkzyn';
+var NB_STEPS = 5;
+
+// Liste des activités
+var ACTIVITES = [
+"Démolition sans utilisation d'explosifs","Démolition avec utilisation d'explosifs","Terrassement","Amélioration des sols","Voiries Réseaux Divers (VRD)","Paysagiste","Montage d'echafaudage, Etaiements","Traitement amiante","Traitement curatif (insectes xylophages-champignons)","Assainissement autonome","Assèchement des murs","Fondations spéciales","Maçonnerie et béton armé sauf précontraint in situ","Enduits hydrauliques","Taille de pierre","Béton précontraint in situ","Charpente et structures en bois","Charpente et structures métalliques","Couverture","Zinguerie","Etanchéité de toiture, terrasse","Etanchéité plancher intérieur à l'exclusion de la pose de membranes d'étanchéité photovoltaïques","Etanchéité et imperméabilisation de cuvelage, réservoirs hors piscines","Calfeutrement protection, imperméabilité et étanchéité des façades hors isolation thermique par l'extérieur","Menuiseries extérieures à l'exclusion des vérandas","Vérandas","Verrières","Menuiseries extérieures et Terrasses extérieures en decks à l'exclusion des vérandas","Bardages de façades","Façades-rideaux","Structures et couvertures textiles",
+"Menuiseries intérieures","Agencement de cuisine, magasins, salles de bains","Agencements de locaux commerciaux et tertiaires","Plâtrerie-Staff-Stuc-Gypserie","Serrurerie, métallerie","Pose de stores et/ou protections solaires","Enseignes","Vitrerie, miroiterie","Peinture hors imperméabilisation et étanchéité de façades","Nettoyage","Revêtements de surfaces en matériaux souples et parquets","Revêtements de surfaces en matériaux durs, chapes et sols coulés","Isolation thermique acoustique intérieure hors isolation Frigorifique","Isolation thermique par l'extérieur","Isolation frigorifique","Plomberie, installations sanitaires","Installations thermiques de génie climatique y compris pompe à chaleur","Capteurs solaires à eau chaude et à air chaud ou Installations solaires thermiques","Fumisterie","Ramonage","Installations d'aéraulique et de conditionnement d'air","Installation de climatisations autonomes","Désenfumage","Électricité - Télécommunications y compris alarmes anti intrusions ou incendie pour particuliers","Fours et cheminées industriels","Ascenseurs","Piscines traditionnelles béton armé","Piscines traditionnelles béton armé en sous-traitance","Piscines en kit en panneaux assemblés","Piscines monocoques polyester","Pose d'abris de piscines solidaires de l'assise de piscine",
+"Pose et entretien des éléments d'équipement de piscines","Installation et entretien de Spa, Sauna et hammam","Pose de planchers de sécurité pour piscine","Pose de mosaïque et stratification","Constructions à ossature bois","Géothermie","Photovoltaïque","Installations photovoltaïques constituées de panneaux de modules rigides en intégration au bâti","Installations photovoltaïques constituées de panneaux de modules rigides en intégration simplifiée ou en surimposition","Installations photovoltaïques posées au sol","Etanchéité photovoltaïque en intégration au bâti hors fourniture des panneaux photovoltaïques","Etanchéité photovoltaïque en intégration simplifiée ou en surimposition hors fourniture des panneaux photovoltaïques","Eolien","Installation d'éoliennes domestiques","Hydroélectricité domestique","Installations thermiques de génie climatique, Pompes à chaleur, Capteurs solaires, Géothermie","Terrasses extérieures","Agencements de salles de bains domestiques","Agencements de cuisines domestiques","Maintenance","Piscine ou bassin sans structure porteuse par étanchéité en bâche EPDM avec filtration à sable","Piscine ou bassin sans structure porteuse par étanchéité en bâche EPDM avec filtration par les plantes","Piscine ou bassin à structure souple par matériaux compressés avec filtration mécanique ou avec filtration biologique (sable, plantes…)","Piscine ou bassin avec structure porteuse rigide et système de filtration","Entretien de piscines à l'exclusion d'utilisation de produits chimiques","Pose de pompes à chaleur et capteurs solaires à usage complémentaire des bassins et piscines","Vérandas Aluminium ou Acier","Vérandas ossature Bois","Vérandas PVC","Pergolas et Carports Tous matériaux","Abris de piscines et de jardins",
+"Verrières intérieures ou extérieures en structure acier","Installations de bornes de recharges pour véhicules électriques de puissances inférieures ou égales à 22 kW","Revêtements muraux en matériaux durs, agrafés ou attachés","Etanchéité à froid à l'exclusion de la pose de membranes d'étanchéité photovoltaïques","Négoce de produits, entretien/maintenance de piscines, y compris hivernage","Raccordement électrique d'installations photovoltaïques","Entreprise Générale","Installations d'ombrières de parkings photovoltaïques","Installations de batteries de stockage de l'électricité d'installations photovoltaïques"
+];
+var IDX_EG = ACTIVITES.indexOf('Entreprise Générale');
+
+var ASSUREURS = ["Abeille","Acasta Europe Limited","ACTE IARD","AIG","ALBINGIA","Allianz","Alpha Insurance","AmTrust","Aréas","Aviva","AXA","AXERIA","AXERIA (April Partenaires)","Banque","Camacte","Camacte (April Partenaires)","CBL Insurances","CHUBB","CNA","Covéa","Elite","Ergo","Ergo (April Partenaires)","FIDELIDADE","Generali","Gable","Gan","Groupama","HDI","HELVETIA","L'AUXILIAIRE","Lloyd's","Maaf","Macif","MAF","MAIF","Matmut","MIC Insurance (Millenium)","MMA","MONCEAU","MS AMLIN","Mutuelle de Bresse","Mutuelle de Poitiers","Mutuelle Val de Saône","PACIFICA / CAMCA","PRUDENCE CREOLE","QBE","QBE (April Partenaires)","SMA Courtage (Sagena)","SMABTP","Swisslife","Thélem assurances","VHV","ZURICH","Autres"];
+
+var MOTIFS = ["Résiliation pour non paiement","Résiliation à l'échéance par l'assuré","Résiliation pour aggravation du risque (indiquer le motif pour étude)","Résiliation par la compagnie (autre que non-paiement ou Aggravation)","Résiliation autres (indiquer le motif pour étude)"];
+
+var QUALIFS = ["Qualibat 2121","Qualibat 2132","Qualibat 2171","Qualibat 6422","Qualibat 7131","Qualibat 7132","Qualifelec","Certificat RGE","QualiPV","Certificat IRVE","Autre"];
+
+var form = document.getElementById('mainForm');
+var currentStep = 0;
+var isAdmin = false;
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+function norm(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }
+
+// ---------- Construction des listes ----------
+function buildLists() {
+  var opt = function(list, ph) { return '<option value="">' + ph + '</option>' + list.map(function(v){ return '<option value="' + esc(v) + '">' + esc(v) + '</option>'; }).join(''); };
+  document.getElementById('assureurSelect').innerHTML = opt(ASSUREURS, 'Sélectionnez');
+  document.querySelectorAll('.motif-select').forEach(function(s){ s.innerHTML = opt(MOTIFS, 'Sélectionnez le motif'); s.addEventListener('change', refresh); });
+  document.getElementById('assureurSelect').addEventListener('change', refresh);
+  document.getElementById('qualifList').innerHTML = QUALIFS.map(function(q){
+    return '<label class="checkbox-label"><input type="checkbox" name="qualifications" value="' + esc(q) + '" onchange="refresh()"> ' + esc(q) + '</label>';
+  }).join('');
+  document.getElementById('actList').innerHTML = ACTIVITES.map(function(a, i){
+    return '<label class="act-row" data-i="' + i + '"><input type="checkbox" name="act" value="' + i + '" onchange="updatePct()"> <span>' + esc(a) + '</span></label>';
+  }).join('') + '<div class="act-empty" id="actEmpty">Aucune activité ne correspond à votre recherche.</div>';
+  document.getElementById('pctList').innerHTML = ACTIVITES.map(function(a, i){
+    return '<div class="pct-row cond-hidden" data-i="' + i + '"><span>' + esc(a) + '</span><span class="pct-input"><input class="field-input" type="number" min="0" max="100" inputmode="numeric" name="pct_' + i + '" oninput="updatePct()"> %</span></div>';
+  }).join('');
+}
+
+// ---------- Bulles d'aide ----------
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.info-btn');
+  if (!b) return;
+  e.preventDefault();
+  var t = document.getElementById(b.getAttribute('data-tip'));
+  var open = !t.classList.contains('open');
+  t.classList.toggle('open', open);
+  b.setAttribute('aria-expanded', open);
+});
+
+// ---------- Valeurs et conditions ----------
+function val(name) {
+  var els = form.querySelectorAll('[name="' + name + '"]');
+  if (!els.length) return '';
+  var el = els[0];
+  if (el.type === 'radio') { var c = form.querySelector('[name="' + name + '"]:checked'); return c ? c.value : ''; }
+  if (el.type === 'checkbox') {
+    if (els.length === 1) return el.checked ? el.value : '';
+    return Array.prototype.filter.call(els, function(x){ return x.checked; }).map(function(x){ return x.value; });
+  }
+  return el.value;
+}
+function condOk(cond) {
+  return cond.split(';').every(function(part){
+    var k = part.indexOf('='), name = part.slice(0, k), wanted = part.slice(k + 1).split('|');
+    var v = val(name);
+    if (Array.isArray(v)) return wanted.some(function(w){ return v.indexOf(w) >= 0; });
+    return wanted.indexOf(v) >= 0;
+  });
+}
+function refresh() {
+  document.querySelectorAll('[data-if]').forEach(function(el){ el.classList.toggle('cond-hidden', !condOk(el.getAttribute('data-if'))); });
+  document.querySelectorAll('[data-if-gt]').forEach(function(el){
+    var p = el.getAttribute('data-if-gt').split(':');
+    el.classList.toggle('cond-hidden', !((parseFloat(val(p[0])) || 0) > parseFloat(p[1])));
+  });
+  // Qualifications : "Aucune" désactive la liste
+  var aucune = val('aucune_qualification') === 'Oui';
+  form.querySelectorAll('[name="qualifications"]').forEach(function(q){ if (aucune) q.checked = false; });
+  // CA déclaré
+  var ca = parseFloat(val('ca_previsionnel'));
+  document.getElementById('caDeclare').value = isNaN(ca) ? 'À renseigner à l\'étape 1' : ca.toLocaleString('fr-FR') + ' €';
+}
+form.addEventListener('change', function(e){ if (e.target.type === 'radio') refresh(); });
+
+// ---------- Compteurs ----------
+function step(name, d) {
+  var el = form.querySelector('[name="' + name + '"]');
+  var v = el.value === '' ? 0 : (parseInt(el.value, 10) || 0) + d;
+  v = Math.max(parseInt(el.min, 10) || 0, Math.min(parseInt(el.max, 10) || 999, v));
+  el.value = v;
+  refresh();
+}
+
+// ---------- Activités ----------
+function filterActivities() {
+  var q = norm(document.getElementById('actSearch').value.trim());
+  var n = 0;
+  document.querySelectorAll('.act-row').forEach(function(r){
+    var show = !q || norm(ACTIVITES[r.getAttribute('data-i')]).indexOf(q) >= 0;
+    r.style.display = show ? '' : 'none';
+    if (show) n++;
+  });
+  document.getElementById('actEmpty').style.display = n ? 'none' : 'block';
+}
+function checkedActs() {
+  return Array.prototype.filter.call(form.querySelectorAll('[name="act"]'), function(c){ return c.checked; }).map(function(c){ return +c.value; });
+}
+function updatePct() {
+  var acts = checkedActs(), tot = 0;
+  document.querySelectorAll('.pct-row').forEach(function(r){
+    var i = +r.getAttribute('data-i'), on = acts.indexOf(i) >= 0;
+    r.classList.toggle('cond-hidden', !on);
+    if (on) tot += parseFloat(r.querySelector('input').value) || 0;
+  });
+  document.getElementById('pctEmpty').style.display = acts.length ? 'none' : '';
+  var t = document.getElementById('pctTotal');
+  t.textContent = 'Ventilation totale ' + tot + ' %';
+  t.classList.toggle('ok', tot === 100);
+  return tot;
+}
+function syncEntrepriseGenerale() {
+  var c = form.querySelector('[name="act"][value="' + IDX_EG + '"]');
+  c.checked = val('entreprise_generale') === 'Oui';
+  updatePct();
+}
+
+// ---------- Ventilations liées (total 100 %) ----------
+function initVent(group) {
+  var a = form.querySelector('[name="' + group.dataset.a + '"]'), b = form.querySelector('[name="' + group.dataset.b + '"]');
+  var range = group.querySelector('input[type=range]'), total = group.querySelector('.total');
+  function show() {
+    var t = (parseFloat(a.value) || 0) + (parseFloat(b.value) || 0);
+    total.textContent = 'Ventilation totale ' + t + ' %';
+    total.classList.toggle('ok', t === 100 && a.value !== '' && b.value !== '');
+    if (a.value !== '') range.value = a.value;
+  }
+  function clamp(x) { return Math.max(0, Math.min(100, Math.round(parseFloat(x) || 0))); }
+  a.addEventListener('input', function(){ if (a.value !== '') { a.value = clamp(a.value); b.value = 100 - a.value; } show(); });
+  b.addEventListener('input', function(){ if (b.value !== '') { b.value = clamp(b.value); a.value = 100 - b.value; } show(); });
+  range.addEventListener('input', function(){ a.value = range.value; b.value = 100 - range.value; show(); });
+  group._show = show;
+  show();
+}
+
+// ---------- Navigation ----------
+function goStep(n) {
+  var pills = document.querySelectorAll('.step-pill');
+  document.getElementById('step' + currentStep).classList.remove('active');
+  pills[currentStep].classList.remove('active');
+  if (n > currentStep) pills[currentStep].classList.add('done');
+  currentStep = n;
+  document.getElementById('step' + currentStep).classList.add('active');
+  pills.forEach(function(p, i){ p.classList.toggle('active', i === currentStep); });
+  document.getElementById('progressFill').style.width = ((currentStep + 1) / NB_STEPS * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function pillClick(n) {
+  if (isAdmin || n < currentStep) { goStep(n); return; }
+  for (var s = currentStep; s < n; s++) { if (!validateStep(s)) { if (s !== currentStep) goStep(s); return; } }
+  goStep(n);
+}
+function nextStep() { if (validateStep(currentStep) && currentStep < NB_STEPS - 1) goStep(currentStep + 1); }
+function prevStep() { if (currentStep > 0) goStep(currentStep - 1); }
+
+function showToast(msg, ok) {
+  var t = document.getElementById('toast');
+  t.textContent = (ok ? '✓ ' : '⚠️ ') + msg;
+  t.classList.toggle('ok', !!ok);
+  t.classList.add('show');
+  clearTimeout(t._h);
+  t._h = setTimeout(function(){ t.classList.remove('show'); }, 3500);
+}
+
+function hidden(el) { return !!el.closest('.cond-hidden'); }
+
+function groupIsEmpty(group) {
+  var choices = group.querySelectorAll('input[type=radio],input[type=checkbox]');
+  if (choices.length) return Array.prototype.filter.call(choices, function(c){ return c.checked && !hidden(c); }).length === 0;
+  var el = Array.prototype.find.call(group.querySelectorAll('input,select,textarea'), function(x){ return !hidden(x); });
+  if (!el || !el.value.trim()) return true;
+  if (el.type === 'email') return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+  if (el.pattern) return !new RegExp('^(?:' + el.pattern + ')$').test(el.value.trim());
+  if (el.type === 'number') { var n = parseFloat(el.value); if ((el.min !== '' && n < +el.min) || (el.max !== '' && n > +el.max)) return true; }
+  return false;
+}
+function markError(group, msg) {
+  group.classList.add('error');
+  var hint = document.createElement('div');
+  hint.className = 'error-hint';
+  hint.textContent = '⚠ ' + msg;
+  group.appendChild(hint);
+}
+
+function validateStep(s) {
+  var stepEl = document.getElementById('step' + s);
+  stepEl.querySelectorAll('.field-group.error').forEach(function(g){
+    g.classList.remove('error');
+    g.querySelectorAll(':scope > .error-hint').forEach(function(h){ h.remove(); });
+  });
+  var errors = [];
+  stepEl.querySelectorAll('.field-group[data-req]').forEach(function(group){
+    if (hidden(group) || !groupIsEmpty(group)) return;
+    markError(group, group.getAttribute('data-req') + ' : réponse obligatoire ou invalide');
+    errors.push(group);
+  });
+  if (s === 1) {
+    var acts = checkedActs(), ag = document.getElementById('actGroup'), pg = document.getElementById('pctGroup');
+    if (!acts.length) { markError(ag, 'Cochez au moins une activité'); errors.push(ag); }
+    else {
+      var missing = acts.some(function(i){ return form.querySelector('[name="pct_' + i + '"]').value === ''; });
+      var tot = updatePct();
+      if (missing || tot !== 100) { markError(pg, missing ? 'Indiquez la part de chaque activité cochée' : 'Le total doit être égal à 100 % (actuellement ' + tot + ' %)'); errors.push(pg); }
+    }
+  }
+  if (s === 2 && val('reprise_passe') === 'Oui' && val('reprise_passe_date') && val('date_effet')) {
+    var eff = new Date(val('date_effet')), rep = new Date(val('reprise_passe_date')), lim = new Date(eff);
+    lim.setFullYear(lim.getFullYear() - 1);
+    var rg = document.getElementById('repriseGroup');
+    if (rep < lim) { markError(rg, 'La reprise du passé est limitée à un an avant la date d\'effet (au plus tôt le ' + lim.toLocaleDateString('fr-FR') + ')'); errors.push(rg); }
+    else if (rep > eff) { markError(rg, 'La date de reprise du passé doit être antérieure à la date d\'effet'); errors.push(rg); }
+  }
+  if (s === 3) {
+    var qg = document.getElementById('qualifGroup');
+    if (val('aucune_qualification') !== 'Oui' && !val('qualifications').length) { markError(qg, 'Cochez au moins une qualification, ou « Aucune qualification »'); errors.push(qg); }
+    document.querySelectorAll('.vent').forEach(function(g){
+      var a = val(g.dataset.a), b = val(g.dataset.b);
+      if (a === '' || b === '' || (+a) + (+b) !== 100) { markError(g, 'La ventilation doit totaliser 100 %'); errors.push(g); }
+    });
+  }
+  if (errors.length) {
+    showToast('Veuillez compléter les réponses signalées');
+    errors[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+  return true;
+}
+
+// ---------- Lien pré-rempli (données dans le fragment #, jamais transmis au serveur) ----------
+function collect() {
+  var data = {};
+  Array.prototype.forEach.call(form.elements, function(el){
+    if (!el.name || el.type === 'button') return;
+    if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; return; }
+    if (el.type === 'checkbox') {
+      if (!el.checked) return;
+      if (form.querySelectorAll('[name="' + el.name + '"]').length > 1) (data[el.name] = data[el.name] || []).push(el.value);
+      else data[el.name] = el.value;
+      return;
+    }
+    if (el.value !== '') data[el.name] = el.value;
+  });
+  return data;
+}
+function encode(obj) {
+  return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function decode(s) {
+  s = s.replace(/-/g,'+').replace(/_/g,'/');
+  while (s.length % 4) s += '=';
+  return JSON.parse(decodeURIComponent(escape(atob(s))));
+}
+function applyData(data) {
+  Object.keys(data).forEach(function(name){
+    var v = data[name];
+    form.querySelectorAll('[name="' + name + '"]').forEach(function(el){
+      if (el.type === 'radio') el.checked = el.value === v;
+      else if (el.type === 'checkbox') el.checked = Array.isArray(v) ? v.indexOf(el.value) >= 0 : el.value === v;
+      else el.value = v;
+    });
+  });
+}
+function readHash() {
+  var h = location.hash.replace(/^#/, ''), params = {};
+  h.split('&').forEach(function(p){ if (!p) return; var k = p.indexOf('='); if (k < 0) params[p] = true; else params[p.slice(0, k)] = p.slice(k + 1); });
+  return params;
+}
+function makeClientLink() {
+  var url = location.href.split('#')[0] + '#d=' + encode(collect());
+  var input = document.getElementById('clientLink');
+  input.value = url;
+  input.select();
+  showToast('Lien client généré', true);
+}
+function copyLink() {
+  var input = document.getElementById('clientLink');
+  if (!input.value) makeClientLink();
+  (navigator.clipboard ? navigator.clipboard.writeText(input.value) : Promise.reject()).then(function(){ showToast('Lien copié', true); }, function(){ input.select(); document.execCommand('copy'); showToast('Lien copié', true); });
+}
+
+// ---------- Envoi ----------
+function fmtDate(v) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v); return m ? m[3] + '/' + m[2] + '/' + m[1] : v; }
+async function submitFormData() {
+  for (var s = 0; s < NB_STEPS; s++) { if (!validateStep(s)) { goStep(s); setTimeout(function(){ validateStep(currentStep); }, 50); return; } }
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  var fd = new FormData();
+  fd.append('_subject', 'Demande de devis RC Décennale — ' + (val('raison_sociale') || ''));
+  fd.append('formulaire', 'RC Décennale');
+  var lists = {};
+  Array.prototype.forEach.call(form.elements, function(el){
+    if (!el.name || el.name === 'act' || /^pct_/.test(el.name) || hidden(el)) return;
+    if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
+    if (el.type === 'checkbox' && form.querySelectorAll('[name="' + el.name + '"]').length > 1) { (lists[el.name] = lists[el.name] || []).push(el.value); return; }
+    if (el.value === '') return;
+    fd.append(el.name, el.type === 'date' ? fmtDate(el.value) : el.value);
+  });
+  Object.keys(lists).forEach(function(k){ fd.append(k, lists[k].join(' ; ')); });
+  var lignes = checkedActs().map(function(i){
+    return '- ' + ACTIVITES[i] + ' : ' + form.querySelector('[name="pct_' + i + '"]').value + ' %';
+  });
+  fd.append('activites_declarees', lignes.join('\n'));
+  try {
+    var response = await fetch(FORMSPREE, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
+    var data = await response.json();
+    if (data.ok) {
+      form.style.display = 'none';
+      document.querySelector('.progress-steps').style.display = 'none';
+      document.querySelector('.progress-bar').style.display = 'none';
+      document.getElementById('successWrap').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else throw new Error('ko');
+  } catch (err) {
+    btn.textContent = '✓ Envoyer ma demande';
+    btn.disabled = false;
+    alert('Une erreur est survenue lors de l\'envoi. Vérifiez votre connexion internet et réessayez.');
+  }
+}
+
+// ---------- Initialisation ----------
+buildLists();
+document.querySelectorAll('.vent').forEach(initVent);
+(function(){
+  var p = readHash();
+  if (p.d) { try { applyData(decode(p.d)); } catch (e) { console.warn('Lien de pré-remplissage illisible'); } }
+  if (p.conseiller) { isAdmin = true; document.body.classList.add('admin'); }
+})();
+document.querySelectorAll('.vent').forEach(function(g){ g._show(); });
+updatePct();
+refresh();
+</script>
+</body>
+</html>
