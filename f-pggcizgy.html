@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Fiche de connaissance client LMNP — Girose Patrimoine</title>
+<link rel="stylesheet" href="assets/girose-form.css?v=2">
+</head>
+<body>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <img class="logo" src="logo-signature.png" alt="Girose Patrimoine" width="96" height="117">
+    <h1>Fiche de connaissance client — Loueur en meublé non professionnel (LMNP)</h1>
+    <p>Ces informations sont nécessaires à l'immatriculation de votre activité de loueur en meublé et au suivi de votre dossier. Certaines réponses ont pu être renseignées par votre conseiller : merci de les vérifier, de les corriger si besoin et de compléter les autres.</p>
+  </div>
+  <div class="form-body">
+    <div class="progress-steps">
+      <div class="step-pill active" onclick="pillClick(0)">1. Identité</div>
+      <div class="step-pill" onclick="pillClick(1)">2. Coordonnées</div>
+      <div class="step-pill" onclick="pillClick(2)">3. Activité pro</div>
+      <div class="step-pill" onclick="pillClick(3)">4. Bien(s)</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+
+    <form id="mainForm" onsubmit="return false">
+      <div class="step-content active" id="step0">
+        <div class="section-title">À propos de vous</div>
+        <div class="field-row cols2"><div class="field-group" data-req="Nom"><label class="field-label">Nom <span class="req">*</span></label><input class="field-input" name="nom" placeholder="NOM"></div><div class="field-group"><label class="field-label">Nom de naissance <span class="hint">(si différent)</span></label><input class="field-input" name="nom_naissance"></div></div>
+        <div class="field-row cols2"><div class="field-group" data-req="Prénom"><label class="field-label">Prénom(s) <span class="req">*</span></label><input class="field-input" name="prenom" placeholder="Prénom"></div><div class="field-group" data-req="Date de naissance"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="date_naissance" type="date"></div></div>
+        <div class="field-row cols2"><div class="field-group" data-req="Commune de naissance"><label class="field-label">Commune et département de naissance <span class="req">*</span></label><input class="field-input" name="commune_naissance" placeholder="Ex : Paris (75)"></div><div class="field-group" data-req="Pays de naissance"><label class="field-label">Pays de naissance <span class="req">*</span></label><input class="field-input" name="pays_naissance" placeholder="France"></div></div>
+        <div class="field-row cols2"><div class="field-group" data-req="Nationalité"><label class="field-label">Nationalité <span class="req">*</span></label><input class="field-input" name="nationalite" placeholder="Ex : Française"></div><div class="field-group" data-req="Numéro de Sécurité Sociale"><label class="field-label">Numéro de Sécurité Sociale (15 chiffres) <span class="req">*</span></label><input class="field-input" name="nss" placeholder="X XX XX XX XXX XXX XX" maxlength="21" inputmode="numeric"><span class="hint">🔒 Information confidentielle — nécessaire pour l'immatriculation. Elle n'est jamais reprise dans un lien pré-rempli.</span></div></div>
+        <div class="field-group" data-req="Situation matrimoniale"><label class="field-label">Situation matrimoniale <span class="req">*</span></label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="situation_matrimoniale" value="Célibataire"> Célibataire</label><label class="radio-label"><input type="radio" name="situation_matrimoniale" value="En concubinage"> En concubinage</label><label class="radio-label"><input type="radio" name="situation_matrimoniale" value="Pacsé(e)"> Pacsé(e)</label><label class="radio-label"><input type="radio" name="situation_matrimoniale" value="Marié(e)"> Marié(e)</label><label class="radio-label"><input type="radio" name="situation_matrimoniale" value="Divorcé(e)"> Divorcé(e)</label><label class="radio-label"><input type="radio" name="situation_matrimoniale" value="Veuf(ve)"> Veuf(ve)</label></div></div>
+        <div class="sub-block" data-if="situation_matrimoniale=Marié(e)">
+          <div class="field-group"><label class="field-label">Régime matrimonial</label><div class="radio-group"><label class="radio-label"><input type="radio" name="regime_matrimonial" value="Communauté réduite aux acquêts"> Communauté réduite aux acquêts (communauté légale)</label><label class="radio-label"><input type="radio" name="regime_matrimonial" value="Participation aux acquêts"> Participation aux acquêts</label><label class="radio-label"><input type="radio" name="regime_matrimonial" value="Séparation de biens"> Séparation de biens</label><label class="radio-label"><input type="radio" name="regime_matrimonial" value="Communauté universelle"> Communauté universelle</label></div></div>
+          <div class="field-group"><label class="field-label">Date de mariage</label><input class="field-input" name="date_mariage" type="date" style="max-width:240px"></div>
+        </div>
+        <div class="nav-row"><span></span><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+      </div>
+      <div class="step-content" id="step1">
+        <div class="section-title">Vos coordonnées</div>
+        <div class="field-row cols2"><div class="field-group" data-req="Téléphone"><label class="field-label">Numéro de téléphone <span class="req">*</span></label><input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00"></div><div class="field-group" data-req="Email"><label class="field-label">Adresse email <span class="req">*</span></label><input class="field-input" name="email" type="email" placeholder="prenom.nom@email.fr"></div></div>
+        <div class="field-group" data-req="Adresse de résidence"><label class="field-label">Adresse de résidence <span class="req">*</span></label><input class="field-input" name="adresse" placeholder="Numéro, rue…"></div>
+        <div class="field-row cols2"><div class="field-group" data-req="Code postal"><label class="field-label">Code postal <span class="req">*</span></label><input class="field-input" name="code_postal" placeholder="75000" maxlength="5" inputmode="numeric"></div><div class="field-group" data-req="Ville"><label class="field-label">Ville <span class="req">*</span></label><input class="field-input" name="ville" placeholder="Paris"></div></div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+      <div class="step-content" id="step2">
+        <div class="section-title">Votre situation professionnelle</div>
+        <div class="field-group" data-req="Profession"><label class="field-label">Profession exercée <span class="req">*</span></label><input class="field-input" name="profession" placeholder="Ex : Salarié, Étudiant, Consultant…"></div>
+        <div class="field-group" data-req="Activité non salariée"><label class="field-label">Exercez-vous une activité non salariée en France ? <span class="req">*</span></label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="activite_non_salariee" value="Oui"> Oui</label><label class="radio-label"><input type="radio" name="activite_non_salariee" value="Non"> Non</label></div><div class="sub-block" data-if="activite_non_salariee=Oui"><div class="field-group"><label class="field-label">Numéro Siren / Siret (activité en cours)</label><input class="field-input" name="siren" placeholder="XXX XXX XXX XXXXX"></div></div></div>
+        <div class="field-group"><label class="field-label">Avez-vous par le passé exercé une activité non salariée en France (aujourd'hui radiée) ?</label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="activite_radiee" value="Oui"> Oui</label><label class="radio-label"><input type="radio" name="activite_radiee" value="Non"> Non</label></div><div class="sub-block" data-if="activite_radiee=Oui"><div class="field-group"><label class="field-label">Numéro Siren / Siret (activité radiée)</label><input class="field-input" name="siren_radie" placeholder="XXX XXX XXX XXXXX"></div></div></div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+      <div class="step-content" id="step3">
+        <div class="section-title">Votre(vos) bien(s) locatif(s)</div>
+        <div class="field-group"><label class="field-label">Nombre de biens loués en meublé</label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="nb_biens" value="1" checked> 1</label><label class="radio-label"><input type="radio" name="nb_biens" value="2"> 2</label></div></div>
+        <div class="sub-card"><div class="sub-card-title">🏠 Bien locatif n°1</div>
+          <div class="field-row cols2"><div class="field-group" data-req="Date d'acquisition (bien n°1)"><label class="field-label">Date d'acquisition <span class="req">*</span></label><input class="field-input" name="bien_0_date_acquisition" type="date"></div><div class="field-group" data-req="Date de début d'activité (bien n°1)"><label class="field-label">Date de début d'activité<br><span class="hint">Date la plus ancienne : début de location ou 1ère facture déductible</span> <span class="req">*</span></label><input class="field-input" name="bien_0_date_debut" type="date"></div></div>
+          <div class="field-group" data-req="Adresse (bien n°1)"><label class="field-label">Adresse du bien <span class="req">*</span></label><input class="field-input" name="bien_0_adresse" placeholder="Numéro, rue…"></div>
+          <div class="field-row cols2"><div class="field-group" data-req="Code postal (bien n°1)"><label class="field-label">Code postal <span class="req">*</span></label><input class="field-input" name="bien_0_cp" placeholder="75000" maxlength="5"></div><div class="field-group" data-req="Ville (bien n°1)"><label class="field-label">Ville <span class="req">*</span></label><input class="field-input" name="bien_0_ville" placeholder="Paris"></div></div>
+          <div class="field-row cols2"><div class="field-group" data-req="Loyer (bien n°1)"><label class="field-label">Loyer mensuel CC (€) <span class="req">*</span></label><input class="field-input" name="bien_0_loyer" type="number" placeholder="0" min="0"></div><div class="field-group" data-req="Prêt immobilier (bien n°1)"><label class="field-label">Prêt immobilier en cours ? <span class="req">*</span></label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="bien_0_pret" value="Oui"> Oui</label><label class="radio-label"><input type="radio" name="bien_0_pret" value="Non"> Non</label></div></div></div>
+          <div class="field-group" data-req="Mode de détention (bien n°1)"><label class="field-label">Mode de détention <span class="req">*</span></label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="bien_0_detention" value="En nom propre"> En nom propre</label><label class="radio-label"><input type="radio" name="bien_0_detention" value="En indivision"> En indivision</label></div></div>
+          <div class="sub-block" data-if="bien_0_detention=En indivision">
+            <div class="info-box">ℹ️ L'indivision signifie que plusieurs personnes disposent de droits de même nature sur ce bien.</div>
+          <div class="sub-card"><div class="sub-card-title">👤 2e coindivisaire</div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="bien_0_coind2_nom" placeholder="NOM"></div><div class="field-group"><label class="field-label">Nom de naissance</label><input class="field-input" name="bien_0_coind2_nom_naissance" placeholder="Si différent"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Prénom(s)</label><input class="field-input" name="bien_0_coind2_prenom" placeholder="Prénom"></div><div class="field-group"><label class="field-label">Date de naissance</label><input class="field-input" name="bien_0_coind2_ddn" type="date"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Commune et dép. de naissance</label><input class="field-input" name="bien_0_coind2_commune" placeholder="Ex : Paris (75)"></div><div class="field-group"><label class="field-label">Pays de naissance</label><input class="field-input" name="bien_0_coind2_pays" placeholder="France"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nationalité</label><input class="field-input" name="bien_0_coind2_nationalite" placeholder="Française"></div><div class="field-group"><label class="field-label">Téléphone</label><input class="field-input" name="bien_0_coind2_tel" type="tel" placeholder="06 00 00 00 00"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Email</label><input class="field-input" name="bien_0_coind2_email" type="email" placeholder="email@exemple.fr"></div><div class="field-group"><label class="field-label">Adresse de résidence</label><input class="field-input" name="bien_0_coind2_adresse" placeholder="Adresse complète"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Code postal</label><input class="field-input" name="bien_0_coind2_cp" placeholder="75000" maxlength="5"></div><div class="field-group"><label class="field-label">Ville</label><input class="field-input" name="bien_0_coind2_ville" placeholder="Paris"></div></div>
+          </div>
+            <label class="checkbox-label"><input type="checkbox" name="bien_0_coind3" value="Oui"> Ajouter un 3e coindivisaire</label>
+          <div class="sub-card" data-if="bien_0_coind3=Oui"><div class="sub-card-title">👤 3e coindivisaire</div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="bien_0_coind3_nom" placeholder="NOM"></div><div class="field-group"><label class="field-label">Nom de naissance</label><input class="field-input" name="bien_0_coind3_nom_naissance" placeholder="Si différent"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Prénom(s)</label><input class="field-input" name="bien_0_coind3_prenom" placeholder="Prénom"></div><div class="field-group"><label class="field-label">Date de naissance</label><input class="field-input" name="bien_0_coind3_ddn" type="date"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Commune et dép. de naissance</label><input class="field-input" name="bien_0_coind3_commune" placeholder="Ex : Paris (75)"></div><div class="field-group"><label class="field-label">Pays de naissance</label><input class="field-input" name="bien_0_coind3_pays" placeholder="France"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nationalité</label><input class="field-input" name="bien_0_coind3_nationalite" placeholder="Française"></div><div class="field-group"><label class="field-label">Téléphone</label><input class="field-input" name="bien_0_coind3_tel" type="tel" placeholder="06 00 00 00 00"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Email</label><input class="field-input" name="bien_0_coind3_email" type="email" placeholder="email@exemple.fr"></div><div class="field-group"><label class="field-label">Adresse de résidence</label><input class="field-input" name="bien_0_coind3_adresse" placeholder="Adresse complète"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Code postal</label><input class="field-input" name="bien_0_coind3_cp" placeholder="75000" maxlength="5"></div><div class="field-group"><label class="field-label">Ville</label><input class="field-input" name="bien_0_coind3_ville" placeholder="Paris"></div></div>
+          </div>
+          </div>
+        </div>
+        <div class="sub-card" data-if="nb_biens=2"><div class="sub-card-title">🏠 Bien locatif n°2</div>
+          <div class="field-row cols2"><div class="field-group" data-req="Date d'acquisition (bien n°2)"><label class="field-label">Date d'acquisition <span class="req">*</span></label><input class="field-input" name="bien_1_date_acquisition" type="date"></div><div class="field-group" data-req="Date de début d'activité (bien n°2)"><label class="field-label">Date de début d'activité<br><span class="hint">Date la plus ancienne : début de location ou 1ère facture déductible</span> <span class="req">*</span></label><input class="field-input" name="bien_1_date_debut" type="date"></div></div>
+          <div class="field-group" data-req="Adresse (bien n°2)"><label class="field-label">Adresse du bien <span class="req">*</span></label><input class="field-input" name="bien_1_adresse" placeholder="Numéro, rue…"></div>
+          <div class="field-row cols2"><div class="field-group" data-req="Code postal (bien n°2)"><label class="field-label">Code postal <span class="req">*</span></label><input class="field-input" name="bien_1_cp" placeholder="75000" maxlength="5"></div><div class="field-group" data-req="Ville (bien n°2)"><label class="field-label">Ville <span class="req">*</span></label><input class="field-input" name="bien_1_ville" placeholder="Paris"></div></div>
+          <div class="field-row cols2"><div class="field-group" data-req="Loyer (bien n°2)"><label class="field-label">Loyer mensuel CC (€) <span class="req">*</span></label><input class="field-input" name="bien_1_loyer" type="number" placeholder="0" min="0"></div><div class="field-group" data-req="Prêt immobilier (bien n°2)"><label class="field-label">Prêt immobilier en cours ? <span class="req">*</span></label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="bien_1_pret" value="Oui"> Oui</label><label class="radio-label"><input type="radio" name="bien_1_pret" value="Non"> Non</label></div></div></div>
+          <div class="field-group" data-req="Mode de détention (bien n°2)"><label class="field-label">Mode de détention <span class="req">*</span></label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="bien_1_detention" value="En nom propre"> En nom propre</label><label class="radio-label"><input type="radio" name="bien_1_detention" value="En indivision"> En indivision</label></div></div>
+          <div class="sub-block" data-if="bien_1_detention=En indivision">
+            <div class="info-box">ℹ️ L'indivision signifie que plusieurs personnes disposent de droits de même nature sur ce bien.</div>
+          <div class="sub-card"><div class="sub-card-title">👤 2e coindivisaire</div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="bien_1_coind2_nom" placeholder="NOM"></div><div class="field-group"><label class="field-label">Nom de naissance</label><input class="field-input" name="bien_1_coind2_nom_naissance" placeholder="Si différent"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Prénom(s)</label><input class="field-input" name="bien_1_coind2_prenom" placeholder="Prénom"></div><div class="field-group"><label class="field-label">Date de naissance</label><input class="field-input" name="bien_1_coind2_ddn" type="date"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Commune et dép. de naissance</label><input class="field-input" name="bien_1_coind2_commune" placeholder="Ex : Paris (75)"></div><div class="field-group"><label class="field-label">Pays de naissance</label><input class="field-input" name="bien_1_coind2_pays" placeholder="France"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nationalité</label><input class="field-input" name="bien_1_coind2_nationalite" placeholder="Française"></div><div class="field-group"><label class="field-label">Téléphone</label><input class="field-input" name="bien_1_coind2_tel" type="tel" placeholder="06 00 00 00 00"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Email</label><input class="field-input" name="bien_1_coind2_email" type="email" placeholder="email@exemple.fr"></div><div class="field-group"><label class="field-label">Adresse de résidence</label><input class="field-input" name="bien_1_coind2_adresse" placeholder="Adresse complète"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Code postal</label><input class="field-input" name="bien_1_coind2_cp" placeholder="75000" maxlength="5"></div><div class="field-group"><label class="field-label">Ville</label><input class="field-input" name="bien_1_coind2_ville" placeholder="Paris"></div></div>
+          </div>
+            <label class="checkbox-label"><input type="checkbox" name="bien_1_coind3" value="Oui"> Ajouter un 3e coindivisaire</label>
+          <div class="sub-card" data-if="bien_1_coind3=Oui"><div class="sub-card-title">👤 3e coindivisaire</div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="bien_1_coind3_nom" placeholder="NOM"></div><div class="field-group"><label class="field-label">Nom de naissance</label><input class="field-input" name="bien_1_coind3_nom_naissance" placeholder="Si différent"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Prénom(s)</label><input class="field-input" name="bien_1_coind3_prenom" placeholder="Prénom"></div><div class="field-group"><label class="field-label">Date de naissance</label><input class="field-input" name="bien_1_coind3_ddn" type="date"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Commune et dép. de naissance</label><input class="field-input" name="bien_1_coind3_commune" placeholder="Ex : Paris (75)"></div><div class="field-group"><label class="field-label">Pays de naissance</label><input class="field-input" name="bien_1_coind3_pays" placeholder="France"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Nationalité</label><input class="field-input" name="bien_1_coind3_nationalite" placeholder="Française"></div><div class="field-group"><label class="field-label">Téléphone</label><input class="field-input" name="bien_1_coind3_tel" type="tel" placeholder="06 00 00 00 00"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Email</label><input class="field-input" name="bien_1_coind3_email" type="email" placeholder="email@exemple.fr"></div><div class="field-group"><label class="field-label">Adresse de résidence</label><input class="field-input" name="bien_1_coind3_adresse" placeholder="Adresse complète"></div></div>
+            <div class="field-row cols2"><div class="field-group"><label class="field-label">Code postal</label><input class="field-input" name="bien_1_coind3_cp" placeholder="75000" maxlength="5"></div><div class="field-group"><label class="field-label">Ville</label><input class="field-input" name="bien_1_coind3_ville" placeholder="Paris"></div></div>
+          </div>
+          </div>
+        </div>
+        <div data-gp="rgpd"></div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Envoyer ma fiche</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/girose-form.js?v=2"></script>
+<script>
+GP.init({
+  formulaire: 'Fiche de connaissance client LMNP',
+  formspree: 'https://formspree.io/f/mnpadrjj',
+  subject: function () { return 'Fiche de connaissance client LMNP — ' + [GP.val('prenom'), GP.val('nom')].filter(Boolean).join(' '); },
+  // Le numéro de Sécurité sociale n'est jamais repris dans le lien pré-rempli
+  noLink: /^nss$/,
+  rgpdHtml: 'Vos données sont traitées par Girose Patrimoine pour le traitement de votre dossier et pourront être transmises aux partenaires intervenant sur celui-ci. Vous disposez de droits sur ces données (accès, rectification, suppression…) : voir les mentions légales en bas de page ou écrire à <a href="mailto:dpo@girose-patrimoine.fr" style="color:inherit">dpo@girose-patrimoine.fr</a>.',
+  successText: 'Votre conseiller Girose Patrimoine a bien reçu vos informations.<br>Il revient vers vous dans les plus brefs délais.'
+});
+</script>
+</body>
+</html>
