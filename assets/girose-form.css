@@ -1,0 +1,128 @@
+/* Girose Patrimoine — feuille de style commune des formulaires */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;color:#1a1a1a;background:#f4f5f7;min-height:100vh;padding:24px 16px 48px}
+body.admin{padding-bottom:170px}
+.form-wrap{max-width:780px;margin:0 auto}
+.form-header{background:#1B2249;color:#ffffff;padding:26px 28px 22px;border-radius:12px 12px 0 0;text-align:center}
+.form-header .logo{display:block;margin:0 auto 16px;height:auto;width:84px}
+.form-header h1{font-size:22px;font-weight:600;margin-bottom:8px;letter-spacing:.2px}
+.form-header p{font-size:14px;opacity:.85;line-height:1.6;text-align:left}
+.form-body{background:#fff;border:1px solid #e2e5ea;border-top:none;border-radius:0 0 12px 12px;padding:24px 28px}
+.progress-steps{display:flex;margin-bottom:16px}
+.step-pill{flex:1;text-align:center;font-size:13px;padding:6px 2px;border-bottom:2px solid #e2e5ea;color:#888;cursor:pointer;transition:all .2s}
+.step-pill.active{border-color:#1B2249;color:#1B2249;font-weight:600}
+.step-pill.done{border-color:#1D9E75;color:#0F6E56}
+.step-pill.done.active{border-color:#1B2249;color:#1B2249}
+.progress-bar{height:4px;background:#f0f2f5;border-radius:2px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:#1B2249;border-radius:2px;transition:width .4s}
+.section-title{font-size:15px;font-weight:600;color:#1B2249;background:#EEF0F7;padding:8px 12px;border-radius:8px;margin:24px 0 12px;border-left:3px solid #0462C1}
+.step-content>.section-title:first-child{margin-top:0}
+.field-group{display:flex;flex-direction:column;gap:8px;padding:16px;background:#fafbfc;border:1px solid #eef0f3;border-radius:10px;margin-bottom:10px}
+.field-group:hover{border-color:#c9cee3}
+.field-row{display:grid;gap:10px 16px;margin-bottom:10px}
+.field-row.cols2{grid-template-columns:1fr 1fr}
+.field-row .field-group{margin-bottom:0}
+.field-label{font-size:15px;color:#222;font-weight:600;line-height:1.4}
+.req{color:#d63031}
+.field-input{width:100%;padding:8px 11px;border:1px solid #dde1e7;border-radius:8px;font-size:15px;color:#1a1a1a;font-family:inherit;outline:none;transition:border-color .15s;background:#fff}
+.field-input:focus{border-color:#1B2249;box-shadow:0 0 0 3px rgba(27,34,73,.12)}
+.field-input[readonly]{background:#f4f5f7;color:#555}
+select.field-input{cursor:pointer}
+textarea.field-input{resize:vertical;min-height:70px}
+.radio-group{display:flex;flex-direction:column;gap:8px;margin-top:2px}
+.radio-group.inline{flex-direction:row;flex-wrap:wrap;gap:8px 12px}
+.radio-label,.checkbox-label{display:flex;align-items:center;gap:9px;font-size:15px;cursor:pointer;color:#333;padding:7px 12px;border:1px solid #e2e5ea;border-radius:8px;transition:all .15s;background:#fff}
+.radio-label:hover,.checkbox-label:hover{border-color:#1B2249;background:#EEF0F7}
+.radio-label input,.checkbox-label input{width:15px;height:15px;accent-color:#1B2249;cursor:pointer;flex-shrink:0}
+.radio-label:has(input:checked),.checkbox-label:has(input:checked){border-color:#1B2249;background:#EEF0F7;color:#1B2249;font-weight:500}
+.radio-group.inline .radio-label{padding:6px 16px}
+ul.bullets{margin:2px 0 4px 18px;font-size:15px;color:#333;line-height:1.7}
+.field-group.error{border-color:#d63031;background:#fff8f8}
+.field-group.error>.field-label,.field-group.error>.label-row .field-label{color:#d63031}
+.error-hint{font-size:13px;color:#d63031;margin-top:4px}
+.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#d63031;color:#fff;padding:12px 20px;border-radius:10px;font-size:15px;font-weight:500;z-index:999;box-shadow:0 4px 16px rgba(214,48,49,.3);max-width:90vw;text-align:center}
+.toast.show{display:block}
+.toast.ok{background:#1D9E75}
+.step-content{display:none}
+.step-content.active{display:block}
+.cond-hidden{display:none!important}
+.nav-row{display:flex;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid #e2e5ea;gap:10px}
+.btn{padding:9px 20px;border-radius:8px;border:1px solid #c8d0db;background:#fff;color:#333;font-size:15px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:#f4f5f7}
+.btn-primary{background:#1B2249;color:#fff;border-color:#1B2249}
+.btn-primary:hover{background:#0462C1}
+.btn:disabled{opacity:.6;cursor:default}
+.hint{font-size:13px;font-weight:400;color:#888;line-height:1.5}
+.note{font-size:14px;font-style:italic;color:#777}
+.info-box{font-size:14px;color:#0462C1;background:#EEF0F7;border:1px solid #d5d9ea;border-radius:8px;padding:10px 12px;line-height:1.6;margin-bottom:10px}
+.sub-block{border-left:3px solid #d5d9ea;padding-left:12px;margin-top:4px;display:flex;flex-direction:column;gap:10px}
+/* Bulles d'aide */
+.label-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.info-btn{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1.5px solid #1B2249;background:#fff;color:#1B2249;font:italic 700 14px Georgia,serif;cursor:pointer;line-height:1}
+.info-btn[aria-expanded="true"]{background:#1B2249;color:#fff}
+.tip{display:none;font-size:14px;line-height:1.55;color:#fff;background:#4a5563;border-radius:8px;padding:10px 12px}
+.tip.open{display:block}
+.tip strong{color:#fff}
+.tip ul{margin:4px 0 0 16px}
+.inline-def .info-btn{margin-left:6px;vertical-align:middle}
+/* Compteurs */
+.counter{display:inline-flex;border:1px solid #c8d0db;border-radius:8px;overflow:hidden;max-width:220px}
+.counter button{width:42px;border:none;background:#f4f5f7;font-size:22px;cursor:pointer;color:#1B2249}
+.counter button:hover{background:#EEF0F7}
+.counter input{width:100%;border:none;border-left:1px solid #dde1e7;border-right:1px solid #dde1e7;text-align:center;padding:10px 6px;font-size:17px;font-family:inherit;outline:none;-moz-appearance:textfield}
+.counter input::-webkit-outer-spin-button,.counter input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+/* Activités */
+.act-list{max-height:340px;overflow-y:auto;border:1px solid #e2e5ea;border-radius:8px;background:#fff}
+.act-row{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border-bottom:1px solid #f0f2f5;font-size:15px;cursor:pointer;line-height:1.4}
+.act-row:last-child{border-bottom:none}
+.act-row:hover{background:#f4f5fa}
+.act-row input{margin-top:2px;width:15px;height:15px;accent-color:#1B2249;flex-shrink:0}
+.act-row:has(input:checked){background:#EEF0F7;color:#1B2249;font-weight:500}
+.act-empty{padding:12px;font-size:14px;color:#888;display:none}
+.pct-row{display:grid;grid-template-columns:1fr 110px;gap:10px;align-items:center;font-size:15px;padding:6px 0;border-bottom:1px dashed #e2e5ea}
+.pct-input{display:flex;align-items:center;gap:4px}
+.pct-input input{text-align:right}
+.total{font-size:14px;font-weight:600;color:#d63031}
+.total.ok{color:#0F6E56}
+/* Ventilation */
+.vent-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vent-grid .label-row{margin-bottom:6px}
+input[type=range]{width:100%;accent-color:#1B2249}
+.success-wrap{text-align:center;padding:40px 20px;display:none}
+.success-icon{font-size:48px;margin-bottom:16px;display:block}
+.success-title{font-size:22px;font-weight:600;margin-bottom:8px;color:#0F6E56}
+.success-text{font-size:15px;color:#666;line-height:1.6}
+.form-footer{margin-top:18px;font-size:13px;color:#6b7086;line-height:1.6;text-align:center}
+.form-footer a{color:#1B2249}
+.legal-line{margin-bottom:6px}
+details.legal{margin-top:10px;text-align:left;background:#fff;border:1px solid #e2e5ea;border-radius:10px;padding:10px 14px}
+details.legal summary{cursor:pointer;font-weight:600;color:#1B2249;text-align:center}
+details.legal p{margin-top:8px}
+/* Mode courtier */
+.admin-bar{display:none;position:fixed;left:0;right:0;bottom:0;background:#1f2937;color:#e5e7eb;padding:12px 16px;z-index:500;box-shadow:0 -4px 16px rgba(0,0,0,.2)}
+body.admin .admin-bar{display:block}
+.admin-bar .inner{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.admin-bar .title{font-size:14px;font-weight:600;color:#fbbf24}
+.admin-bar .desc{font-size:13px;color:#cbd5e1;line-height:1.5}
+.admin-bar .row{display:flex;gap:8px}
+.admin-bar input{flex:1;min-width:0;padding:7px 10px;border-radius:6px;border:1px solid #475569;background:#111827;color:#e5e7eb;font-size:14px}
+.admin-bar .btn{padding:7px 14px;font-size:14px}
+@media(max-width:560px){
+  .field-row.cols2,.vent-grid{grid-template-columns:1fr}
+  .form-body{padding:18px 16px}
+  .step-pill{font-size:12px;padding:5px 1px}
+  .radio-group.inline .radio-label{flex:1 1 auto}
+}
+
+/* Cartes de choix (ex. qualité de l'assuré) */
+.choice-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.choice-card{position:relative;border:1.5px solid #e2e5ea;border-radius:10px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .2s;font-size:15px;color:#444;background:#fff;display:flex;flex-direction:column;align-items:center;gap:4px}
+.choice-card:hover{border-color:#1B2249;background:#EEF0F7}
+.choice-card input{position:absolute;opacity:0;pointer-events:none}
+.choice-card:has(input:checked){border-color:#1B2249;background:#EEF0F7;color:#1B2249;font-weight:600}
+.choice-card .icon{font-size:26px}
+.choice-card small{font-size:13px;font-weight:400;color:#888}
+.sub-card{border:1px solid #e2e5ea;border-radius:10px;padding:14px;margin-bottom:10px;background:#fff}
+.sub-card-title{font-size:14px;font-weight:600;color:#1B2249;margin-bottom:10px}
+.section-desc{font-size:14px;color:#777;margin:-4px 0 14px;line-height:1.5}
+@media(max-width:560px){.choice-cards{grid-template-columns:1fr}}
