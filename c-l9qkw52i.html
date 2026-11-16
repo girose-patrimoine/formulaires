@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Comparatif assurance habitation</title>
+<style>
+  :root {
+    --navy: #1B234A; --gold: #DEAD0F; --green: #2E7D4F;
+    --light-green: #E7F4EC; --light-navy: #EEF0F6;
+    --text: #222222; --muted: #5A5A5A; --bg: #FFFFFF;
+    --card-bg: #FFFFFF; --border: #D8D8D8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+      --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171f; --card-bg: #1c2030; --text: #e8e8ec; --muted: #a8adba;
+    --light-navy: #232840; --light-green: #17301f; --border: #34394a;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background: var(--bg); color: var(--text);
+    font-family: -apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.5; }
+  .header { background: var(--navy); color:#fff; padding:28px 20px 24px; text-align:center; }
+  .header .logo { font-weight:700; letter-spacing:2px; font-size:14px; margin-bottom:10px; }
+  .header hr { border:none; border-top:2px solid var(--gold); width:140px; margin:10px auto 16px; }
+  .header h1 { margin:0 0 6px; font-size: clamp(20px,4vw,28px); }
+  .header .subtitle { color: var(--gold); font-weight:600; font-size:15px; margin-bottom:10px; }
+  .header .client { font-weight:700; font-size:17px; }
+  .container { max-width:900px; margin:0 auto; padding:24px 20px 60px; }
+  .lead { text-align:center; color: var(--muted); max-width:640px; margin:0 auto 28px; font-size:14.5px; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; min-width:560px; font-size:14px; table-layout:fixed; }
+  @media (max-width: 600px) { table { min-width:0; font-size:12.5px; } thead th { font-size:12px; padding:10px 6px; } tbody td, tbody th { padding:8px 6px; overflow-wrap:anywhere; } }
+  th:nth-child(1), td:nth-child(1) { width: 32%; }
+  th:nth-child(2), td:nth-child(2) { width: 34.00%; }
+  th:nth-child(3), td:nth-child(3) { width: 34.00%; }
+
+  thead th { background: var(--navy); color:#fff; padding:12px 10px; text-align:center; font-size:13.5px; }
+  thead th:first-child { text-align:left; }
+  thead th.reco { background: var(--green); }
+  tbody td, tbody th { padding:10px 10px; border-bottom:1px solid var(--border); text-align:center; vertical-align:middle; }
+  tbody th { text-align:left; font-weight:600; background: var(--light-navy); }
+  tbody tr.diff td, tbody tr.diff th { background: var(--light-green); font-weight:600; }
+  td.reco-col { border-left:2px solid var(--navy); }
+  .price { font-weight:700; color: var(--navy); }
+  .footnote { font-size:12px; color: var(--muted); margin-top:10px; text-align:center; }
+  .reco-card { margin:32px 0 24px; border:1.5px solid var(--gold); border-radius:10px;
+    padding:18px 20px; display:flex; gap:16px; align-items:center; background: var(--card-bg); }
+  .reco-badge { flex:0 0 auto; width:44px; height:44px; border-radius:8px; background: var(--green);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; }
+  .reco-body .tag { color: var(--green); font-weight:700; font-size:12px; letter-spacing:0.5px; margin-bottom:4px; }
+  .reco-body .formule { font-weight:700; color: var(--text); font-size:15.5px; margin-bottom:4px; }
+  .reco-body .price-line { font-weight:700; color: var(--navy); font-size:17px; }
+  .why h2 { font-size:16px; margin-bottom:10px; }
+  .why ul { padding-left:18px; margin:0 0 16px; }
+  .why li { margin-bottom:8px; font-size:14.5px; }
+  .focus { margin-top:32px; }
+  .focus h2 { font-size:16px; margin-bottom:6px; }
+  .focus p { font-size:14.5px; color: var(--muted); margin:0 0 12px; }
+  .focus-table th:nth-child(1), .focus-table td:nth-child(1) { width:40%; }
+  .focus-table th:nth-child(2), .focus-table td:nth-child(2),
+  .focus-table th:nth-child(3), .focus-table td:nth-child(3) { width:30%; }
+  td.focus-reco { background: var(--light-green); }
+  .docs h2 { font-size:16px; margin-bottom:10px; }
+  .docs ul { padding-left:18px; margin:0 0 16px; }
+  .docs li { margin-bottom:6px; font-size:14.5px; }
+  .docs a { color: var(--navy); font-weight:600; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .docs a { color: var(--gold); } }
+  .contact { margin-top:36px; padding-top:20px; border-top:1px solid var(--border);
+    text-align:center; font-size:13px; color: var(--muted); }
+  .contact strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">GIROSE PATRIMOINE</div>
+    <hr>
+    <h1>Comparatif de votre assurance habitation</h1>
+    <div class="subtitle">Assurance Habitation</div>
+  </div>
+  <div class="container">
+    <p class="lead">Deux configurations de la formule Confort ont été établies auprès d'Apivia Courtage (assureur : Suravenir Assurances) pour un appartement de 2 pièces en location, résidence principale. Elles sont identiques, sauf sur un point : l'option Remplacement à neuf de l'électroménager, de l'audiovisuel et de l'informatique.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Garantie</th><th class="">Proposition 1<br><span style="font-weight:400;">Confort sans option RAN*</span></th>
+<th class="reco">Proposition 2<br><span style="font-weight:400;">Confort avec option RAN*</span></th></tr></thead>
+        <tbody>
+<tr class="diff"><th>Cotisation TTC annuelle / mensuelle</th><td class="">270,83 €/an<br/>22,56 €/mois</td><td class="reco-col">332,43 €/an<br/>27,70 €/mois</td></tr>
+<tr class="diff"><th>Remplacement à neuf électroménager, audiovisuel, informatique</th><td class="">Non retenu : indemnisation vétusté déduite</td><td class="reco-col">Retenu : appareils remplacés par du neuf équivalent (électroménager et audiovisuel de moins de 5 ans, informatique de moins de 2 ans)</td></tr>
+<tr><th>Frais de courtage</th><td class="">0 €</td><td class="reco-col">0 €</td></tr>
+<tr><th>Assureur</th><td class="">Suravenir Assurances</td><td class="reco-col">Suravenir Assurances</td></tr>
+<tr><th>Biens mobiliers garantis</th><td class="">12 000 €</td><td class="reco-col">12 000 €</td></tr>
+<tr><th>Indemnisation du mobilier</th><td class="">Valeur de remplacement, vétusté 10 %/an (informatique 25 %/an), plafonnée à 80 %</td><td class="reco-col">Identique, sauf appareils couverts par l'option</td></tr>
+<tr><th>Responsabilité civile vie privée</th><td class="">Corporels 20 000 000 €<br/>Matériels 1 200 000 €</td><td class="reco-col">Corporels 20 000 000 €<br/>Matériels 1 200 000 €</td></tr>
+<tr><th>Risques locatifs (vis-à-vis du propriétaire)</th><td class="">Incendie 30 000 000 €<br/>Dégâts des eaux 160 000 €</td><td class="reco-col">Incendie 30 000 000 €<br/>Dégâts des eaux 160 000 €</td></tr>
+<tr><th>Défense recours</th><td class="">15 000 € par sinistre</td><td class="reco-col">15 000 € par sinistre</td></tr>
+<tr><th>Incendie, dégâts des eaux, bris de glace</th><td class="">Inclus (franchise 150 €)</td><td class="reco-col">Inclus (franchise 150 €)</td></tr>
+<tr><th>Vol, vandalisme</th><td class="">Inclus (franchise 150 €)<br/>Vol en cave : 3 000 €</td><td class="reco-col">Inclus (franchise 150 €)<br/>Vol en cave : 3 000 €</td></tr>
+<tr><th>Forces de la nature</th><td class="">Inclus (franchise 380 €)</td><td class="reco-col">Inclus (franchise 380 €)</td></tr>
+<tr><th>Catastrophes naturelles et technologiques, attentats</th><td class="">Inclus</td><td class="reco-col">Inclus</td></tr>
+<tr><th>Pack renfort : accidents électriques, déménagement, contenu du congélateur</th><td class="">Inclus (franchise 150 €)</td><td class="reco-col">Inclus (franchise 150 €)</td></tr>
+<tr><th>Tous risques immobiliers</th><td class="">Inclus (franchise 150 €)</td><td class="reco-col">Inclus (franchise 150 €)</td></tr>
+<tr><th>Assistance</th><td class="">Incluse</td><td class="reco-col">Incluse</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">* RAN = Remplacement à neuf. Les lignes surlignées en vert correspondent aux différences entre les deux propositions. Plafonds, franchises et exclusions détaillés dans les conditions générales (réf. API MRH CGE 06-0124). Première échéance majorée des taxes réglementaires.</p>
+    <div class="focus"><h2>Focus : vos appareils électroménagers et informatiques</h2><p>Quelques exemples d'indemnisation après un sinistre garanti (incendie, dégât des eaux, vol…), avant franchise de 150 €.</p><div class="table-wrap"><table class="focus-table"><thead><tr><th>Situation</th><th class="">Proposition 1<br><span style="font-weight:400;">sans option RAN</span></th><th class="reco">Proposition 2<br><span style="font-weight:400;">avec option RAN</span></th></tr></thead><tbody>
+<tr><th>Ordinateur portable acheté 1 200 € il y a 1 an, détruit par un dégât des eaux</th><td class=""><b>900 €</b><br/>(vétusté de 25 %)</td><td class="reco-col focus-reco"><b>Remplacé par un ordinateur neuf</b> équivalent</td></tr>
+<tr><th>Lave-linge acheté 600 € il y a 3 ans, détruit par un incendie</th><td class=""><b>420 €</b><br/>(vétusté de 30 %)</td><td class="reco-col focus-reco"><b>Remplacé par un lave-linge neuf</b> équivalent</td></tr>
+<tr><th>Téléviseur de plus de 5 ans</th><td class=""><b>Vétusté déduite</b></td><td class="reco-col"><b>Vétusté déduite</b><br/>(appareil trop ancien pour l'option)</td></tr>
+<tr><th>Panne ou usure d'un appareil</th><td class=""><b>Non indemnisé</b></td><td class="reco-col"><b>Non indemnisé</b></td></tr>
+</tbody></table></div></div>
+    <div class="reco-card">
+      <div class="reco-badge">&#10003;</div>
+      <div class="reco-body">
+        <div class="tag">SOLUTION RECOMMANDÉE</div>
+        <div class="formule">Apivia Courtage (Suravenir Assurances) — Formule Confort avec option Remplacement à neuf</div>
+        <div class="price-line">332,43 € TTC/an — ou 27,70 € TTC/mois</div>
+      </div>
+    </div>
+    <div class="why">
+      <h2>Pourquoi cette formule</h2>
+      <ul>
+        <li>Vous possédez des équipements électroménagers et informatiques : avec l'option, ceux qui sont récents sont remplacés par du neuf s'ils sont irréparables après un sinistre garanti, au lieu d'être indemnisés vétusté déduite.</li>
+<li>L'informatique perd 25 % de sa valeur par an au sens du contrat : sans l'option, un ordinateur de 2 ans n'est indemnisé qu'à la moitié de son prix.</li>
+<li>Toutes les autres garanties sont identiques : responsabilité civile, risques locatifs, incendie, dégâts des eaux, vol, accidents électriques, déménagement, tous risques immobiliers.</li>
+<li>Le supplément reste limité : 61,60 € par an, soit 5,14 € par mois.</li>
+      </ul>
+    </div>
+    <div class="why"><h2>Points d'attention</h2><ul>
+<li><b>Factures</b> : conservez les factures d'achat de vos appareils et de votre mobilier. Sans facture, la vétusté maximale (80 %) est appliquée, et l'option Remplacement à neuf exige un appareil acheté neuf, d'une valeur supérieure à 150 €.</li>
+<li><b>Accidents électriques</b> (foudre, surtension) : seuls les appareils de moins de 10 ans sont couverts, et la garantie ne joue pas si un seul appareil est endommagé.</li>
+<li><b>Vol</b> : verrouillez portes et fenêtres à chaque absence et fermez volets ou persiennes au-delà de 24 heures, sous peine de perdre l'indemnisation. Le vol en cave est couvert jusqu'à 3 000 € si la porte de la cave est pleine et munie d'une serrure de sûreté.</li>
+<li><b>Déménagement</b> : si vous déménagez vous-même avec un véhicule de location, la franchise du véhicule est prise en charge jusqu'à 1 000 € et vos biens transportés jusqu'à 2 000 € en cas d'accident.</li>
+</ul></div>
+    <div class="docs">
+      <h2>Pour consulter le détail</h2>
+      <ul>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/IPID_Habitation_Apivia_MRH.pdf">Document d'information (IPID) Apivia Habitation</a></li>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/CG_Habitation_Apivia_MRH_CGE_06-0124.pdf">Conditions générales Apivia Habitation</a></li>
+        <li><a href="https://girose-patrimoine.github.io/formulaires/girose-patrimoine-entree-en-relation-2026.pdf">Notre document d'entrée en relation</a></li>
+      </ul>
+    </div>
+    <div class="contact">
+      La fiche d'information et de conseil complète vous a été transmise en pièce jointe.<br>
+      <strong>GIROSE PATRIMOINE</strong> — Alexandre Gravier · 06 70 35 40 53 · gravier@girose-patrimoine.fr<br>
+      13 Rue Henri Regnault, 92210 Saint-Cloud — ORIAS n°22003796
+    </div>
+  </div>
+</body>
+</html>
