@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Recueil des besoins Automobile — Girose Patrimoine</title>
+<link rel="stylesheet" href="assets/girose-form.css?v=3">
+</head>
+<body>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <img class="logo" src="logo-signature.png" alt="Girose Patrimoine" width="96" height="117">
+    <h1>Recueil des besoins — Assurance automobile</h1>
+    <p>Ce questionnaire constitue le recueil de vos exigences et besoins, préalable à tout conseil de notre part (article L.521-4 du Code des assurances). Certaines réponses ont pu être renseignées par votre conseiller : merci de les vérifier, de les corriger si besoin et de compléter les autres. Ces informations sont nécessaires pour réaliser une tarification et vous adresser une proposition d'assurance adaptée à votre situation. Vous pourrez joindre à la dernière étape la carte grise et le permis de conduire.</p>
+  </div>
+  <div class="form-body">
+    <div class="progress-steps compact">
+      <div class="step-pill active" onclick="pillClick(0)">1<span class="lbl">. Souscripteur</span></div>
+      <div class="step-pill" onclick="pillClick(1)">2<span class="lbl">. Conducteurs</span></div>
+      <div class="step-pill" onclick="pillClick(2)">3<span class="lbl">. Véhicule</span></div>
+      <div class="step-pill" onclick="pillClick(3)">4<span class="lbl">. Usage</span></div>
+      <div class="step-pill" onclick="pillClick(4)">5<span class="lbl">. Antécédents</span></div>
+      <div class="step-pill" onclick="pillClick(5)">6<span class="lbl">. Garanties</span></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:16.67%"></div></div>
+
+    <form id="mainForm" onsubmit="return false">
+
+      <!-- ÉTAPE 1 : SOUSCRIPTEUR -->
+      <div class="step-content active" id="step0">
+        <div class="section-title">Le souscripteur</div>
+        <div class="field-group" data-req="Type de souscripteur">
+          <label class="field-label">Le contrat sera souscrit par <span class="req">*</span></label>
+          <div class="choice-cards" style="grid-template-columns:repeat(2,1fr)">
+            <label class="choice-card"><input type="radio" name="type_souscripteur" value="Particulier"><span class="icon">👤</span>Un particulier</label>
+            <label class="choice-card"><input type="radio" name="type_souscripteur" value="Société"><span class="icon">🏢</span>Une société</label>
+          </div>
+        </div>
+
+        <div class="field-row cols2" data-if="type_souscripteur=Société">
+          <div class="field-group" data-req="Raison sociale">
+            <label class="field-label">Raison sociale <span class="req">*</span></label>
+            <input class="field-input" name="raison_sociale">
+          </div>
+          <div class="field-group">
+            <label class="field-label">SIREN</label>
+            <input class="field-input" name="siren" inputmode="numeric" maxlength="11" placeholder="9 chiffres">
+          </div>
+        </div>
+        <div class="section-desc" data-if="type_souscripteur=Société">Indiquez ci-dessous l'identité du représentant légal.</div>
+
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Civilité">
+            <label class="field-label">Civilité <span class="req">*</span></label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="civilite" value="Madame"> Madame</label>
+              <label class="radio-label"><input type="radio" name="civilite" value="Monsieur"> Monsieur</label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Nom de naissance <span class="hint">(si différent)</span></label>
+            <input class="field-input" name="nom_naissance">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Prénom">
+            <label class="field-label">Prénom <span class="req">*</span></label>
+            <input class="field-input" name="prenom" placeholder="Prénom">
+          </div>
+          <div class="field-group" data-req="Nom">
+            <label class="field-label">Nom <span class="req">*</span></label>
+            <input class="field-input" name="nom" placeholder="NOM">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Date de naissance">
+            <label class="field-label">Date de naissance <span class="req">*</span></label>
+            <input class="field-input" name="date_naissance" type="date">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Situation familiale</label>
+            <select class="field-input" name="situation_familiale"><option value="">Veuillez sélectionner</option><option>Célibataire</option><option>Marié(e)</option><option>Pacsé(e)</option><option>Union libre</option><option>Divorcé(e)</option><option>Veuf / Veuve</option></select>
+          </div>
+        </div>
+
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Statut professionnel">
+            <label class="field-label">Statut professionnel <span class="req">*</span></label>
+            <select class="field-input" name="statut_pro"><option value="">Veuillez sélectionner</option><option>Salarié</option><option>Non salarié</option><option>Fonctionnaire</option><option>Retraité</option><option>Étudiant</option><option>Sans activité</option></select>
+          </div>
+          <div class="field-group" data-if="statut_pro=Non salarié">
+            <label class="field-label">Type d'activité</label>
+            <select class="field-input" name="type_activite"><option value="">Veuillez sélectionner</option><option>Artisan</option><option>Commerçant</option><option>Profession libérale</option><option>Auto-entrepreneur</option><option>Chef d'entreprise</option><option>Agriculteur</option><option>Intermittent</option><option>Autre</option></select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Profession</label>
+          <input class="field-input" name="profession" placeholder="Ex : comptable, infirmière, commercial…">
+        </div>
+
+        <div class="section-title">Coordonnées</div>
+        <div class="field-group" data-req="Adresse">
+          <label class="field-label">Adresse <span class="req">*</span></label>
+          <input class="field-input" name="adresse" placeholder="Numéro, rue…">
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Code postal">
+            <label class="field-label">Code postal <span class="req">*</span></label>
+            <input class="field-input" name="cp" placeholder="75000" maxlength="5" inputmode="numeric" pattern="\d{5}">
+          </div>
+          <div class="field-group" data-req="Ville">
+            <label class="field-label">Ville <span class="req">*</span></label>
+            <input class="field-input" name="ville" placeholder="Paris">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Email">
+            <label class="field-label">Email <span class="req">*</span></label>
+            <input class="field-input" name="email" type="email" placeholder="prenom.nom@email.fr">
+          </div>
+          <div class="field-group" data-req="Téléphone">
+            <label class="field-label">Téléphone <span class="req">*</span></label>
+            <input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00">
+          </div>
+        </div>
+        <div class="nav-row"><span></span><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+      </div>
+
+      <!-- ÉTAPE 2 : CONDUCTEURS -->
+      <div class="step-content" id="step1">
+        <div class="section-title">Conducteur principal</div>
+        <div class="field-group" data-req="Conducteur principal">
+          <label class="field-label">Qui conduit principalement le véhicule ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="conducteur_principal" value="Le souscripteur"> Le souscripteur</label>
+            <label class="radio-label"><input type="radio" name="conducteur_principal" value="Une autre personne"> Une autre personne</label>
+          </div>
+        </div>
+
+        <div class="sub-card" data-if="conducteur_principal=Une autre personne">
+          <div class="sub-card-title">Identité du conducteur principal</div>
+          <div class="field-row cols2">
+            <div class="field-group" data-req="Prénom du conducteur principal">
+              <label class="field-label">Prénom <span class="req">*</span></label>
+              <input class="field-input" name="cp_prenom">
+            </div>
+            <div class="field-group" data-req="Nom du conducteur principal">
+              <label class="field-label">Nom <span class="req">*</span></label>
+              <input class="field-input" name="cp_nom">
+            </div>
+          </div>
+          <div class="field-row cols2">
+            <div class="field-group" data-req="Date de naissance du conducteur principal">
+              <label class="field-label">Date de naissance <span class="req">*</span></label>
+              <input class="field-input" name="cp_date_naissance" type="date">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Lien avec le souscripteur</label>
+              <select class="field-input" name="cp_lien"><option value="">Veuillez sélectionner</option><option>Conjoint</option><option>Enfant</option><option>Parent</option><option>Salarié / dirigeant</option><option>Autre</option></select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Profession</label>
+            <input class="field-input" name="cp_profession">
+          </div>
+        </div>
+
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Date d'obtention du permis">
+            <label class="field-label">Date d'obtention du permis B <span class="req">*</span></label>
+            <input class="field-input" name="date_permis" type="date">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Pays de délivrance du permis</label>
+            <select class="field-input" name="pays_permis"><option value="">Veuillez sélectionner</option><option>France</option><option>Autre pays de l'Union européenne</option><option>Hors Union européenne</option></select>
+          </div>
+        </div>
+
+        <div class="section-title">Conducteur secondaire</div>
+        <div class="field-group" data-req="Conducteur secondaire">
+          <label class="field-label">Souhaitez-vous déclarer un conducteur secondaire ? <span class="req">*</span><br><span class="hint">Personne qui conduit le véhicule régulièrement, mais moins que le conducteur principal.</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="conducteur_secondaire" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="conducteur_secondaire" value="Non"> Non</label>
+          </div>
+        </div>
+        <div class="sub-card" data-if="conducteur_secondaire=Oui">
+          <div class="field-row cols2">
+            <div class="field-group" data-req="Prénom du conducteur secondaire">
+              <label class="field-label">Prénom <span class="req">*</span></label>
+              <input class="field-input" name="cs_prenom">
+            </div>
+            <div class="field-group" data-req="Nom du conducteur secondaire">
+              <label class="field-label">Nom <span class="req">*</span></label>
+              <input class="field-input" name="cs_nom">
+            </div>
+          </div>
+          <div class="field-row cols2">
+            <div class="field-group" data-req="Date de naissance du conducteur secondaire">
+              <label class="field-label">Date de naissance <span class="req">*</span></label>
+              <input class="field-input" name="cs_date_naissance" type="date">
+            </div>
+            <div class="field-group" data-req="Date de permis du conducteur secondaire">
+              <label class="field-label">Date d'obtention du permis B <span class="req">*</span></label>
+              <input class="field-input" name="cs_date_permis" type="date">
+            </div>
+          </div>
+          <div class="field-row cols2">
+            <div class="field-group">
+              <label class="field-label">Lien avec le conducteur principal</label>
+              <select class="field-input" name="cs_lien"><option value="">Veuillez sélectionner</option><option>Conjoint</option><option>Enfant</option><option>Parent</option><option>Autre</option></select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Profession</label>
+              <input class="field-input" name="cs_profession">
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 : VÉHICULE -->
+      <div class="step-content" id="step2">
+        <div class="section-title">Le véhicule à assurer</div>
+        <div class="section-desc">Ces informations figurent sur la carte grise (certificat d'immatriculation), que vous pourrez joindre à la dernière étape.</div>
+
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Marque">
+            <label class="field-label">Marque <span class="req">*</span></label>
+            <input class="field-input" name="marque" placeholder="Ex : Peugeot">
+          </div>
+          <div class="field-group" data-req="Modèle">
+            <label class="field-label">Modèle <span class="req">*</span></label>
+            <input class="field-input" name="modele" placeholder="Ex : 3008">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Version / finition</label>
+            <input class="field-input" name="finition" placeholder="Ex : 1.2 PureTech 130 Allure">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Immatriculation</label>
+            <input class="field-input" name="immatriculation" placeholder="AA-123-AA" style="text-transform:uppercase">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Date de 1re mise en circulation">
+            <label class="field-label">Date de 1<sup>re</sup> mise en circulation <span class="req">*</span><br><span class="hint">(case B de la carte grise)</span></label>
+            <input class="field-input" name="date_mec" type="date">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Date d'acquisition<br><span class="hint">(ou date d'achat prévue)</span></label>
+            <input class="field-input" name="date_acquisition" type="date">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Énergie</label>
+          <select class="field-input" name="energie"><option value="">Veuillez sélectionner</option><option>Essence</option><option>Diesel</option><option>Électrique</option><option>Hybride essence</option><option>Hybride diesel</option><option>Hybride rechargeable</option><option>GPL</option><option>Autre</option></select>
+        </div>
+
+        <div class="section-title">Acquisition</div>
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Valeur d'achat du véhicule (€)</label>
+            <input class="field-input" name="valeur_vehicule" type="number" min="0" placeholder="Ex : 18 000">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Acheté</label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="achat_neuf" value="Neuf"> Neuf</label>
+              <label class="radio-label"><input type="radio" name="achat_neuf" value="D'occasion"> D'occasion</label>
+            </div>
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group">
+            <label class="field-label">Acheté chez un professionnel</label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="achat_pro" value="Oui"> Oui</label>
+              <label class="radio-label"><input type="radio" name="achat_pro" value="Non"> Non</label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Mode de financement</label>
+            <select class="field-input" name="financement"><option value="">Veuillez sélectionner</option><option>Comptant</option><option>Crédit</option><option>LOA (location avec option d'achat)</option><option>LLD (location longue durée)</option><option>Autre</option></select>
+          </div>
+        </div>
+
+        <div class="section-title">Titulaire de la carte grise</div>
+        <div class="field-group" data-req="Titulaire de la carte grise">
+          <label class="field-label">Le titulaire de la carte grise est-il le conducteur principal ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="titulaire_cg" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="titulaire_cg" value="Non"> Non</label>
+          </div>
+          <div class="sub-block" data-if="titulaire_cg=Non">
+            <div class="field-row cols2">
+              <div class="field-group">
+                <label class="field-label">Nom du titulaire</label>
+                <input class="field-input" name="titulaire_cg_nom" placeholder="Personne ou société">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Lien avec le conducteur principal</label>
+                <input class="field-input" name="titulaire_cg_lien" placeholder="Ex : conjoint, parent, société de leasing…">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 : USAGE -->
+      <div class="step-content" id="step3">
+        <div class="section-title">Usage du véhicule</div>
+        <div class="field-group" data-req="Usage">
+          <label class="field-label">Usage du véhicule <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="usage" value="Privé"> Privé uniquement <span class="hint">(loisirs, hors trajets domicile-travail)</span></label>
+            <label class="radio-label"><input type="radio" name="usage" value="Privé et trajets domicile-travail"> Privé et trajets domicile-travail</label>
+            <label class="radio-label"><input type="radio" name="usage" value="Professionnel"> Professionnel <span class="hint">(déplacements dans le cadre du travail)</span></label>
+            <label class="radio-label"><input type="radio" name="usage" value="Tous déplacements"> Tous déplacements</label>
+          </div>
+        </div>
+        <div class="field-group" data-req="Kilométrage annuel">
+          <label class="field-label">Kilométrage annuel estimé <span class="req">*</span></label>
+          <select class="field-input" name="kilometrage"><option value="">Veuillez sélectionner</option><option>Moins de 4 000 km</option><option>Moins de 5 000 km</option><option>Moins de 7 000 km</option><option>Moins de 10 000 km</option><option>Moins de 15 000 km</option><option>Moins de 20 000 km</option><option>Plus de 20 000 km</option><option>Ne sait pas</option></select>
+        </div>
+
+        <div class="section-title">Stationnement de nuit</div>
+        <div class="field-group" data-req="Lieu de stationnement">
+          <label class="field-label">Où le véhicule stationne-t-il la nuit ? <span class="req">*</span></label>
+          <select class="field-input" name="stationnement"><option value="">Veuillez sélectionner</option><option>Garage individuel clos et couvert</option><option>Garage individuel clos non couvert</option><option>Parking collectif clos et couvert</option><option>Parking collectif clos non couvert</option><option>Voie publique / pas de garage clos</option></select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Le lieu de stationnement est-il à votre domicile ?</label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="stationnement_domicile" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="stationnement_domicile" value="Non"> Non</label>
+          </div>
+          <div class="sub-block" data-if="stationnement_domicile=Non">
+            <div class="field-group">
+              <label class="field-label">Code postal et ville du lieu de stationnement</label>
+              <input class="field-input" name="lieu_stationnement" placeholder="Ex : 92210 Saint-Cloud">
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Usages particuliers</div>
+        <div class="field-group" data-req="Usages particuliers">
+          <label class="field-label">Le véhicule sert-il au transport rémunéré de personnes (VTC, taxi…) ou de marchandises (livraison…), ou est-il loué à des tiers ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="usage_particulier" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="usage_particulier" value="Non"> Non</label>
+          </div>
+          <div class="sub-block" data-if="usage_particulier=Oui">
+            <div class="field-group" data-req="Précisez l'usage particulier">
+              <label class="field-label">Précisez <span class="req">*</span></label>
+              <input class="field-input" name="usage_particulier_detail" placeholder="Ex : activité VTC, livraison de repas, location entre particuliers…">
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 5 : ANTÉCÉDENTS -->
+      <div class="step-content" id="step4">
+        <div class="section-title">Antécédents d'assurance</div>
+        <div class="section-desc">Ces éléments figurent sur le relevé d'informations délivré par votre assureur actuel ou précédent.</div>
+
+        <div class="field-group" data-req="Assuré actuellement">
+          <label class="field-label">Le conducteur principal est-il actuellement assuré pour un véhicule ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="assure_actuellement" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="assure_actuellement" value="Non"> Non</label>
+          </div>
+          <div class="sub-block" data-if="assure_actuellement=Oui">
+            <div class="field-row cols2">
+              <div class="field-group">
+                <label class="field-label">Assureur actuel</label>
+                <input class="field-input" name="assureur_actuel">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Date d'échéance du contrat actuel</label>
+                <input class="field-input" name="echeance_actuelle" type="date">
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Cotisation annuelle actuelle (€)</label>
+              <input class="field-input" name="cotisation_actuelle" type="number" min="0" style="max-width:240px">
+            </div>
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Mois d'assurance sur 36 mois">
+            <label class="field-label">Nombre de mois assurés au cours des 36 derniers mois <span class="req">*</span></label>
+            <input class="field-input" name="mois_assures_36" type="number" min="0" max="36" placeholder="Ex : 36">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Coefficient bonus-malus<br><span class="hint">(ex : 0,50 = 50 % de bonus)</span></label>
+            <input class="field-input" name="bonus_malus" inputmode="decimal" placeholder="Ex : 0,50">
+          </div>
+        </div>
+
+        <div class="field-group" data-req="Sinistres sur 36 mois">
+          <label class="field-label">Sinistres déclarés au cours des 36 derniers mois (tous conducteurs déclarés) ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="sinistres_36" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="sinistres_36" value="Non"> Non</label>
+          </div>
+          <div class="sub-block" data-if="sinistres_36=Oui">
+            <div class="field-group">
+              <label class="field-label">Nombre de sinistres</label>
+              <div class="counter"><button type="button" onclick="step('nb_sinistres',-1)">−</button><input type="number" name="nb_sinistres" min="1" max="20" placeholder="–"><button type="button" onclick="step('nb_sinistres',1)">+</button></div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Détail des sinistres</label>
+              <textarea class="field-input" name="detail_sinistres" placeholder="Pour chaque sinistre : date, nature (accident, bris de glace, vol…), responsable ou non"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" data-req="Résiliation par un assureur">
+          <label class="field-label">Un contrat auto a-t-il été résilié par un assureur au cours des 3 dernières années ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="resiliation_assureur" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="resiliation_assureur" value="Non"> Non</label>
+          </div>
+          <div class="sub-block" data-if="resiliation_assureur=Oui">
+            <div class="field-group">
+              <label class="field-label">Motif</label>
+              <select class="field-input" name="motif_resiliation"><option value="">Veuillez sélectionner</option><option>Non-paiement de cotisation</option><option>Sinistralité</option><option>Fausse déclaration</option><option>Autre</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Antécédents des conducteurs</div>
+        <div class="section-desc">Ces questions concernent le conducteur principal et, le cas échéant, le conducteur secondaire.</div>
+        <div class="field-group" data-req="Antécédents des conducteurs">
+          <label class="field-label">Un conducteur a-t-il fait l'objet de l'une des situations suivantes ? <span class="req">*</span></label>
+          <ul class="bullets">
+            <li>suspension ou retrait de permis au cours des 3 dernières années ;</li>
+            <li>annulation de permis au cours des 5 dernières années ;</li>
+            <li>condamnation pour conduite sous l'emprise d'alcool ou de stupéfiants, délit de fuite, refus d'obtempérer ou défaut d'assurance au cours des 5 dernières années.</li>
+          </ul>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="atcd_conducteur" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="atcd_conducteur" value="Non"> Non</label>
+          </div>
+          <div class="sub-block" data-if="atcd_conducteur=Oui">
+            <div class="field-group" data-req="Motif">
+              <label class="field-label">Motif <span class="req">*</span></label>
+              <div class="radio-group">
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Suspension ou retrait de permis"> Suspension ou retrait de permis</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Annulation de permis"> Annulation de permis</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Alcool ou stupéfiants"> Alcool ou stupéfiants</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Délit de fuite ou refus d'obtempérer"> Délit de fuite ou refus d'obtempérer</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Défaut d'assurance"> Défaut d'assurance</label>
+              </div>
+            </div>
+            <div class="field-group" data-req="Précisions sur les antécédents">
+              <label class="field-label">Précisions <span class="req">*</span></label>
+              <textarea class="field-input" name="atcd_detail" placeholder="Conducteur concerné, date, durée de la suspension, circonstances…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 6 : GARANTIES ET DOCUMENTS -->
+      <div class="step-content" id="step5">
+        <div class="section-title">Vos besoins de garanties</div>
+        <div class="field-group" data-req="Formule souhaitée">
+          <label class="field-label">Quel niveau de protection souhaitez-vous ? <span class="req">*</span></label>
+          <div class="choice-cards formules">
+            <label class="choice-card"><input type="radio" name="formule" value="Tiers"><span class="f-name">Tiers</span><small>La protection obligatoire</small>
+              <ul><li>Responsabilité civile</li><li>Défense pénale et recours</li></ul></label>
+            <label class="choice-card"><input type="radio" name="formule" value="Tiers étendu"><span class="f-name">Tiers étendu</span><small>Le compromis</small>
+              <ul><li>Garanties du Tiers</li><li>Vol et incendie</li><li>Bris de glace</li><li>Événements climatiques</li></ul></label>
+            <label class="choice-card"><input type="radio" name="formule" value="Tous risques"><span class="f-name">Tous risques</span><small>La protection maximale</small>
+              <ul><li>Garanties du Tiers étendu</li><li>Dommages au véhicule, même en cas d'accident responsable</li><li>Vandalisme</li></ul></label>
+          </div>
+          <div class="radio-group" style="margin-top:4px">
+            <label class="radio-label"><input type="radio" name="formule" value="À définir avec le conseiller"> Je ne sais pas, je souhaite être conseillé(e)</label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Options souhaitées</label>
+          <div class="radio-group">
+            <label class="checkbox-label"><input type="checkbox" name="options" value="Garantie du conducteur renforcée"> Garantie du conducteur renforcée <span class="hint">(vos propres blessures en cas d'accident responsable)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="options" value="Assistance 0 km"> Assistance 0 km <span class="hint">(dépannage même devant chez vous)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="options" value="Véhicule de remplacement"> Véhicule de remplacement</label>
+            <label class="checkbox-label"><input type="checkbox" name="options" value="Protection juridique"> Protection juridique</label>
+            <label class="checkbox-label"><input type="checkbox" name="options" value="Contenu du véhicule"> Contenu du véhicule <span class="hint">(objets transportés)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="options" value="Accessoires et aménagements"> Accessoires et aménagements</label>
+            <label class="checkbox-label"><input type="checkbox" name="options" value="Indemnisation renforcée (valeur à neuf ou majorée)"> Indemnisation renforcée <span class="hint">(valeur à neuf ou valeur majorée)</span></label>
+          </div>
+        </div>
+
+        <div class="field-group" data-req="Date d'effet souhaitée">
+          <label class="field-label">Date d'effet souhaitée <span class="req">*</span></label>
+          <input class="field-input" name="date_effet" type="date" style="max-width:240px">
+        </div>
+        <div class="info-box" data-if="assure_actuellement=Oui">Si votre contrat actuel a plus d'un an, vous pouvez le résilier à tout moment : nous pouvons nous charger des démarches de résiliation auprès de votre assureur actuel.</div>
+
+        <div class="section-title">Vos documents</div>
+        <div class="section-desc">Ces documents nous permettent d'établir un devis exact ; la carte grise est indispensable. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum.</div>
+        <div class="field-group" data-req="Carte grise">
+          <label class="field-label">Carte grise du véhicule <span class="req">*</span> <span class="hint">(certificat d'immatriculation, ou certificat provisoire si le véhicule vient d'être acheté)</span></label>
+          <input class="file-input" type="file" name="doc_carte_grise" accept="application/pdf,image/*" multiple>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Permis de conduire du conducteur principal <span class="hint">(recto et verso)</span></label>
+          <input class="file-input" type="file" name="doc_permis" accept="application/pdf,image/*" multiple>
+        </div>
+        <div class="field-group" data-if="conducteur_secondaire=Oui">
+          <label class="field-label">Permis de conduire du conducteur secondaire <span class="hint">(recto et verso)</span></label>
+          <input class="file-input" type="file" name="doc_permis_secondaire" accept="application/pdf,image/*" multiple>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Relevé d'informations <span class="hint">(facultatif, à demander à votre assureur actuel)</span></label>
+          <input class="file-input" type="file" name="doc_releve_informations" accept="application/pdf,image/*" multiple>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Informations complémentaires</label>
+          <textarea class="field-input" name="informations_complementaires" placeholder="Indiquez ici toute information complémentaire…"></textarea>
+        </div>
+
+        <div data-gp="rgpd"></div>
+        <div data-gp="declaration"></div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Envoyer ma demande</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/girose-form.js?v=3"></script>
+<script>
+// Liste des fichiers choisis sous chaque champ de document
+document.querySelectorAll('.file-input').forEach(function (inp) {
+  var list = document.createElement('div');
+  list.className = 'file-list';
+  inp.after(list);
+  inp.addEventListener('change', function () {
+    list.innerHTML = Array.prototype.map.call(inp.files, function (f) {
+      return '✓ ' + GP.esc(f.name) + ' (' + Math.max(1, Math.round(f.size / 1024)) + ' Ko)';
+    }).join('<br>');
+  });
+});
+
+GP.init({
+  formulaire: 'Recueil des besoins Automobile',
+  // Les antécédents des conducteurs ne sont jamais repris dans un lien pré-rempli
+  noLink: /^atcd_/,
+  maxUploadMo: 20,
+  subject: function () {
+    var nom = [GP.val('prenom'), GP.val('nom')].filter(Boolean).join(' ');
+    var vehicule = [GP.val('marque'), GP.val('modele')].filter(Boolean).join(' ');
+    return 'Recueil des besoins Automobile' + (vehicule ? ' — ' + vehicule : '') + (nom ? ' — ' + nom : '');
+  }
+});
+</script>
+</body>
+</html>
