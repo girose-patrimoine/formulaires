@@ -523,9 +523,9 @@
         <div class="info-box" data-if="assure_actuellement=Oui">Si votre contrat actuel a plus d'un an, vous pouvez le résilier à tout moment : nous pouvons nous charger des démarches de résiliation auprès de votre assureur actuel.</div>
 
         <div class="section-title">Vos documents</div>
-        <div class="section-desc">Facultatif mais recommandé : ces documents nous permettent d'établir un devis exact. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum.</div>
-        <div class="field-group">
-          <label class="field-label">Carte grise du véhicule <span class="hint">(certificat d'immatriculation)</span></label>
+        <div class="section-desc">Ces documents nous permettent d'établir un devis exact ; la carte grise est indispensable. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum.</div>
+        <div class="field-group" data-req="Carte grise">
+          <label class="field-label">Carte grise du véhicule <span class="req">*</span> <span class="hint">(certificat d'immatriculation, ou certificat provisoire si le véhicule vient d'être acheté)</span></label>
           <input class="file-input" type="file" name="doc_carte_grise" accept="application/pdf,image/*" multiple>
         </div>
         <div class="field-group">
@@ -539,10 +539,6 @@
         <div class="field-group">
           <label class="field-label">Relevé d'informations <span class="hint">(facultatif, à demander à votre assureur actuel)</span></label>
           <input class="file-input" type="file" name="doc_releve_informations" accept="application/pdf,image/*" multiple>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Autres documents <span class="hint">(avis d'échéance actuel, bon de commande…)</span></label>
-          <input class="file-input" type="file" name="doc_autres" accept="application/pdf,image/*" multiple>
         </div>
 
         <div class="field-group">
