@@ -80,13 +80,9 @@
             <input class="field-input" name="date_naissance" type="date">
           </div>
           <div class="field-group">
-            <label class="field-label">Lieu de naissance</label>
-            <input class="field-input" name="lieu_naissance" placeholder="Ville (département ou pays)">
+            <label class="field-label">Situation familiale</label>
+            <select class="field-input" name="situation_familiale"><option value="">Veuillez sélectionner</option><option>Célibataire</option><option>Marié(e)</option><option>Pacsé(e)</option><option>Union libre</option><option>Divorcé(e)</option><option>Veuf / Veuve</option></select>
           </div>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Situation familiale</label>
-          <select class="field-input" name="situation_familiale"><option value="">Veuillez sélectionner</option><option>Célibataire</option><option>Marié(e)</option><option>Pacsé(e)</option><option>Union libre</option><option>Divorcé(e)</option><option>Veuf / Veuve</option></select>
         </div>
 
         <div class="field-row cols2">
@@ -181,13 +177,6 @@
             <select class="field-input" name="pays_permis"><option value="">Veuillez sélectionner</option><option>France</option><option>Autre pays de l'Union européenne</option><option>Hors Union européenne</option></select>
           </div>
         </div>
-        <div class="field-group">
-          <label class="field-label">Conduite accompagnée (AAC) <span class="hint">(pour les permis de moins de 3 ans)</span></label>
-          <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="conduite_accompagnee" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="conduite_accompagnee" value="Non"> Non</label>
-          </div>
-        </div>
 
         <div class="section-title">Conducteur secondaire</div>
         <div class="field-group" data-req="Conducteur secondaire">
@@ -271,28 +260,9 @@
             <input class="field-input" name="date_acquisition" type="date">
           </div>
         </div>
-        <div class="field-row cols2">
-          <div class="field-group">
-            <label class="field-label">Énergie</label>
-            <select class="field-input" name="energie"><option value="">Veuillez sélectionner</option><option>Essence</option><option>Diesel</option><option>Électrique</option><option>Hybride essence</option><option>Hybride diesel</option><option>Hybride rechargeable</option><option>GPL</option><option>Autre</option></select>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Boîte automatique</label>
-            <div class="radio-group inline">
-              <label class="radio-label"><input type="radio" name="boite_auto" value="Oui"> Oui</label>
-              <label class="radio-label"><input type="radio" name="boite_auto" value="Non"> Non</label>
-            </div>
-          </div>
-        </div>
-        <div class="field-row cols2">
-          <div class="field-group">
-            <label class="field-label">Carrosserie</label>
-            <select class="field-input" name="carrosserie"><option value="">Veuillez sélectionner</option><option>Citadine</option><option>Berline</option><option>Break</option><option>SUV / 4x4</option><option>Monospace</option><option>Coupé / cabriolet</option><option>Utilitaire</option><option>Autre</option></select>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Puissance fiscale (CV)<br><span class="hint">(case P.6 de la carte grise)</span></label>
-            <input class="field-input" name="puissance_fiscale" type="number" min="1" max="99" placeholder="Ex : 6">
-          </div>
+        <div class="field-group">
+          <label class="field-label">Énergie</label>
+          <select class="field-input" name="energie"><option value="">Veuillez sélectionner</option><option>Essence</option><option>Diesel</option><option>Électrique</option><option>Hybride essence</option><option>Hybride diesel</option><option>Hybride rechargeable</option><option>GPL</option><option>Autre</option></select>
         </div>
 
         <div class="section-title">Acquisition</div>
@@ -362,16 +332,6 @@
             <label class="radio-label"><input type="radio" name="usage" value="Tous déplacements"> Tous déplacements</label>
           </div>
         </div>
-        <div class="field-row cols2" data-if="usage=Privé et trajets domicile-travail|Professionnel|Tous déplacements">
-          <div class="field-group">
-            <label class="field-label">Code postal du lieu de travail</label>
-            <input class="field-input" name="cp_travail" maxlength="5" inputmode="numeric" pattern="\d{5}" placeholder="75000">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Ville du lieu de travail</label>
-            <input class="field-input" name="ville_travail">
-          </div>
-        </div>
         <div class="field-group" data-req="Kilométrage annuel">
           <label class="field-label">Kilométrage annuel estimé <span class="req">*</span></label>
           <select class="field-input" name="kilometrage"><option value="">Veuillez sélectionner</option><option>Moins de 4 000 km</option><option>Moins de 5 000 km</option><option>Moins de 7 000 km</option><option>Moins de 10 000 km</option><option>Moins de 15 000 km</option><option>Moins de 20 000 km</option><option>Plus de 20 000 km</option><option>Ne sait pas</option></select>
@@ -397,37 +357,17 @@
         </div>
 
         <div class="section-title">Usages particuliers</div>
-        <div class="field-group" data-req="Transport rémunéré de personnes">
-          <label class="field-label">Le véhicule sert-il au transport rémunéré de personnes (VTC, taxi…) ? <span class="req">*</span></label>
+        <div class="field-group" data-req="Usages particuliers">
+          <label class="field-label">Le véhicule sert-il au transport rémunéré de personnes (VTC, taxi…) ou de marchandises (livraison…), ou est-il loué à des tiers ? <span class="req">*</span></label>
           <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="transport_personnes" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="transport_personnes" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="usage_particulier" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="usage_particulier" value="Non"> Non</label>
           </div>
-        </div>
-        <div class="field-group" data-req="Transport rémunéré de marchandises">
-          <label class="field-label">Le véhicule sert-il au transport rémunéré de marchandises (livraison…) ? <span class="req">*</span></label>
-          <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="transport_marchandises" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="transport_marchandises" value="Non"> Non</label>
-          </div>
-        </div>
-        <div class="field-group" data-req="Location du véhicule">
-          <label class="field-label">Le véhicule est-il loué à des tiers (location entre particuliers…) ? <span class="req">*</span></label>
-          <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="location_tiers" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="location_tiers" value="Non"> Non</label>
-          </div>
-        </div>
-
-        <div class="section-title">Votre foyer</div>
-        <div class="field-row cols2">
-          <div class="field-group">
-            <label class="field-label">Nombre de véhicules au foyer <span class="hint">(y compris celui-ci)</span></label>
-            <div class="counter"><button type="button" onclick="step('nb_vehicules_foyer',-1)">−</button><input type="number" name="nb_vehicules_foyer" min="1" max="10" placeholder="–"><button type="button" onclick="step('nb_vehicules_foyer',1)">+</button></div>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Nombre de titulaires du permis au foyer</label>
-            <div class="counter"><button type="button" onclick="step('nb_permis_foyer',-1)">−</button><input type="number" name="nb_permis_foyer" min="0" max="10" placeholder="–"><button type="button" onclick="step('nb_permis_foyer',1)">+</button></div>
+          <div class="sub-block" data-if="usage_particulier=Oui">
+            <div class="field-group" data-req="Précisez l'usage particulier">
+              <label class="field-label">Précisez <span class="req">*</span></label>
+              <input class="field-input" name="usage_particulier_detail" placeholder="Ex : activité VTC, livraison de repas, location entre particuliers…">
+            </div>
           </div>
         </div>
 
@@ -510,45 +450,32 @@
 
         <div class="section-title">Antécédents des conducteurs</div>
         <div class="section-desc">Ces questions concernent le conducteur principal et, le cas échéant, le conducteur secondaire.</div>
-        <div class="field-group" data-req="Suspension ou retrait de permis">
-          <label class="field-label">Suspension ou retrait de permis au cours des 3 dernières années ? <span class="req">*</span></label>
+        <div class="field-group" data-req="Antécédents des conducteurs">
+          <label class="field-label">Un conducteur a-t-il fait l'objet de l'une des situations suivantes ? <span class="req">*</span></label>
+          <ul class="bullets">
+            <li>suspension ou retrait de permis au cours des 3 dernières années ;</li>
+            <li>annulation de permis au cours des 5 dernières années ;</li>
+            <li>condamnation pour conduite sous l'emprise d'alcool ou de stupéfiants, délit de fuite, refus d'obtempérer ou défaut d'assurance au cours des 5 dernières années.</li>
+          </ul>
           <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="atcd_suspension" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="atcd_suspension" value="Non"> Non</label>
+            <label class="radio-label"><input type="radio" name="atcd_conducteur" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="atcd_conducteur" value="Non"> Non</label>
           </div>
-          <div class="sub-block" data-if="atcd_suspension=Oui">
-            <div class="field-group">
-              <label class="field-label">Durée et motif</label>
-              <input class="field-input" name="atcd_suspension_detail" placeholder="Ex : 2 mois, excès de vitesse">
+          <div class="sub-block" data-if="atcd_conducteur=Oui">
+            <div class="field-group" data-req="Motif">
+              <label class="field-label">Motif <span class="req">*</span></label>
+              <div class="radio-group">
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Suspension ou retrait de permis"> Suspension ou retrait de permis</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Annulation de permis"> Annulation de permis</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Alcool ou stupéfiants"> Alcool ou stupéfiants</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Délit de fuite ou refus d'obtempérer"> Délit de fuite ou refus d'obtempérer</label>
+                <label class="checkbox-label"><input type="checkbox" name="atcd_motif" value="Défaut d'assurance"> Défaut d'assurance</label>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="field-group" data-req="Annulation de permis">
-          <label class="field-label">Annulation de permis au cours des 5 dernières années ? <span class="req">*</span></label>
-          <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="atcd_annulation" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="atcd_annulation" value="Non"> Non</label>
-          </div>
-        </div>
-        <div class="field-group" data-req="Alcoolémie ou stupéfiants">
-          <label class="field-label">Condamnation pour conduite sous l'emprise d'alcool ou de stupéfiants au cours des 5 dernières années ? <span class="req">*</span></label>
-          <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="atcd_alcool" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="atcd_alcool" value="Non"> Non</label>
-          </div>
-        </div>
-        <div class="field-group" data-req="Délit de fuite ou refus d'obtempérer">
-          <label class="field-label">Condamnation pour délit de fuite ou refus d'obtempérer au cours des 5 dernières années ? <span class="req">*</span></label>
-          <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="atcd_fuite" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="atcd_fuite" value="Non"> Non</label>
-          </div>
-        </div>
-        <div class="field-group" data-req="Défaut d'assurance">
-          <label class="field-label">Condamnation pour défaut d'assurance au cours des 5 dernières années ? <span class="req">*</span></label>
-          <div class="radio-group inline">
-            <label class="radio-label"><input type="radio" name="atcd_defaut_assurance" value="Oui"> Oui</label>
-            <label class="radio-label"><input type="radio" name="atcd_defaut_assurance" value="Non"> Non</label>
+            <div class="field-group" data-req="Précisions sur les antécédents">
+              <label class="field-label">Précisions <span class="req">*</span></label>
+              <textarea class="field-input" name="atcd_detail" placeholder="Conducteur concerné, date, durée de la suspension, circonstances…"></textarea>
+            </div>
           </div>
         </div>
 
@@ -589,19 +516,9 @@
           </div>
         </div>
 
-        <div class="field-row cols2">
-          <div class="field-group" data-req="Date d'effet souhaitée">
-            <label class="field-label">Date d'effet souhaitée <span class="req">*</span></label>
-            <input class="field-input" name="date_effet" type="date">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Paiement de la cotisation</label>
-            <select class="field-input" name="fractionnement"><option value="">Veuillez sélectionner</option><option>Mensuel</option><option>Trimestriel</option><option>Semestriel</option><option>Annuel</option></select>
-          </div>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Budget annuel envisagé (€)</label>
-          <input class="field-input" name="budget" type="number" min="0" style="max-width:240px">
+        <div class="field-group" data-req="Date d'effet souhaitée">
+          <label class="field-label">Date d'effet souhaitée <span class="req">*</span></label>
+          <input class="field-input" name="date_effet" type="date" style="max-width:240px">
         </div>
         <div class="info-box" data-if="assure_actuellement=Oui">Si votre contrat actuel a plus d'un an, vous pouvez le résilier à tout moment : nous pouvons nous charger des démarches de résiliation auprès de votre assureur actuel.</div>
 
@@ -620,7 +537,7 @@
           <input class="file-input" type="file" name="doc_permis_secondaire" accept="application/pdf,image/*" multiple>
         </div>
         <div class="field-group">
-          <label class="field-label">Relevé d'informations <span class="hint">(à demander à votre assureur actuel)</span></label>
+          <label class="field-label">Relevé d'informations <span class="hint">(facultatif, à demander à votre assureur actuel)</span></label>
           <input class="file-input" type="file" name="doc_releve_informations" accept="application/pdf,image/*" multiple>
         </div>
         <div class="field-group">
