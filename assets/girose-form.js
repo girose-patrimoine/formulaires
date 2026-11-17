@@ -8,7 +8,8 @@
  *  - case exclusive : <input type="checkbox" data-exclusive> (décoche les autres cases du même nom) ;
  *  - compteurs (boutons − / +), bulles d'aide (.info-btn[data-tip]), ventilations à 100 % (.vent) ;
  *  - pré-remplissage par lien (#d=…) et mode conseiller (#conseiller) ; cfg.noLink exclut des champs du lien ;
- *  - pied de page légal, mentions RGPD, envoi Formspree.
+ *  - pied de page légal, mentions RGPD, envoi Formspree (pièces jointes : <input type="file">, jamais reprises dans le lien ;
+ *    si Formspree refuse les fichiers, les réponses sont envoyées seules et le client est invité à envoyer ses documents par email).
  * Aucune donnée client n'est écrite dans la page : elles ne transitent que par le fragment # du lien.
  */
 (function () {
@@ -177,7 +178,7 @@
   function collect() {
     var data = {};
     Array.prototype.forEach.call(form.elements, function (el) {
-      if (!el.name || el.type === 'button' || (cfg.noLink && cfg.noLink.test(el.name))) return;
+      if (!el.name || el.type === 'button' || el.type === 'file' || (cfg.noLink && cfg.noLink.test(el.name))) return;
       if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; return; }
       if (el.type === 'checkbox') {
         if (!el.checked) return;
@@ -201,6 +202,7 @@
     Object.keys(data).forEach(function (name) {
       var v = data[name];
       byName(name).forEach(function (el) {
+        if (el.type === 'file') return;
         if (el.type === 'radio') el.checked = el.value === v;
         else if (el.type === 'checkbox') el.checked = Array.isArray(v) ? v.indexOf(el.value) >= 0 : el.value === v;
         else el.value = v;
@@ -240,22 +242,48 @@
     var btn = document.getElementById('submitBtn'), label = btn.textContent;
     btn.textContent = 'Envoi en cours…';
     btn.disabled = true;
-    var fd = new FormData(), lists = {};
+    var fd = new FormData(), lists = {}, files = [];
     fd.append('_subject', cfg.subject ? cfg.subject() : 'Recueil des besoins — ' + (cfg.formulaire || ''));
     fd.append('formulaire', cfg.formulaire || '');
     Array.prototype.forEach.call(form.elements, function (el) {
       if (!el.name || hidden(el) || (cfg.skip && cfg.skip.test(el.name))) return;
       if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
+      if (el.type === 'file') { Array.prototype.forEach.call(el.files, function (f) { files.push([el.name, f]); }); return; }
       if (el.type === 'checkbox' && byName(el.name).length > 1) { (lists[el.name] = lists[el.name] || []).push(el.value); return; }
       if (el.value === '') return;
       fd.append(el.name, fmtValue(el));
     });
     Object.keys(lists).forEach(function (k) { fd.append(k, lists[k].join(' ; ')); });
     if (cfg.beforeSubmit) cfg.beforeSubmit(fd);
+    var maxMo = cfg.maxUploadMo || 20;
+    var total = files.reduce(function (t, f) { return t + f[1].size; }, 0);
+    if (total > maxMo * 1024 * 1024) {
+      btn.textContent = label; btn.disabled = false;
+      showToast('Les documents joints dépassent ' + maxMo + ' Mo au total : retirez-en ou envoyez-les par email');
+      return;
+    }
+    var url = cfg.formspree || 'https://formspree.io/f/xwlpkzyn', filesLost = false;
+    async function send(withFiles) {
+      var body = new FormData();
+      fd.forEach(function (v, k) { body.append(k, v); });
+      if (withFiles) files.forEach(function (f) { body.append(f[0], f[1], f[1].name); });
+      else if (files.length) body.append('documents_non_transmis', files.map(function (f) { return f[1].name; }).join(' ; '));
+      var r = await fetch(url, { method: 'POST', body: body, headers: { 'Accept': 'application/json' } });
+      var d = await r.json();
+      return !!d.ok;
+    }
     try {
-      var response = await fetch(cfg.formspree || 'https://formspree.io/f/xwlpkzyn', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
-      var data = await response.json();
-      if (!data.ok) throw new Error('ko');
+      var ok = await send(true);
+      // Si l'envoi des pièces jointes est refusé, on transmet au moins les réponses
+      if (!ok && files.length) { ok = await send(false); filesLost = ok; }
+      if (!ok) throw new Error('ko');
+      if (filesLost) {
+        var sw2 = document.getElementById('successWrap'), msg = document.createElement('p');
+        msg.className = 'success-text';
+        msg.style.marginTop = '14px';
+        msg.innerHTML = '<strong>Vos documents n\'ont pas pu être transmis.</strong> Merci de les envoyer par email à <a href="mailto:contact@girose-patrimoine.fr">contact@girose-patrimoine.fr</a>.';
+        sw2.appendChild(msg);
+      }
       form.style.display = 'none';
       document.querySelector('.progress-steps').style.display = 'none';
       document.querySelector('.progress-bar').style.display = 'none';
