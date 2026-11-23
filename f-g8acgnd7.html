@@ -96,9 +96,17 @@
           <label class="field-label">Offre de prêt <span class="req">*</span> <span class="hint">(ou dernier avenant)</span></label>
           <input class="file-input" type="file" name="doc_offre_pret" accept="application/pdf,image/*" multiple>
         </div>
-        <div class="field-group" data-req="Tableau d'amortissement">
-          <label class="field-label">Tableau(x) d'amortissement <span class="req">*</span></label>
-          <input class="file-input" type="file" name="doc_tableau_amortissement" accept="application/pdf,image/*" multiple>
+        <div class="field-group" data-req="Tableau d'amortissement (Premier prêt)">
+          <label class="field-label">Tableau d'amortissement <span data-if="nb_prets=2|3">– premier prêt </span><span class="req">*</span></label>
+          <input class="file-input" type="file" name="doc_tableau_amortissement_1" accept="application/pdf,image/*" multiple>
+        </div>
+        <div class="field-group" data-req="Tableau d'amortissement (Deuxième prêt)" data-if="nb_prets=2|3">
+          <label class="field-label">Tableau d'amortissement <span data-if="nb_prets=2|3">– deuxième prêt </span><span class="req">*</span></label>
+          <input class="file-input" type="file" name="doc_tableau_amortissement_2" accept="application/pdf,image/*" multiple>
+        </div>
+        <div class="field-group" data-req="Tableau d'amortissement (Troisième prêt)" data-if="nb_prets=3">
+          <label class="field-label">Tableau d'amortissement <span data-if="nb_prets=2|3">– troisième prêt </span><span class="req">*</span></label>
+          <input class="file-input" type="file" name="doc_tableau_amortissement_3" accept="application/pdf,image/*" multiple>
         </div>
         <div class="field-group" data-if="demarche=Changement d'assurance">
           <label class="field-label">Contrat d'assurance de prêt actuel <span class="hint">(facultatif : certificat d'adhésion ou conditions particulières, notice d'information, dernier échéancier ; sans le courrier médical éventuel)</span></label>
