@@ -8,7 +8,7 @@
  *  - case exclusive : <input type="checkbox" data-exclusive> (décoche les autres cases du même nom) ;
  *  - compteurs (boutons − / +), bulles d'aide (.info-btn[data-tip]), ventilations à 100 % (.vent) ;
  *  - pré-remplissage par lien (#d=…) et mode conseiller (#conseiller) ; cfg.noLink exclut des champs du lien ;
- *  - pièces jointes (.file-input) : liste des fichiers choisis et lien « Retirer » ;
+ *  - pièces jointes (.file-input) : sélections successives cumulées, liste des fichiers et lien « Retirer » par fichier ;
  *  - pied de page légal, mentions RGPD, envoi Formspree (pièces jointes : <input type="file">, jamais reprises dans le lien ;
  *    si Formspree refuse les fichiers, les réponses sont envoyées seules et le client est invité à envoyer ses documents par email).
  * Aucune donnée client n'est écrite dans la page : elles ne transitent que par le fragment # du lien.
@@ -342,23 +342,41 @@
 
     document.querySelectorAll('.vent').forEach(initVent);
 
-    // Pièces jointes : liste des fichiers choisis et lien « Retirer » (remplacer = choisir un autre fichier)
+    // Pièces jointes : chaque nouvelle sélection s'ajoute aux fichiers déjà choisis (doublons ignorés),
+    // chaque fichier peut être retiré individuellement. Sans DataTransfer (navigateur ancien), la sélection remplace.
+    var canMerge = (function () { try { return !!new DataTransfer().items; } catch (e) { return false; } })();
     document.querySelectorAll('.file-input').forEach(function (inp) {
+      var kept = [];
       var list = document.createElement('div');
       list.className = 'file-list';
       inp.after(list);
-      function show() {
-        if (!inp.files.length) { list.innerHTML = ''; return; }
-        list.innerHTML = Array.prototype.map.call(inp.files, function (f) {
-          return '✓ ' + esc(f.name) + ' (' + Math.max(1, Math.round(f.size / 1024)) + ' Ko)';
-        }).join('<br>') + ' <button type="button" class="file-remove">Retirer</button>';
-      }
-      inp.addEventListener('change', show);
-      list.addEventListener('click', function (e) {
-        if (!e.target.classList.contains('file-remove')) return;
-        inp.value = '';
+      function key(f) { return f.name + '|' + f.size; }
+      function apply() {
+        if (canMerge) {
+          var dt = new DataTransfer();
+          kept.forEach(function (f) { dt.items.add(f); });
+          inp.files = dt.files;
+        }
         show();
         refresh();
+      }
+      function show() {
+        var files = canMerge ? kept : Array.prototype.slice.call(inp.files);
+        list.innerHTML = files.map(function (f, i) {
+          return '✓ ' + esc(f.name) + ' (' + Math.max(1, Math.round(f.size / 1024)) + ' Ko) <button type="button" class="file-remove" data-i="' + i + '">Retirer</button>';
+        }).join('<br>');
+      }
+      inp.addEventListener('change', function () {
+        if (!canMerge) { show(); return; }
+        var seen = kept.map(key);
+        Array.prototype.forEach.call(inp.files, function (f) { if (seen.indexOf(key(f)) < 0) { kept.push(f); seen.push(key(f)); } });
+        apply();
+      });
+      list.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('file-remove')) return;
+        if (canMerge) kept.splice(+e.target.getAttribute('data-i'), 1);
+        else inp.value = '';
+        apply();
       });
     });
 
