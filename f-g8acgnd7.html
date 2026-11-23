@@ -91,17 +91,17 @@
         </div>
 
         <div class="section-title">Vos documents</div>
-        <div class="section-desc">Facultatif mais recommandé : ces documents nous permettent de vérifier les montants, durées et garanties exigées par votre banque. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum. <strong>Ne joignez aucun document médical.</strong></div>
-        <div class="field-group">
-          <label class="field-label">Offre de prêt <span class="hint">(ou dernier avenant)</span></label>
+        <div class="section-desc">Ces documents nous permettent de vérifier les montants, durées et garanties exigées par votre banque. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum. <strong>Ne joignez aucun document médical.</strong></div>
+        <div class="field-group" data-req="Offre de prêt">
+          <label class="field-label">Offre de prêt <span class="req">*</span> <span class="hint">(ou dernier avenant)</span></label>
           <input class="file-input" type="file" name="doc_offre_pret" accept="application/pdf,image/*" multiple>
         </div>
-        <div class="field-group">
-          <label class="field-label">Tableau(x) d'amortissement</label>
+        <div class="field-group" data-req="Tableau d'amortissement">
+          <label class="field-label">Tableau(x) d'amortissement <span class="req">*</span></label>
           <input class="file-input" type="file" name="doc_tableau_amortissement" accept="application/pdf,image/*" multiple>
         </div>
         <div class="field-group" data-if="demarche=Changement d'assurance">
-          <label class="field-label">Contrat d'assurance de prêt actuel <span class="hint">(certificat d'adhésion ou conditions particulières, notice d'information, dernier échéancier ; sans le courrier médical éventuel)</span></label>
+          <label class="field-label">Contrat d'assurance de prêt actuel <span class="hint">(facultatif : certificat d'adhésion ou conditions particulières, notice d'information, dernier échéancier ; sans le courrier médical éventuel)</span></label>
           <input class="file-input" type="file" name="doc_assurance_actuelle" accept="application/pdf,image/*" multiple>
         </div>
         <div class="nav-row">
@@ -114,7 +114,6 @@
         <div class="field-row cols2"><div class="field-group" data-req="Adresse mail"><label class="field-label">Adresse mail <span class="req">*</span></label><input class="field-input" name="email" type="email" placeholder="exemple@exemple.com"></div><div class="field-group" data-req="Code postal"><label class="field-label">Code postal<br><span class="hint">Code postal de votre résidence</span> <span class="req">*</span></label><input class="field-input" name="code_postal" placeholder="00000" inputmode="numeric" maxlength="5" pattern="[0-9]{5}"></div></div>
         <div class="field-group"><label class="field-label">Numéro de téléphone</label><input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00" style="max-width:240px"></div>
         <div class="field-group"><label class="field-label">Indiquez le nom de la personne qui vous a recommandé Girose Patrimoine (facultatif)<br><span class="hint">Si un proche vous a recommandé Girose Patrimoine, indiquez son nom.</span></label><input class="field-input" name="recommande_par"></div>
-        <div class="info-box">Si vous n'avez pas pu joindre vos documents à l'étape précédente, vous pouvez nous transmettre par email <strong>votre offre de prêt (ou le dernier avenant)</strong> et <strong>votre tableau d'amortissement</strong>, en réponse au message de votre conseiller.</div>
         <div data-gp="rgpd"></div>
         <div data-gp="declaration"></div>
         <div class="nav-row">
