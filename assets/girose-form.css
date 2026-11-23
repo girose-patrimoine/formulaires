@@ -131,6 +131,7 @@ body.admin .admin-bar{display:block}
 .file-input{display:block;width:100%;font-size:14px;font-family:inherit;color:#333;padding:8px;border:1px dashed #b9c0d4;border-radius:8px;background:#fff;cursor:pointer}
 .file-input::file-selector-button{font:inherit;font-size:14px;margin-right:10px;padding:6px 12px;border-radius:6px;border:1px solid #1B2249;background:#EEF0F7;color:#1B2249;cursor:pointer}
 .file-list{font-size:13px;color:#0F6E56;line-height:1.5}
+.file-remove{background:none;border:0;padding:0 0 0 6px;font:inherit;font-size:13px;color:#1B234A;text-decoration:underline;cursor:pointer}
 /* Formules (cartes détaillées) */
 .choice-cards.formules .choice-card{text-align:left;align-items:flex-start;padding:14px}
 .choice-card .f-name{font-weight:600;color:#1B2249}

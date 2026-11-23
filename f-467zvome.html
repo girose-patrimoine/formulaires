@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <title>Recueil des besoins Automobile — Girose Patrimoine</title>
-<link rel="stylesheet" href="assets/girose-form.css?v=3">
+<link rel="stylesheet" href="assets/girose-form.css?v=4">
 </head>
 <body>
 
@@ -558,19 +558,8 @@
   </div>
 </div>
 
-<script src="assets/girose-form.js?v=3"></script>
+<script src="assets/girose-form.js?v=4"></script>
 <script>
-// Liste des fichiers choisis sous chaque champ de document
-document.querySelectorAll('.file-input').forEach(function (inp) {
-  var list = document.createElement('div');
-  list.className = 'file-list';
-  inp.after(list);
-  inp.addEventListener('change', function () {
-    list.innerHTML = Array.prototype.map.call(inp.files, function (f) {
-      return '✓ ' + GP.esc(f.name) + ' (' + Math.max(1, Math.round(f.size / 1024)) + ' Ko)';
-    }).join('<br>');
-  });
-});
 
 GP.init({
   formulaire: 'Recueil des besoins Automobile',
