@@ -101,10 +101,6 @@
       <div class="step-content" id="step4">
         <div class="section-title">Vos coordonnées pour recevoir votre devis</div>
         <div class="field-row cols2"><div class="field-group" data-req="Adresse mail"><label class="field-label">Adresse mail <span class="req">*</span></label><input class="field-input" name="email" type="email" placeholder="exemple@exemple.com"></div><div class="field-group"><label class="field-label">Téléphone mobile<br><span class="hint">Hors France métropolitaine, précisez l'indicatif pays</span></label><input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00"></div></div>
-        <div class="field-group"><label class="field-label">Adresse de résidence fiscale</label><input class="field-input" name="adresse_1" placeholder="Adresse"></div>
-        <div class="field-group"><input class="field-input" name="adresse_2" placeholder="Complément d'adresse (facultatif)"></div>
-        <div class="field-row cols2"><div class="field-group" data-req="Code postal"><label class="field-label">Code postal <span class="req">*</span></label><input class="field-input" name="code_postal" placeholder="00000" inputmode="numeric" maxlength="10"></div><div class="field-group"><label class="field-label">Ville</label><input class="field-input" name="ville"></div></div>
-        <div class="field-group"><label class="field-label">Indiquez le nom de la personne qui vous a recommandé Girose Patrimoine (facultatif)<br><span class="hint">Si un proche vous a recommandé Girose Patrimoine, indiquez son nom.</span></label><input class="field-input" name="recommande_par"></div>
         <div data-gp="rgpd"></div>
         <div data-gp="declaration"></div>
         <div class="nav-row">
@@ -121,7 +117,7 @@
 // Listes provisoires — à remplacer par les listes de valeurs de l'intranet
 var CATEGORIES = ["Salarié cadre", "Salarié non cadre", "Fonctionnaire", "Chef d'entreprise, gérant", "Profession libérale", "Profession médicale ou paramédicale", "Artisan", "Commerçant", "Agriculteur", "Retraité", "Demandeur d'emploi", "Étudiant", "Sans profession"];
 var INACTIFS = ["Retraité", "Demandeur d'emploi", "Étudiant", "Sans profession"];
-var SECTEURS = ["Administration, fonction publique", "Agriculture", "Banque, assurance, finance", "BTP, construction", "Commerce, distribution", "Communication, informatique", "Enseignement, recherche", "Hôtellerie, restauration", "Industrie", "Santé, social", "Services aux entreprises", "Services aux particuliers", "Transport, logistique", "Autre"];
+var RETRAITE = "Retraité";
 var DEPLACEMENTS = ["Aucun", "Moins de 20 000 km par an", "De 20 000 à 40 000 km par an", "Plus de 40 000 km par an"];
 var HAUTEUR = ["Aucun", "Moins de 3 mètres", "De 3 à 15 mètres", "Plus de 15 mètres"];
 var PROF_RISQUE = ["Aucune", "Militaire, gendarme", "Policier, agent de sécurité", "Pompier", "Pilote, personnel navigant", "Marin, pêcheur", "Travail sur plateforme ou en milieu souterrain", "Manipulation d'explosifs ou de produits dangereux", "Sportif professionnel", "Autre profession à risque"];
@@ -134,13 +130,10 @@ function infoBtn(id) { return '<button type="button" class="info-btn" data-tip="
 
 var GARANTIES = [
   { k: 'dc_ptia', label: 'Décès et PTIA', fixed: true, tip: '<strong>Décès toutes causes et Perte Totale et Irréversible d\'Autonomie</strong> : versement d\'un capital aux bénéficiaires désignés en cas de décès, ou à l\'assuré lui-même s\'il est dans l\'incapacité définitive d\'exercer toute activité et doit recourir à l\'assistance d\'une tierce personne pour les actes de la vie courante. Garantie de base, toujours incluse.' },
-  { k: 'dc_acc', label: 'Doublement du capital en cas de décès accidentel', tip: 'Le capital décès est <strong>doublé</strong> lorsque le décès résulte d\'un accident.' },
   { k: 'ipt', label: 'Invalidité Permanente Totale (IPT)', actif: true, tip: '<strong>IPT</strong> : invalidité dont le taux, fixé par expertise médicale, est d\'au moins 66 %.' },
   { k: 'ipp', label: 'Invalidité Permanente Partielle (IPP)', actif: true, tip: '<strong>IPP</strong> : invalidité dont le taux est compris entre 33 % et 66 %. La prestation est réduite en proportion du taux.' },
   { k: 'itt', label: 'Incapacité Temporaire Totale de travail (ITT)', actif: true, tip: '<strong>ITT</strong> : versement d\'indemnités journalières lorsque l\'assuré est temporairement dans l\'impossibilité totale d\'exercer son activité professionnelle, après un délai de franchise.' },
-  { k: 'exo', label: 'Option : exonération des cotisations', actif: true, tip: 'Les cotisations ne sont plus dues tant que l\'assuré est en arrêt de travail indemnisé.' },
-  { k: 'dos_psy', label: 'Option : affections du dos et psychiques', actif: true, tip: 'Les affections dorsales et psychiques (dépression, burn-out…) sont généralement exclues ou soumises à une hospitalisation. Cette option les couvre sans condition d\'hospitalisation.' },
-  { k: 'senior', label: 'Option Senior', tip: 'À compléter.' }
+  { k: 'dc_acc', label: 'Option : doublement du capital en cas de décès accidentel', tip: 'Le capital décès est <strong>doublé</strong> lorsque le décès résulte d\'un accident.' }
 ];
 
 function blocAssure(i) {
@@ -149,19 +142,17 @@ function blocAssure(i) {
     (i === 2 ? '<div class="field-group"><label class="field-label">Lien avec l\'assuré principal</label><select class="field-input" name="' + p + 'lien">' + opts('Veuillez sélectionner', ['Conjoint', 'Partenaire de PACS', 'Concubin', 'Enfant', 'Autre']) + '</select></div>' : '') +
     '<div class="field-group"><label class="field-label">Civilité</label>' + radios(p + 'civilite', ['Monsieur', 'Madame']) + '</div>' +
     '<div class="field-row cols2"><div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="' + p + 'nom"></div><div class="field-group"><label class="field-label">Prénom</label><input class="field-input" name="' + p + 'prenom"></div></div>' +
-    '<div class="field-row cols2"><div class="field-group" data-req="Date de naissance (' + t + ')"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="' + p + 'date_naissance" type="date"><div class="age-line" id="age_' + i + '"></div></div><div class="field-group"><label class="field-label">Ville de naissance</label><input class="field-input" name="' + p + 'ville_naissance"></div></div>' +
-    '<div class="field-row cols2"><div class="field-group" data-req="Nationalité (' + t + ')"><label class="field-label">Nationalité <span class="req">*</span></label><input class="field-input" name="' + p + 'nationalite" value="Française"></div><div class="field-group" data-req="Pays de résidence (' + t + ')"><label class="field-label">Pays de résidence <span class="req">*</span></label><input class="field-input" name="' + p + 'pays_residence" value="France"></div></div>' +
+    '<div class="field-row cols2"><div class="field-group" data-req="Date de naissance (' + t + ')"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="' + p + 'date_naissance" type="date"><div class="age-line" id="age_' + i + '"></div></div><div class="field-group" data-req="Pays de résidence (' + t + ')"><label class="field-label">Pays de résidence <span class="req">*</span></label><input class="field-input" name="' + p + 'pays_residence" value="France"></div></div>' +
     '</div>';
 }
 
 function blocHabitudes(i) {
   var p = 'assure_' + i + '_', t = i === 1 ? 'Assuré principal' : 'Second assuré', cond = i === 2 ? ' data-if="nb_assures=2"' : '';
-  var actifs = CATEGORIES.filter(function (c) { return INACTIFS.indexOf(c) < 0; }).join('|');
-  return '<div class="sub-card"' + cond + '><div class="sub-card-title" data-nom="' + i + '">' + t + '</div>' +
+  var nonRetraites = CATEGORIES.filter(function (c) { return c !== RETRAITE; }).join('|');
+  return '<div class="sub-card"' + cond + '><div class="sub-card-title">' + t + '</div>' +
     '<div class="field-row cols2"><div class="field-group" data-req="Catégorie professionnelle (' + t + ')"><label class="field-label">Catégorie professionnelle <span class="req">*</span></label><select class="field-input" name="' + p + 'categorie">' + opts('Veuillez sélectionner', CATEGORIES) + '</select></div>' +
-    '<div class="field-group" data-req="Profession exacte (' + t + ')"><label class="field-label"><span data-if="' + p + 'categorie=Retraité">Ancienne profession</span><span data-if="' + p + 'categorie=|' + actifs + '|Demandeur d\'emploi|Étudiant|Sans profession">Profession exacte</span> <span class="req">*</span></label><input class="field-input" name="' + p + 'profession"></div></div>' +
-    '<div class="field-group" data-req="Secteur d\'activité (' + t + ')"><label class="field-label">Secteur d\'activité <span class="req">*</span></label><select class="field-input" name="' + p + 'secteur">' + opts('Veuillez sélectionner', SECTEURS) + '</select></div>' +
-    '<div class="sub-block" data-if="' + p + 'categorie=' + actifs + '">' +
+    '<div class="field-group" data-if="' + p + 'categorie=' + nonRetraites + '" data-req="Profession exacte (' + t + ')"><label class="field-label">Profession exacte <span class="req">*</span></label><input class="field-input" name="' + p + 'profession"></div></div>' +
+    '<div class="sub-block" data-if="' + p + 'categorie=' + nonRetraites + '">' +
       '<div class="field-row cols2"><div class="field-group"><label class="field-label">Importance de vos déplacements professionnels</label><select class="field-input" name="' + p + 'deplacements">' + opts(null, DEPLACEMENTS) + '</select></div>' +
       '<div class="field-group"><label class="field-label">Travail en hauteur</label><select class="field-input" name="' + p + 'hauteur">' + opts(null, HAUTEUR) + '</select></div></div>' +
       '<div class="field-group"><label class="field-label">Conditions de travail<br><span class="hint">Plusieurs réponses possibles</span></label><div class="radio-group">' +
@@ -191,7 +182,7 @@ function blocGaranties(i) {
     html += '<div' + (g.actif ? ' data-if="' + p + 'categorie=' + actifs + '"' : '') + '><div class="garantie-row"><label class="checkbox-label"><input type="checkbox" name="' + p + 'garanties" value="' + GP.esc(g.label) + '"' + (g.fixed ? ' checked onclick="return false"' : '') + '> ' + g.label + '</label>' + infoBtn(id) + '</div>' + tip(id, g.tip) + '</div>';
   });
   html += '</div>' +
-    '<div class="field-group" data-req="Capital décès (' + t + ')" style="margin-top:14px"><label class="field-label">Capital décès souhaité (€) <span class="req">*</span><br><span class="hint">Versé en une fois aux bénéficiaires. Repère courant : 2 à 5 années de revenus du foyer, plus les dettes non couvertes par une assurance de prêt.</span></label><input class="field-input" name="' + p + 'capital_deces" type="number" min="0" step="1000" placeholder="Ex : 150000" style="max-width:240px"></div>' +
+    '<div class="field-group" data-req="Capital décès (' + t + ')" style="margin-top:14px"><label class="field-label">Capital décès souhaité (€) <span class="req">*</span><br><span class="hint">Versé en une fois aux bénéficiaires.</span></label><input class="field-input" name="' + p + 'capital_deces" type="number" min="0" step="1000" placeholder="Ex : 150000" style="max-width:240px"></div>' +
     '<div class="sub-block" data-if="' + p + 'garanties=Incapacité Temporaire Totale de travail (ITT)">' +
       '<div class="field-row cols2"><div class="field-group" data-req="Indemnité journalière (' + t + ')"><label class="field-label">Indemnité journalière souhaitée (€ par jour) <span class="req">*</span></label><input class="field-input" name="' + p + 'ij_montant" type="number" min="0" placeholder="Ex : 80"></div>' +
       '<div class="field-group"><label class="field-label">Franchise</label><select class="field-input" name="' + p + 'ij_franchise">' + opts('Pas de préférence', FRANCHISES) + '</select></div></div>' +
