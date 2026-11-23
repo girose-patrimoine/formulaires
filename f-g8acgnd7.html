@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <title>Recueil des besoins Assurance de prêt — Girose Patrimoine</title>
-<link rel="stylesheet" href="assets/girose-form.css?v=2">
+<link rel="stylesheet" href="assets/girose-form.css?v=3">
 </head>
 <body>
 
@@ -89,6 +89,21 @@
           </div>
           <div class="field-group" data-req="Date de la première échéance (Troisième prêt)"><label class="field-label">Date de la première échéance du prêt <span class="req">*</span><span data-if="demarche=Nouvel emprunt"><br><span class="hint">(date prévisionnelle si le prêt n'est pas encore débloqué)</span></span></label><input class="field-input" name="pret_3_date_premiere_echeance" type="date" style="max-width:240px"></div>
         </div>
+
+        <div class="section-title">Vos documents</div>
+        <div class="section-desc">Ces documents nous permettent de vérifier les montants, durées et garanties exigées par votre banque. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum. <strong>Ne joignez aucun document médical.</strong></div>
+        <div class="field-group" data-req="Offre de prêt">
+          <label class="field-label">Offre de prêt <span class="req">*</span> <span class="hint">(ou dernier avenant)</span></label>
+          <input class="file-input" type="file" name="doc_offre_pret" accept="application/pdf,image/*" multiple>
+        </div>
+        <div class="field-group" data-req="Tableau d'amortissement">
+          <label class="field-label">Tableau(x) d'amortissement <span class="req">*</span></label>
+          <input class="file-input" type="file" name="doc_tableau_amortissement" accept="application/pdf,image/*" multiple>
+        </div>
+        <div class="field-group" data-if="demarche=Changement d'assurance">
+          <label class="field-label">Contrat d'assurance de prêt actuel <span class="hint">(facultatif : certificat d'adhésion ou conditions particulières, notice d'information, dernier échéancier ; sans le courrier médical éventuel)</span></label>
+          <input class="file-input" type="file" name="doc_assurance_actuelle" accept="application/pdf,image/*" multiple>
+        </div>
         <div class="nav-row">
           <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
           <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
@@ -99,7 +114,6 @@
         <div class="field-row cols2"><div class="field-group" data-req="Adresse mail"><label class="field-label">Adresse mail <span class="req">*</span></label><input class="field-input" name="email" type="email" placeholder="exemple@exemple.com"></div><div class="field-group" data-req="Code postal"><label class="field-label">Code postal<br><span class="hint">Code postal de votre résidence</span> <span class="req">*</span></label><input class="field-input" name="code_postal" placeholder="00000" inputmode="numeric" maxlength="5" pattern="[0-9]{5}"></div></div>
         <div class="field-group"><label class="field-label">Numéro de téléphone</label><input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00" style="max-width:240px"></div>
         <div class="field-group"><label class="field-label">Indiquez le nom de la personne qui vous a recommandé Girose Patrimoine (facultatif)<br><span class="hint">Si un proche vous a recommandé Girose Patrimoine, indiquez son nom.</span></label><input class="field-input" name="recommande_par"></div>
-        <div class="info-box">Pour gagner du temps ou si vous n'êtes pas certain des informations saisies, vous pouvez nous transmettre par email <strong>votre offre de prêt (ou le dernier avenant)</strong> et <strong>votre tableau d'amortissement</strong>, en réponse au message de votre conseiller.</div>
         <div data-gp="rgpd"></div>
         <div data-gp="declaration"></div>
         <div class="nav-row">
@@ -111,8 +125,19 @@
   </div>
 </div>
 
-<script src="assets/girose-form.js?v=2"></script>
+<script src="assets/girose-form.js?v=3"></script>
 <script>
+// Liste des fichiers choisis sous chaque champ de document
+document.querySelectorAll('.file-input').forEach(function (inp) {
+  var list = document.createElement('div');
+  list.className = 'file-list';
+  inp.after(list);
+  inp.addEventListener('change', function () {
+    list.innerHTML = Array.prototype.map.call(inp.files, function (f) {
+      return '✓ ' + GP.esc(f.name) + ' (' + Math.max(1, Math.round(f.size / 1024)) + ' Ko)';
+    }).join('<br>');
+  });
+});
 var STATUTS = ["Salarié cadre, ingénieur, assimilé cadre", "Salarié non cadre (hors employé de bureau), agent de maîtrise", "Employé de bureau, commercial sédentaire", "Dirigeant de société, gérant, chef d'entreprise (hors agricole)", "Profession libérale (hors médicale et paramédicale)", "Médecin (ou interne) généraliste ou spécialiste", "Autres métiers médicaux ou paramédicaux", "Fonctionnaire Classe A", "Fonctionnaire hors Classe A", "Artisan, métiers du BTP, auto-entrepreneur", "Commerçant", "Professions du transport, ouvrier, technicien", "Professions agricoles", "Retraité : cadre, assimilé cadre, fonctionnaire classe A, chef d'entreprise", "Autres retraités", "Intermittent", "Sans profession, étudiant, saisonnier"];
 var BANQUES = ["Non connu", "Allianz Banque", "Axa Banque", "Banque BCP", "Banque Chalus", "Banque Courtois", "Banque de France", "Banque de la Réunion", "Banque de Savoie", "Banque Dupuy de Parseval", "Banque Française Commerciale Océan Indien", "Banque Française Mutualiste contrat 7371M", "Banque Française Mutualiste contrat 7372N", "Banque Kolb", "Banque Laydernier", "Banque Marze", "Banque Nuger", "Banque Palatine", "Banque Populaire Alsace Lorraine Champagne", "Banque Populaire Aquitaine Centre Atlantique", "Banque Populaire AURA (Auvergne Rhône Alpes)", "Banque Populaire Bourgogne Franche-Comté", "Banque Populaire Casden", "Banque Populaire du Nord", "Banque Populaire du Sud", "Banque Populaire Grand Ouest", "Banque Populaire Méditerranée", "Banque Populaire Occitane", "Banque Populaire Rives de Paris", "Banque Populaire Val de France", "BRED", "Banque Postale", "Banque Privée Européenne", "Banque Rhône Alpes", "Banque Tarneaud", "BNP PARIBAS", "BNP PARIBAS Antille Guyane", "BNP PARIBAS Monaco", "BNP PARIBAS Personal Finance", "BNP PARIBAS Réunion", "Boursorama", "Caisse d'Epargne Aquitaine Poitou Charentes", "Caisse d'Epargne Bourgogne Franche-Comté", "Caisse d'Epargne Bretagne Pays de la Loire", "Caisse d'Epargne CEPAC", "Caisse d'Epargne Côte d'Azur", "Caisse d'Epargne Auvergne et Limousin", "Caisse d'Epargne Grand Est Europe", "Caisse d'Epargne Hauts de France", "Caisse d'Epargne Ile de France", "Caisse d'Epargne Languedoc Roussillon", "Caisse d'Epargne Loire Centre", "Caisse d'Epargne Loire Drôme Ardèche", "Caisse d'Epargne Midi Pyrénées", "Caisse d'Epargne Normandie", "Caisse d'Epargne Rhône Alpes", "CETELEM", "CFCAL", "CIC Est", "CIC Nord Ouest", "CIC Ouest", "CIC Sud Ouest", "Crédit Agricole Alpes Provence", "Crédit Agricole Alsace Vosges", "Crédit Agricole Atlantique Vendée", "Crédit Agricole Brie Picardie", "Crédit Agricole Centre Est", "Crédit Agricole Centre France", "Crédit Agricole Centre Loire", "Crédit Agricole Centre Ouest", "Crédit Agricole Champagne Bourgogne", "Crédit Agricole Charente Périgord", "Crédit Agricole Charente-Maritime Deux-Sèvres", "Crédit Agricole d'Aquitaine", "Crédit Agricole de Franche-Comté", "Crédit Agricole de Guadeloupe", "Crédit Agricole de la Corse", "Crédit Agricole de la Réunion", "Crédit Agricole de l'Anjou et du Maine", "Crédit Agricole de Loire Haute-Loire", "Crédit Agricole de Lorraine", "Crédit Agricole de Martinique Guyane", "Crédit Agricole de Normandie", "Crédit Agricole de Paris et d'Ile-de-France", "Crédit Agricole de Pyrénées Gascogne", "Crédit Agricole de Val de France", "Crédit Agricole des Côtes d'Armor", "Crédit Agricole des Savoie", "Crédit Agricole d'Ile et Vilaine", "Crédit Agricole du Finistère", "Crédit Agricole du Languedoc", "Crédit Agricole du Morbihan", "Crédit Agricole Nord de France", "Crédit Agricole Nord Est", "Crédit Agricole Nord Midi Pyrénées", "Crédit Agricole Normandie-Seine", "Crédit Agricole Provence Côte d'Azur", "Crédit Agricole Sud Méditerranée", "Crédit Agricole Sud Rhône Alpes", "Crédit Agricole Toulouse 31", "Crédit Agricole Touraine Poitou", "Crédit Coopératif", "Crédit du Nord", "Crédit Foncier", "Crédit Immobilier de France Développement", "Crédit Maritime Grand Ouest", "Crédit Maritime Méditerranée", "Crédit Mutuel", "Crédit Mutuel Arkéa", "Fortunéo Banque", "Groupama Banque", "Hello Bank", "HSBC Continental Europe (contrat Groupe)", "HSBC Continental Europe (contrat Solution Emprunteur)", "ING DIRECT", "LCL", "LCL Banque Privée", "Monabanq", "Orange Bank", "SBE Banque Populaire", "Société Générale", "Société Marseillaise de Crédit", "SOCRIF SOFIAP", "SOFIDER Océan Indien"];
 function opts(ph, list) { return '<option value="">' + ph + '</option>' + list.map(function (t) { return '<option value="' + GP.esc(t) + '">' + GP.esc(t) + '</option>'; }).join(''); }
@@ -123,7 +148,8 @@ GP.init({
   formulaire: 'Recueil des besoins Assurance de prêt',
   subject: function () { return 'Recueil des besoins Assurance de prêt — ' + (GP.val('demarche') || '') + (GP.val('emprunteur_1_nom') ? ' — ' + GP.val('emprunteur_1_nom') : ''); },
   // Le tabac n'est jamais repris dans le lien pré-rempli : c'est au client de le déclarer
-  noLink: /_fumeur$/
+  noLink: /_fumeur$/,
+  maxUploadMo: 20
 });
 </script>
 </body>
