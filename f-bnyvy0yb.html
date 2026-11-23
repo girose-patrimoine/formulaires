@@ -114,10 +114,10 @@
 
 <script src="assets/girose-form.js?v=2"></script>
 <script>
-// Listes provisoires — à remplacer par les listes de valeurs de l'intranet
-var CATEGORIES = ["Salarié cadre", "Salarié non cadre", "Fonctionnaire", "Chef d'entreprise, gérant", "Profession libérale", "Profession médicale ou paramédicale", "Artisan", "Commerçant", "Agriculteur", "Retraité", "Demandeur d'emploi", "Étudiant", "Sans profession"];
-var INACTIFS = ["Retraité", "Demandeur d'emploi", "Étudiant", "Sans profession"];
-var RETRAITE = "Retraité";
+// Catégories : liste de l'intranet. Autres listes provisoires, à remplacer par celles de l'intranet
+var CATEGORIES = ["Agriculteur", "Artisan", "Chef d'entreprise", "Commerçant", "Enseignant", "Fonctionnaire classe A", "Fonctionnaire hors classe A - cadre administratif", "Fonctionnaire hors classe A - non cadre administratif", "Intermittent", "Intérimaire", "Non cadre du tertiaire", "Ouvrier", "Profession libérale", "Profession libérale médicale", "Profession libérale paramédicale", "Retraité", "Retraité salarié cadre", "Retraité salarié non cadre", "Salarié cadre", "Salarié non cadre : employé"];
+// Retraités : ni profession, ni conditions de travail, ni garanties IPT, IPP et ITT
+var INACTIFS = ["Retraité", "Retraité salarié cadre", "Retraité salarié non cadre"];
 var DEPLACEMENTS = ["Aucun", "Moins de 20 000 km par an", "De 20 000 à 40 000 km par an", "Plus de 40 000 km par an"];
 var HAUTEUR = ["Aucun", "Moins de 3 mètres", "De 3 à 15 mètres", "Plus de 15 mètres"];
 var PROF_RISQUE = ["Aucune", "Militaire, gendarme", "Policier, agent de sécurité", "Pompier", "Pilote, personnel navigant", "Marin, pêcheur", "Travail sur plateforme ou en milieu souterrain", "Manipulation d'explosifs ou de produits dangereux", "Sportif professionnel", "Autre profession à risque"];
@@ -148,7 +148,7 @@ function blocAssure(i) {
 
 function blocHabitudes(i) {
   var p = 'assure_' + i + '_', t = i === 1 ? 'Assuré principal' : 'Second assuré', cond = i === 2 ? ' data-if="nb_assures=2"' : '';
-  var nonRetraites = CATEGORIES.filter(function (c) { return c !== RETRAITE; }).join('|');
+  var nonRetraites = CATEGORIES.filter(function (c) { return INACTIFS.indexOf(c) < 0; }).join('|');
   return '<div class="sub-card"' + cond + '><div class="sub-card-title">' + t + '</div>' +
     '<div class="field-row cols2"><div class="field-group" data-req="Catégorie professionnelle (' + t + ')"><label class="field-label">Catégorie professionnelle <span class="req">*</span></label><select class="field-input" name="' + p + 'categorie">' + opts('Veuillez sélectionner', CATEGORIES) + '</select></div>' +
     '<div class="field-group" data-if="' + p + 'categorie=' + nonRetraites + '" data-req="Profession exacte (' + t + ')"><label class="field-label">Profession exacte <span class="req">*</span></label><input class="field-input" name="' + p + 'profession"></div></div>' +
