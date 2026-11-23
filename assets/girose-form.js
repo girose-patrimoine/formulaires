@@ -8,6 +8,7 @@
  *  - case exclusive : <input type="checkbox" data-exclusive> (décoche les autres cases du même nom) ;
  *  - compteurs (boutons − / +), bulles d'aide (.info-btn[data-tip]), ventilations à 100 % (.vent) ;
  *  - pré-remplissage par lien (#d=…) et mode conseiller (#conseiller) ; cfg.noLink exclut des champs du lien ;
+ *  - pièces jointes (.file-input) : liste des fichiers choisis et lien « Retirer » ;
  *  - pied de page légal, mentions RGPD, envoi Formspree (pièces jointes : <input type="file">, jamais reprises dans le lien ;
  *    si Formspree refuse les fichiers, les réponses sont envoyées seules et le client est invité à envoyer ses documents par email).
  * Aucune donnée client n'est écrite dans la page : elles ne transitent que par le fragment # du lien.
@@ -340,6 +341,26 @@
     form.addEventListener('input', function (e) { if (e.target.type === 'number' || e.target.tagName === 'SELECT') refresh(); });
 
     document.querySelectorAll('.vent').forEach(initVent);
+
+    // Pièces jointes : liste des fichiers choisis et lien « Retirer » (remplacer = choisir un autre fichier)
+    document.querySelectorAll('.file-input').forEach(function (inp) {
+      var list = document.createElement('div');
+      list.className = 'file-list';
+      inp.after(list);
+      function show() {
+        if (!inp.files.length) { list.innerHTML = ''; return; }
+        list.innerHTML = Array.prototype.map.call(inp.files, function (f) {
+          return '✓ ' + esc(f.name) + ' (' + Math.max(1, Math.round(f.size / 1024)) + ' Ko)';
+        }).join('<br>') + ' <button type="button" class="file-remove">Retirer</button>';
+      }
+      inp.addEventListener('change', show);
+      list.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('file-remove')) return;
+        inp.value = '';
+        show();
+        refresh();
+      });
+    });
 
     // Pré-remplissage et mode conseiller
     var p = readHash();
