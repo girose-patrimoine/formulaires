@@ -50,9 +50,13 @@
             <label class="field-label">Type de bien <span class="req">*</span></label>
             <select class="field-input" name="type_bien"><option value="">Veuillez sélectionner</option><option>Un appartement</option><option>Une maison</option></select>
           </div>
-          <div class="field-group" data-req="Usage du bien">
+          <div class="field-group" data-req="Usage du bien" data-if="qualite_assure=Locataire (ou futur locataire)|Propriétaire occupant">
             <label class="field-label">Usage du bien <span class="req">*</span></label>
             <select class="field-input" name="usage_bien"><option value="">Veuillez sélectionner</option><option>Principale</option><option>Secondaire</option></select>
+          </div>
+          <div class="field-group" data-req="Situation locative" data-if="qualite_assure=Propriétaire Non-Occupant (PNO)">
+            <label class="field-label">Le bien est-il actuellement loué ? <span class="req">*</span></label>
+            <select class="field-input" name="situation_locative"><option value="">Veuillez sélectionner</option><option>Loué</option><option>Vacant</option></select>
           </div>
         </div>
 
@@ -196,7 +200,7 @@
         <div class="section-title">Vos besoins</div>
         <div class="section-desc">Ces informations nous permettent de personnaliser votre couverture</div>
 
-        <div class="field-row cols2">
+        <div class="field-row cols2" data-if="qualite_assure=Locataire (ou futur locataire)|Propriétaire occupant">
           <div class="field-group">
             <label class="field-label">Adultes vivant au domicile</label>
             <select class="field-input" name="nb_adultes"><option value="">Veuillez sélectionner</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
@@ -207,21 +211,11 @@
           </div>
         </div>
 
-        <div class="field-group" data-req="Assurance scolaire">
+        <div class="field-group" data-req="Assurance scolaire" data-if="qualite_assure=Locataire (ou futur locataire)|Propriétaire occupant">
           <label class="field-label">Besoin d'une assurance scolaire ? <span class="req">*</span></label>
           <div class="radio-group inline">
             <label class="radio-label"><input type="radio" name="assurance_scolaire" value="Oui"> Oui</label>
             <label class="radio-label"><input type="radio" name="assurance_scolaire" value="Non"> Non</label>
-          </div>
-        </div>
-
-        <div class="field-group" data-req="Valeur du mobilier">
-          <label class="field-label">Valeur approximative du mobilier à assurer <span class="req">*</span><br><span class="hint">(meubles, équipements sportifs, appareils électroménagers…)</span></label>
-          <div class="radio-group">
-            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Moins de 15 000€"> Moins de 15 000 €</label>
-            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Entre 15 000€ et 30 000€"> Entre 15 000 € et 30 000 €</label>
-            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Entre 30 000€ et 45 000€"> Entre 30 000 € et 45 000 €</label>
-            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Plus de 45 000€"> Plus de 45 000 €</label>
           </div>
         </div>
 
@@ -233,7 +227,17 @@
           </div>
         </div>
 
-        <div class="field-group" data-req="Appareils électroménagers ou audiovisuels">
+        <div class="field-group if-mobilier" data-req="Valeur du mobilier">
+          <label class="field-label">Valeur approximative du mobilier à assurer <span class="req">*</span><br><span class="hint">(meubles, équipements sportifs, appareils électroménagers…<span data-if="qualite_assure=Locataire (ou futur locataire);loue_meuble=Oui"> ; uniquement le mobilier vous appartenant, hors mobilier du bailleur</span>)</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Moins de 15 000€"> Moins de 15 000 €</label>
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Entre 15 000€ et 30 000€"> Entre 15 000 € et 30 000 €</label>
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Entre 30 000€ et 45 000€"> Entre 30 000 € et 45 000 €</label>
+            <label class="radio-label"><input type="radio" name="valeur_mobilier" value="Plus de 45 000€"> Plus de 45 000 €</label>
+          </div>
+        </div>
+
+        <div class="field-group if-mobilier" data-req="Appareils électroménagers ou audiovisuels">
           <label class="field-label">Appareils électroménagers ou audiovisuels de moins de 5 ans ? <span class="req">*</span></label>
           <div class="radio-group inline">
             <label class="radio-label"><input type="radio" name="electromenager" value="Oui, tous"> Oui, tous</label>
@@ -242,7 +246,7 @@
           </div>
         </div>
 
-        <div class="field-group" data-req="Appareils informatiques">
+        <div class="field-group if-mobilier" data-req="Appareils informatiques">
           <label class="field-label">Appareils informatiques de moins de 2 ans ? <span class="req">*</span></label>
           <div class="radio-group inline">
             <label class="radio-label"><input type="radio" name="informatique" value="Oui, tous"> Oui, tous</label>
@@ -251,7 +255,7 @@
           </div>
         </div>
 
-        <div class="field-group" data-req="Objets précieux">
+        <div class="field-group" data-req="Objets précieux" data-if="qualite_assure=Locataire (ou futur locataire)|Propriétaire occupant">
           <label class="field-label">Objets précieux à assurer ? <span class="req">*</span><br><span class="hint">(bijoux, fourrures, collections, tableaux ou objet d'une valeur unitaire &gt; 2 000 €)</span></label>
           <div class="radio-group inline">
             <label class="radio-label"><input type="radio" name="objets_precieux" value="Oui"> Oui</label>
@@ -334,6 +338,11 @@ document.querySelectorAll('.sinistre-type').forEach(function (s) {
 GP.init({
   formulaire: 'Recueil des besoins Habitation',
   maxUploadMo: 20,
+  // Mobilier et appareils : sans objet pour un propriétaire non-occupant qui loue vide (ou dont le meublé n'est pas précisé)
+  onRefresh: function () {
+    var pnoNu = GP.val('qualite_assure') === 'Propriétaire Non-Occupant (PNO)' && GP.val('loue_meuble') !== 'Oui';
+    document.querySelectorAll('.if-mobilier').forEach(function (el) { el.classList.toggle('cond-hidden', pnoNu); });
+  },
   subject: function () {
     var nom = [GP.val('prenom'), GP.val('nom')].filter(Boolean).join(' ');
     return 'Recueil des besoins Habitation — ' + (GP.val('qualite_assure') || '') + (nom ? ' — ' + nom : '');
