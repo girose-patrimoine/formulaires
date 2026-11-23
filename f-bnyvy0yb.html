@@ -115,12 +115,12 @@
 <script src="assets/girose-form.js?v=2"></script>
 <script>
 // Catégories : liste de l'intranet. Autres listes provisoires, à remplacer par celles de l'intranet
-var CATEGORIES = ["Agriculteur", "Artisan", "Chef d'entreprise", "Commerçant", "Enseignant", "Fonctionnaire classe A", "Fonctionnaire hors classe A - cadre administratif", "Fonctionnaire hors classe A - non cadre administratif", "Intermittent", "Intérimaire", "Non cadre du tertiaire", "Ouvrier", "Profession libérale", "Profession libérale médicale", "Profession libérale paramédicale", "Retraité", "Retraité salarié cadre", "Retraité salarié non cadre", "Salarié cadre", "Salarié non cadre : employé"];
+var CATEGORIES = ["Agriculteur", "Artisan", "Chef d'entreprise", "Commerçant", "Enseignant", "Fonctionnaire classe A", "Fonctionnaire hors classe A - cadre administratif", "Fonctionnaire hors classe A - non cadre administratif", "Intermittent", "Intérimaire", "Non cadre du tertiaire", "Ouvrier", "Profession libérale", "Profession libérale médicale", "Profession libérale paramédicale", "Retraité", "Retraité salarié cadre", "Retraité salarié non cadre", "Salarié cadre", "Salarié non cadre : employé", "Salarié non cadre : professions intermédiaires", "Sans profession", "Sportif professionnel"];
 // Retraités : ni profession, ni conditions de travail, ni garanties IPT, IPP et ITT
 var INACTIFS = ["Retraité", "Retraité salarié cadre", "Retraité salarié non cadre"];
 var DEPLACEMENTS = ["Aucun", "Moins de 20 000 km par an", "De 20 000 à 40 000 km par an", "Plus de 40 000 km par an"];
 var HAUTEUR = ["Aucun", "Moins de 3 mètres", "De 3 à 15 mètres", "Plus de 15 mètres"];
-var PROF_RISQUE = ["Aucune", "Militaire, gendarme", "Policier, agent de sécurité", "Pompier", "Pilote, personnel navigant", "Marin, pêcheur", "Travail sur plateforme ou en milieu souterrain", "Manipulation d'explosifs ou de produits dangereux", "Sportif professionnel", "Autre profession à risque"];
+var PROF_RISQUE = ["Aucune", "Militaire, gendarme", "Policier, agent de sécurité", "Pompier", "Pilote, personnel navigant", "Marin, pêcheur", "Travail sur plateforme ou en milieu souterrain", "Manipulation d'explosifs ou de produits dangereux", "Autre profession à risque"];
 var FRANCHISES = ["15 jours", "30 jours", "60 jours", "90 jours"];
 
 function opts(ph, list) { return (ph !== null ? '<option value="">' + ph + '</option>' : '') + list.map(function (t) { return '<option value="' + GP.esc(t) + '">' + GP.esc(t) + '</option>'; }).join(''); }
