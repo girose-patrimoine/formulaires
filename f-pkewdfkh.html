@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <title>Recueil des besoins Habitation — Girose Patrimoine</title>
-<link rel="stylesheet" href="assets/girose-form.css?v=2">
+<link rel="stylesheet" href="assets/girose-form.css?v=4">
 </head>
 <body>
 
@@ -270,6 +270,10 @@
               <label class="field-label">Montant approximatif de votre cotisation mensuelle actuelle</label>
               <input class="field-input" name="cotisation_actuelle" placeholder="Ex : 25 €/mois" style="max-width:240px">
             </div>
+            <div class="field-group">
+              <label class="field-label">Conditions particulières de votre contrat actuel <span class="hint">(facultatif ; PDF, JPG ou PNG, 20 Mo maximum)</span></label>
+              <input class="file-input" type="file" name="doc_conditions_particulieres" accept="application/pdf,image/*" multiple>
+            </div>
           </div>
         </div>
 
@@ -320,7 +324,7 @@
   </div>
 </div>
 
-<script src="assets/girose-form.js?v=2"></script>
+<script src="assets/girose-form.js?v=4"></script>
 <script>
 var TYPES_SINISTRE = ['Dégâts des eaux', 'Incendie', 'Vol', 'Responsabilité civile', 'Bris de glaces', 'Autres'];
 document.querySelectorAll('.sinistre-type').forEach(function (s) {
@@ -329,6 +333,7 @@ document.querySelectorAll('.sinistre-type').forEach(function (s) {
 
 GP.init({
   formulaire: 'Recueil des besoins Habitation',
+  maxUploadMo: 20,
   subject: function () {
     var nom = [GP.val('prenom'), GP.val('nom')].filter(Boolean).join(' ');
     return 'Recueil des besoins Habitation — ' + (GP.val('qualite_assure') || '') + (nom ? ' — ' + nom : '');
