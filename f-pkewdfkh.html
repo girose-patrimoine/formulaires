@@ -225,8 +225,8 @@
           </div>
         </div>
 
-        <div class="field-group" data-req="Bien loué meublé">
-          <label class="field-label">Le bien est-il loué meublé ? <span class="req">*</span></label>
+        <div class="field-group" data-req="Bien loué meublé" data-if="qualite_assure=Locataire (ou futur locataire)|Propriétaire Non-Occupant (PNO)">
+          <label class="field-label"><span data-if="qualite_assure=Locataire (ou futur locataire)">Louez-vous ce logement meublé ?</span><span data-if="qualite_assure=Propriétaire Non-Occupant (PNO)">Le bien est-il mis en location meublée ?</span> <span class="req">*</span></label>
           <div class="radio-group inline">
             <label class="radio-label"><input type="radio" name="loue_meuble" value="Oui"> Oui</label>
             <label class="radio-label"><input type="radio" name="loue_meuble" value="Non"> Non</label>
