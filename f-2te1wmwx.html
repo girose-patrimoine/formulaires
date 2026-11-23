@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Recueil des besoins Protection juridique — Girose Patrimoine</title>
+<link rel="stylesheet" href="assets/girose-form.css?v=2">
+</head>
+<body>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <img class="logo" src="logo-signature.png" alt="Girose Patrimoine" width="96" height="117">
+    <h1>Recueil des besoins — Protection juridique</h1>
+    <p>Ce questionnaire constitue le recueil de vos exigences et besoins, préalable à tout conseil de notre part (article L.521-4 du Code des assurances). Certaines réponses ont pu être renseignées par votre conseiller : merci de les vérifier, de les corriger si besoin et de compléter les autres. Ces informations nous permettent de rechercher une protection juridique adaptée à votre situation.</p>
+  </div>
+  <div class="form-body">
+    <div class="progress-steps">
+      <div class="step-pill active" onclick="pillClick(0)">1. Votre situation</div>
+      <div class="step-pill" onclick="pillClick(1)">2. Vos besoins</div>
+      <div class="step-pill" onclick="pillClick(2)">3. Contrat actuel</div>
+      <div class="step-pill" onclick="pillClick(3)">4. Coordonnées</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+
+    <form id="mainForm" onsubmit="return false">
+
+      <!-- ÉTAPE 1 : SITUATION -->
+      <div class="step-content active" id="step0">
+        <div class="section-title">Votre situation</div>
+        <div class="section-desc">La protection juridique couvre en principe l'assuré et les membres de son foyer</div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Situation familiale">
+            <label class="field-label">Situation familiale <span class="req">*</span></label>
+            <select class="field-input" name="situation_familiale"><option value="">Veuillez sélectionner</option><option>Célibataire</option><option>Marié(e)</option><option>Pacsé(e)</option><option>Union libre</option><option>Divorcé(e)</option><option>Veuf / Veuve</option></select>
+          </div>
+          <div class="field-group" data-req="Enfants à charge">
+            <label class="field-label">Enfants à charge vivant au foyer <span class="req">*</span></label>
+            <select class="field-input" name="nb_enfants"><option value="">Veuillez sélectionner</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4 et plus</option></select>
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Situation professionnelle">
+            <label class="field-label">Situation professionnelle <span class="req">*</span></label>
+            <select class="field-input" name="statut_pro"><option value="">Veuillez sélectionner</option><option>Salarié</option><option>Fonctionnaire</option><option>Non salarié (indépendant, libéral, dirigeant)</option><option>Retraité</option><option>Étudiant</option><option>Sans activité</option></select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Profession</label>
+            <input class="field-input" name="profession" placeholder="Ex : assistante de direction">
+          </div>
+        </div>
+        <div class="field-group" data-req="Résidence principale">
+          <label class="field-label">Pour votre résidence principale, vous êtes <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="residence_principale" value="Propriétaire"> Propriétaire</label>
+            <label class="radio-label"><input type="radio" name="residence_principale" value="Locataire"> Locataire</label>
+            <label class="radio-label"><input type="radio" name="residence_principale" value="Logé à titre gratuit"> Logé à titre gratuit</label>
+          </div>
+        </div>
+        <div class="sub-block" data-if="residence_principale=Propriétaire">
+          <div class="field-group">
+            <label class="field-label">Le logement est-il situé dans une copropriété ?</label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="copropriete" value="Oui"> Oui</label>
+              <label class="radio-label"><input type="radio" name="copropriete" value="Non"> Non</label>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">S'agit-il d'un logement neuf ou récemment construit (moins de 10 ans, VEFA) ou de travaux en cours ?</label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="logement_neuf" value="Oui"> Oui</label>
+              <label class="radio-label"><input type="radio" name="logement_neuf" value="Non"> Non</label>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Autres biens immobiliers</label>
+          <div class="radio-group inline">
+            <label class="checkbox-label"><input type="checkbox" name="autres_biens" value="Résidence secondaire"> Résidence secondaire</label>
+            <label class="checkbox-label"><input type="checkbox" name="autres_biens" value="Bien(s) mis en location"> Bien(s) mis en location</label>
+            <label class="checkbox-label"><input type="checkbox" name="autres_biens" value="Aucun" data-exclusive> Aucun</label>
+          </div>
+        </div>
+        <div class="sub-block" data-if="autres_biens=Bien(s) mis en location">
+          <div class="field-group">
+            <label class="field-label">Nombre de lots mis en location</label>
+            <input class="field-input" name="nb_lots_loues" type="number" min="1" style="max-width:160px">
+          </div>
+        </div>
+        <div class="nav-row"><span></span><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+      </div>
+
+      <!-- ÉTAPE 2 : BESOINS -->
+      <div class="step-content" id="step1">
+        <div class="section-title">Vos besoins</div>
+        <div class="section-desc">Indiquez les domaines dans lesquels vous souhaitez être accompagné(e) en cas de litige</div>
+        <div class="field-group" data-req="Domaines à couvrir">
+          <label class="field-label">Domaines prioritaires <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Consommation"> Consommation <span class="hint">(achats, prestataires, banque, opérateurs…)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Logement"> Logement <span class="hint">(voisinage, bailleur ou locataire, copropriété)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Travaux et construction"> Travaux et construction <span class="hint">(artisans, promoteur, malfaçons)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Travail"> Travail <span class="hint">(litige avec l'employeur)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Administration et fiscalité"> Administration et fiscalité</label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Santé"> Santé <span class="hint">(erreur médicale, organismes sociaux)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Famille et succession"> Famille et succession</label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Internet et e-réputation"> Internet et e-réputation</label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Véhicule"> Véhicule <span class="hint">(achat, réparation, permis)</span></label>
+            <label class="checkbox-label"><input type="checkbox" name="domaines" value="Location d'un bien (bailleur)"> Location d'un bien en tant que bailleur</label>
+          </div>
+        </div>
+        <div class="field-group" data-req="Plafond souhaité">
+          <label class="field-label">Plafond de prise en charge par litige souhaité <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="plafond" value="Standard (environ 10 000 à 20 000 €)"> Standard <span class="hint">(environ 10 000 à 20 000 €)</span></label>
+            <label class="radio-label"><input type="radio" name="plafond" value="Élevé (30 000 € et plus)"> Élevé <span class="hint">(30 000 € et plus)</span></label>
+            <label class="radio-label"><input type="radio" name="plafond" value="À définir avec le conseiller"> À définir avec le conseiller</label>
+          </div>
+        </div>
+        <div class="field-group" data-req="Libre choix de l'avocat">
+          <label class="field-label">Le libre choix de votre avocat est-il important pour vous ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="libre_choix_avocat" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="libre_choix_avocat" value="Indifférent"> Indifférent</label>
+          </div>
+        </div>
+        <div class="field-group" data-req="Litige en cours">
+          <label class="field-label">Avez-vous un litige en cours ou prévisible ? <span class="req">*</span><br><span class="hint">Un litige connu avant la souscription n'est en principe pas couvert par un nouveau contrat.</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="litige_en_cours" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="litige_en_cours" value="Non"> Non</label>
+          </div>
+        </div>
+        <div class="sub-block" data-if="litige_en_cours=Oui">
+          <div class="field-group">
+            <label class="field-label">Précisez brièvement</label>
+            <textarea class="field-input" name="litige_detail" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 : CONTRAT ACTUEL -->
+      <div class="step-content" id="step2">
+        <div class="section-title">Votre contrat actuel</div>
+        <div class="field-group" data-req="Contrat en cours">
+          <label class="field-label">Avez-vous déjà un contrat de protection juridique ? <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label"><input type="radio" name="contrat_en_cours" value="Oui"> Oui</label>
+            <label class="radio-label"><input type="radio" name="contrat_en_cours" value="Non"> Non</label>
+          </div>
+        </div>
+        <div class="sub-block" data-if="contrat_en_cours=Oui">
+          <div class="field-row cols2">
+            <div class="field-group">
+              <label class="field-label">Assureur ou distributeur</label>
+              <input class="field-input" name="assureur_actuel" placeholder="Ex : votre banque">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Cotisation annuelle actuelle (€)</label>
+              <input class="field-input" name="cotisation_actuelle" type="number" min="0" step="0.01">
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Date d'échéance annuelle</label>
+            <input class="field-input" name="echeance_actuelle" placeholder="Ex : 1er juillet" style="max-width:240px">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Avez-vous déclaré un litige au cours des 3 dernières années ?</label>
+            <div class="radio-group inline">
+              <label class="radio-label"><input type="radio" name="litiges_declares" value="Oui"> Oui</label>
+              <label class="radio-label"><input type="radio" name="litiges_declares" value="Non"> Non</label>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Bénéficiez-vous d'une protection juridique incluse dans un autre contrat ?</label>
+          <div class="radio-group inline">
+            <label class="checkbox-label"><input type="checkbox" name="pj_incluse" value="Contrat habitation"> Contrat habitation</label>
+            <label class="checkbox-label"><input type="checkbox" name="pj_incluse" value="Contrat automobile"> Contrat automobile</label>
+            <label class="checkbox-label"><input type="checkbox" name="pj_incluse" value="Carte bancaire"> Carte bancaire</label>
+            <label class="checkbox-label"><input type="checkbox" name="pj_incluse" value="Contrat employeur ou syndicat"> Employeur ou syndicat</label>
+            <label class="checkbox-label"><input type="checkbox" name="pj_incluse" value="Ne sait pas"> Ne sait pas</label>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Date d'effet souhaitée</label>
+          <input class="field-input" name="date_effet" type="date" style="max-width:240px">
+        </div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 : COORDONNÉES -->
+      <div class="step-content" id="step3">
+        <div class="section-title">Vos coordonnées</div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Prénom">
+            <label class="field-label">Prénom <span class="req">*</span></label>
+            <input class="field-input" name="prenom">
+          </div>
+          <div class="field-group" data-req="Nom">
+            <label class="field-label">Nom <span class="req">*</span></label>
+            <input class="field-input" name="nom">
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Email">
+            <label class="field-label">Email <span class="req">*</span></label>
+            <input class="field-input" name="email" type="email" placeholder="prenom.nom@email.fr">
+          </div>
+          <div class="field-group" data-req="Téléphone">
+            <label class="field-label">Téléphone <span class="req">*</span></label>
+            <input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Informations complémentaires</label>
+          <textarea class="field-input" name="informations_complementaires" rows="3"></textarea>
+        </div>
+
+        <div data-gp="rgpd"></div>
+        <div data-gp="declaration"></div>
+
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Envoyer ma demande</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/girose-form.js?v=2"></script>
+<script>
+GP.init({
+  formulaire: 'Recueil des besoins Protection juridique',
+  // Un litige en cours n'est jamais repris dans un lien pré-rempli
+  noLink: /^litige/,
+  subject: function () {
+    var nom = [GP.val('prenom'), GP.val('nom')].filter(Boolean).join(' ');
+    return 'Recueil des besoins Protection juridique' + (nom ? ' — ' + nom : '');
+  }
+});
+</script>
+</body>
+</html>
