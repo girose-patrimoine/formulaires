@@ -523,7 +523,7 @@
         <div class="info-box" data-if="assure_actuellement=Oui">Si votre contrat actuel a plus d'un an, vous pouvez le résilier à tout moment : nous pouvons nous charger des démarches de résiliation auprès de votre assureur actuel.</div>
 
         <div class="section-title">Vos documents</div>
-        <div class="section-desc">Ces documents nous permettent d'établir un devis exact ; la carte grise et le relevé d'informations sont indispensables. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum.</div>
+        <div class="section-desc">Ces documents nous permettent d'établir un devis exact ; la carte grise est indispensable, ainsi que le relevé d'informations si vous avez été assuré au cours des 3 dernières années. Formats PDF, JPG ou PNG ; vous pouvez prendre une photo depuis votre téléphone. 20 Mo au total maximum.</div>
         <div class="field-group" data-req="Carte grise">
           <label class="field-label">Carte grise du véhicule <span class="req">*</span> <span class="hint">(certificat d'immatriculation, ou certificat provisoire si le véhicule vient d'être acheté)</span></label>
           <input class="file-input" type="file" name="doc_carte_grise" accept="application/pdf,image/*" multiple>
@@ -536,7 +536,7 @@
           <label class="field-label">Permis de conduire du conducteur secondaire <span class="hint">(recto et verso)</span></label>
           <input class="file-input" type="file" name="doc_permis_secondaire" accept="application/pdf,image/*" multiple>
         </div>
-        <div class="field-group" data-req="Relevé d'informations">
+        <div class="field-group" data-req="Relevé d'informations" data-if-gt="mois_assures_36:0">
           <label class="field-label">Relevé d'informations couvrant les 3 dernières années <span class="req">*</span> <span class="hint">(à demander à votre assureur actuel ; si vous avez changé d'assureur, joignez le relevé de chacun)</span></label>
           <input class="file-input" type="file" name="doc_releve_informations" accept="application/pdf,image/*" multiple>
         </div>
