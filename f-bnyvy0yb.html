@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Recueil des besoins Prévoyance — Girose Patrimoine</title>
+<link rel="stylesheet" href="assets/girose-form.css?v=2">
+<style>
+.age-line{font-size:14px;color:#1B2249;margin-top:4px}
+.garantie-row{display:flex;align-items:center;gap:8px}
+.garantie-row .checkbox-label{flex:1}
+</style>
+</head>
+<body>
+
+<div class="form-wrap">
+  <div class="form-header">
+    <img class="logo" src="logo-signature.png" alt="Girose Patrimoine" width="96" height="117">
+    <h1>Recueil des besoins — Prévoyance familiale</h1>
+    <p>Ce questionnaire constitue le recueil de vos exigences et besoins, préalable à tout conseil de notre part (article L.521-4 du Code des assurances). Certaines réponses ont pu être renseignées par votre conseiller : merci de les vérifier, de les corriger si besoin et de compléter les autres. Ces informations nous permettront de sélectionner les meilleures solutions auprès de nos différents partenaires et de vous adresser une proposition adaptée à votre besoin.</p>
+  </div>
+  <div class="form-body">
+    <div class="progress-steps">
+      <div class="step-pill active" onclick="pillClick(0)">1. Besoin</div>
+      <div class="step-pill" onclick="pillClick(1)">2. Assuré(s)</div>
+      <div class="step-pill" onclick="pillClick(2)">3. Habitudes de vie</div>
+      <div class="step-pill" onclick="pillClick(3)">4. Garanties</div>
+      <div class="step-pill" onclick="pillClick(4)">5. Coordonnées</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+
+    <form id="mainForm" onsubmit="return false">
+      <!-- 1. Besoin -->
+      <div class="step-content active" id="step0">
+        <div class="section-title">Votre besoin</div>
+        <div class="section-desc">Ce que vous souhaitez protéger et votre situation familiale</div>
+        <div class="field-group" data-req="Objectifs"><label class="field-label">Que souhaitez-vous protéger ? <span class="req">*</span><br><span class="hint">Plusieurs réponses possibles</span></label>
+          <div class="radio-group">
+            <label class="checkbox-label"><input type="checkbox" name="objectifs" value="Mettre ma famille à l'abri financièrement en cas de décès"> Mettre ma famille à l'abri financièrement en cas de décès</label>
+            <label class="checkbox-label"><input type="checkbox" name="objectifs" value="Être protégé en cas d'invalidité"> Être protégé en cas d'invalidité</label>
+            <label class="checkbox-label"><input type="checkbox" name="objectifs" value="Maintenir mes revenus en cas d'arrêt de travail"> Maintenir mes revenus en cas d'arrêt de travail</label>
+            <label class="checkbox-label"><input type="checkbox" name="objectifs" value="Transmettre un capital à mes proches"> Transmettre un capital à mes proches</label>
+          </div>
+        </div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Situation familiale"><label class="field-label">Situation familiale <span class="req">*</span></label><select class="field-input" name="situation_familiale"><option value="">Veuillez sélectionner</option><option>Célibataire</option><option>Marié(e)</option><option>Pacsé(e)</option><option>En concubinage</option><option>Divorcé(e) ou séparé(e)</option><option>Veuf(ve)</option></select></div>
+          <div class="field-group"><label class="field-label">Nombre d'enfants à charge</label><div class="counter"><button type="button" onclick="step('nb_enfants',-1)">−</button><input type="number" name="nb_enfants" min="0" max="10" placeholder="–"><button type="button" onclick="step('nb_enfants',1)">+</button></div></div>
+        </div>
+        <div class="field-group"><label class="field-label">Bénéficiez-vous déjà d'une couverture prévoyance ?</label>
+          <div class="radio-group">
+            <label class="checkbox-label"><input type="checkbox" name="couverture_existante" value="Aucune" data-exclusive> Aucune</label>
+            <label class="checkbox-label"><input type="checkbox" name="couverture_existante" value="Contrat collectif de mon employeur"> Contrat collectif de mon employeur</label>
+            <label class="checkbox-label"><input type="checkbox" name="couverture_existante" value="Contrat individuel"> Contrat individuel (prévoyance, assurance décès)</label>
+            <label class="checkbox-label"><input type="checkbox" name="couverture_existante" value="Assurance de prêt"> Assurance de prêt immobilier</label>
+          </div>
+        </div>
+        <div class="field-group" data-if="couverture_existante=Contrat collectif de mon employeur|Contrat individuel"><label class="field-label">Précisez si possible l'assureur et les garanties actuelles<br><span class="hint">Vous pouvez aussi nous transmettre votre notice ou vos conditions particulières par email</span></label><textarea class="field-input" name="couverture_existante_detail" rows="2"></textarea></div>
+        <div class="field-group"><label class="field-label">Nombre de personnes à assurer</label><div class="radio-group inline"><label class="radio-label"><input type="radio" name="nb_assures" value="1" checked> 1</label><label class="radio-label"><input type="radio" name="nb_assures" value="2"> 2</label></div></div>
+        <div class="field-row cols2">
+          <div class="field-group" data-req="Date d'effet souhaitée"><label class="field-label">Date d'effet souhaitée <span class="req">*</span></label><input class="field-input" name="date_effet" type="date" style="max-width:240px"></div>
+          <div class="field-group"><label class="field-label">Périodicité des cotisations</label><select class="field-input" name="periodicite"><option>Mensuelle</option><option>Trimestrielle</option><option>Semestrielle</option><option>Annuelle</option></select></div>
+        </div>
+        <div class="nav-row"><span></span><button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+      </div>
+
+      <!-- 2. Assuré(s) -->
+      <div class="step-content" id="step1">
+        <div class="section-title">Le(s) assuré(s)</div>
+        <div class="section-desc">Identité de chaque personne à assurer</div>
+        <div id="assures"></div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- 3. Habitudes de vie -->
+      <div class="step-content" id="step2">
+        <div class="section-title">Habitudes de vie</div>
+        <div class="section-desc">Ces critères servent à la tarification par les assureurs</div>
+        <div id="habitudes"></div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- 4. Garanties -->
+      <div class="step-content" id="step3">
+        <div class="section-title">Les garanties souhaitées</div>
+        <div class="section-desc">Cliquez sur <strong>i</strong> pour la définition de chaque garantie. En cas de doute, votre conseiller vous aidera à ajuster les montants.</div>
+        <div id="garanties"></div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- 5. Coordonnées -->
+      <div class="step-content" id="step4">
+        <div class="section-title">Vos coordonnées pour recevoir votre devis</div>
+        <div class="field-row cols2"><div class="field-group" data-req="Adresse mail"><label class="field-label">Adresse mail <span class="req">*</span></label><input class="field-input" name="email" type="email" placeholder="exemple@exemple.com"></div><div class="field-group"><label class="field-label">Téléphone mobile<br><span class="hint">Hors France métropolitaine, précisez l'indicatif pays</span></label><input class="field-input" name="telephone" type="tel" placeholder="06 00 00 00 00"></div></div>
+        <div data-gp="rgpd"></div>
+        <div data-gp="declaration"></div>
+        <div class="nav-row">
+          <button type="button" class="btn" onclick="prevStep()">← Précédent</button>
+          <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitFormData()">✓ Obtenir mon devis</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/girose-form.js?v=2"></script>
+<script>
+// Listes de valeurs reprises de l'intranet
+var CATEGORIES = ["Agriculteur", "Artisan", "Chef d'entreprise", "Commerçant", "Enseignant", "Fonctionnaire classe A", "Fonctionnaire hors classe A - cadre administratif", "Fonctionnaire hors classe A - non cadre administratif", "Intermittent", "Intérimaire", "Non cadre du tertiaire", "Ouvrier", "Profession libérale", "Profession libérale médicale", "Profession libérale paramédicale", "Retraité", "Retraité salarié cadre", "Retraité salarié non cadre", "Salarié cadre", "Salarié non cadre : employé", "Salarié non cadre : professions intermédiaires", "Sans profession", "Sportif professionnel"];
+// Retraités : ni profession, ni conditions de travail, ni garanties IPT, IPP et ITT
+var INACTIFS = ["Retraité", "Retraité salarié cadre", "Retraité salarié non cadre"];
+var DEPLACEMENTS = ["Moins de 10 000 km par an", "10 001 à 15 000 km par an", "15 001 à 20 000 km par an", "20 001 à 25 000 km par an", "25 001 à 30 000 km par an", "30 001 à 35 000 km par an", "35 001 à 40 000 km par an", "Plus de 40 000 km par an"];
+var HAUTEUR = ["Aucun", "0 à 3 mètres", "3 à 10 mètres", "10 à 12 mètres", "12 à 15 mètres", "15 à 20 mètres", "Plus de 20 mètres"];
+var PROF_RISQUE = ["Ma profession n'est pas à risque", "Activités humanitaires", "Armée (militaire, gendarme)", "Artificier - usage d'explosifs", "Docker - activité sur chantier naval", "Force de l'ordre", "Maître nageur plage", "Métiers de l'industrie avec manipulation de produits dangereux", "Métiers du nucléaire", "Personnel navigant de compagnie aérienne non régulière", "Personnel navigant de compagnie aérienne régulière", "Pompier professionnel / sauveteur", "Profession avec activité en mer", "Profession de haute montagne (guide, moniteur de ski)", "Profession de la sécurité ou de la surveillance avec port d'arme - douanier", "Profession de surveillance sans port d'arme", "Profession politique et personnel diplomatique", "Profession relative à l'art et au spectacle - à l'audiovisuel et information - au cirque (y compris journaliste et intermittent)", "Profession relative à l'astrologie - magnétisme - cartomancie - forain", "Secteur pétrolier (raffinage, exploitation, plate-forme)", "Sportif professionnel - entraîneur - arbitre - moniteur d'aviation", "Travaux souterrains / mine / galerie / spéléologie / grande hauteur"];
+var FRANCHISES = ["15 jours", "30 jours", "60 jours", "90 jours"];
+
+function opts(ph, list) { return (ph !== null ? '<option value="">' + ph + '</option>' : '') + list.map(function (t) { return '<option value="' + GP.esc(t) + '">' + GP.esc(t) + '</option>'; }).join(''); }
+function radios(name, list) { return '<div class="radio-group inline">' + list.map(function (t) { return '<label class="radio-label"><input type="radio" name="' + name + '" value="' + GP.esc(t) + '"> ' + GP.esc(t) + '</label>'; }).join('') + '</div>'; }
+function tip(id, html) { return '<div class="tip" id="' + id + '">' + html + '</div>'; }
+function infoBtn(id) { return '<button type="button" class="info-btn" data-tip="' + id + '" aria-expanded="false" aria-label="Définition">i</button>'; }
+
+var GARANTIES = [
+  { k: 'dc_ptia', label: 'Décès et PTIA', fixed: true, tip: '<strong>Décès toutes causes et Perte Totale et Irréversible d\'Autonomie</strong> : versement d\'un capital aux bénéficiaires désignés en cas de décès, ou à l\'assuré lui-même s\'il est dans l\'incapacité définitive d\'exercer toute activité et doit recourir à l\'assistance d\'une tierce personne pour les actes de la vie courante. Garantie de base, toujours incluse.' },
+  { k: 'ipt', label: 'Invalidité Permanente Totale (IPT)', actif: true, tip: '<strong>IPT</strong> : invalidité dont le taux, fixé par expertise médicale, est d\'au moins 66 %.' },
+  { k: 'ipp', label: 'Invalidité Permanente Partielle (IPP)', actif: true, tip: '<strong>IPP</strong> : invalidité dont le taux est compris entre 33 % et 66 %. La prestation est réduite en proportion du taux.' },
+  { k: 'itt', label: 'Incapacité Temporaire Totale de travail (ITT)', actif: true, tip: '<strong>ITT</strong> : versement d\'indemnités journalières lorsque l\'assuré est temporairement dans l\'impossibilité totale d\'exercer son activité professionnelle, après un délai de franchise.' },
+  { k: 'dc_acc', label: 'Option : doublement du capital en cas de décès accidentel', tip: 'Le capital décès est <strong>doublé</strong> lorsque le décès résulte d\'un accident.' }
+];
+
+function blocAssure(i) {
+  var p = 'assure_' + i + '_', t = i === 1 ? 'Assuré principal' : 'Second assuré', cond = i === 2 ? ' data-if="nb_assures=2"' : '';
+  return '<div class="sub-card"' + cond + '><div class="sub-card-title">' + t + '</div>' +
+    (i === 2 ? '<div class="field-group"><label class="field-label">Lien avec l\'assuré principal</label><select class="field-input" name="' + p + 'lien">' + opts('Veuillez sélectionner', ['Conjoint', 'Partenaire de PACS', 'Concubin', 'Enfant', 'Autre']) + '</select></div>' : '') +
+    '<div class="field-group"><label class="field-label">Civilité</label>' + radios(p + 'civilite', ['Monsieur', 'Madame']) + '</div>' +
+    '<div class="field-row cols2"><div class="field-group"><label class="field-label">Nom</label><input class="field-input" name="' + p + 'nom"></div><div class="field-group"><label class="field-label">Prénom</label><input class="field-input" name="' + p + 'prenom"></div></div>' +
+    '<div class="field-row cols2"><div class="field-group" data-req="Date de naissance (' + t + ')"><label class="field-label">Date de naissance <span class="req">*</span></label><input class="field-input" name="' + p + 'date_naissance" type="date"><div class="age-line" id="age_' + i + '"></div></div><div class="field-group" data-req="Pays de résidence (' + t + ')"><label class="field-label">Pays de résidence <span class="req">*</span></label><input class="field-input" name="' + p + 'pays_residence" value="France"></div></div>' +
+    '</div>';
+}
+
+function blocHabitudes(i) {
+  var p = 'assure_' + i + '_', t = i === 1 ? 'Assuré principal' : 'Second assuré', cond = i === 2 ? ' data-if="nb_assures=2"' : '';
+  var nonRetraites = CATEGORIES.filter(function (c) { return INACTIFS.indexOf(c) < 0; }).join('|');
+  return '<div class="sub-card"' + cond + '><div class="sub-card-title">' + t + '</div>' +
+    '<div class="field-row cols2"><div class="field-group" data-req="Catégorie professionnelle (' + t + ')"><label class="field-label">Catégorie professionnelle <span class="req">*</span></label><select class="field-input" name="' + p + 'categorie">' + opts('Veuillez sélectionner', CATEGORIES) + '</select></div>' +
+    '<div class="field-group" data-if="' + p + 'categorie=' + nonRetraites + '" data-req="Profession exacte (' + t + ')"><label class="field-label">Profession exacte <span class="req">*</span></label><input class="field-input" name="' + p + 'profession"></div></div>' +
+    '<div class="sub-block" data-if="' + p + 'categorie=' + nonRetraites + '">' +
+      '<div class="field-row cols2"><div class="field-group"><label class="field-label">Importance de vos déplacements professionnels</label><select class="field-input" name="' + p + 'deplacements">' + opts(null, DEPLACEMENTS) + '</select></div>' +
+      '<div class="field-group"><label class="field-label">Travail en hauteur</label><select class="field-input" name="' + p + 'hauteur">' + opts(null, HAUTEUR) + '</select></div></div>' +
+      '<div class="field-group"><label class="field-label">Conditions de travail<br><span class="hint">Plusieurs réponses possibles</span></label><div class="radio-group">' +
+        '<label class="checkbox-label"><input type="checkbox" name="' + p + 'conditions" value="Aucune" data-exclusive> Aucune de ces situations</label>' +
+        '<label class="checkbox-label"><input type="checkbox" name="' + p + 'conditions" value="Travail manuel"> Travail manuel</label>' +
+        '<label class="checkbox-label"><input type="checkbox" name="' + p + 'conditions" value="Travail manuel avec outillage (manutention lourde)"> Travail manuel avec outillage (manutention lourde)</label>' +
+        '<label class="checkbox-label"><input type="checkbox" name="' + p + 'conditions" value="Station debout prolongée"> Station debout prolongée</label>' +
+      '</div></div>' +
+      '<div class="field-group" data-req="Profession à risque (' + t + ')"><label class="field-label">Profession à risque <span class="req">*</span></label><select class="field-input" name="' + p + 'profession_risque">' + opts('Veuillez sélectionner', PROF_RISQUE) + '</select></div>' +
+    '</div>' +
+    '<div class="field-group" data-req="Tabac (' + t + ')"><div class="label-row"><label class="field-label">Consommation de tabac au cours des deux dernières années <span class="req">*</span></label>' + infoBtn('tip-tabac-' + i) + '</div>' +
+      tip('tip-tabac-' + i, 'Est considérée comme fumeur toute personne ayant fumé, même occasionnellement, au cours des 24 derniers mois (cigarette, cigare, pipe, tabac à chauffer). Les cigarettes électroniques sont à déclarer selon qu\'elles contiennent ou non de la nicotine.') +
+      '<div class="radio-group">' + ['Non-fumeur', 'Fumeur', 'Cigarette électronique avec nicotine', 'Cigarette électronique sans nicotine'].map(function (v) { return '<label class="radio-label"><input type="radio" name="' + p + 'tabac" value="' + v + '"> ' + v + '</label>'; }).join('') + '</div></div>' +
+    '<div class="field-group" data-req="Sports à risque (' + t + ')"><div class="label-row"><label class="field-label">Pratiquez-vous un sport à risque ? <span class="req">*</span></label>' + infoBtn('tip-sport-' + i) + '</div>' +
+      tip('tip-sport-' + i, 'Par exemple : sports aériens (parachutisme, parapente, ULM), plongée sous-marine, alpinisme, sports mécaniques, sports de combat en compétition, ski hors-piste… Ces pratiques sont souvent exclues sauf si elles sont déclarées et acceptées par l\'assureur.') +
+      radios(p + 'sport_risque', ['Non', 'Oui']) + '</div>' +
+    '<div class="field-group" data-if="' + p + 'sport_risque=Oui" data-req="Sport(s) pratiqué(s) (' + t + ')"><label class="field-label">Sport(s) pratiqué(s) et fréquence <span class="req">*</span></label><input class="field-input" name="' + p + 'sport_detail" placeholder="Ex : parapente, une dizaine de vols par an"></div>' +
+    '</div>';
+}
+
+function blocGaranties(i) {
+  var p = 'assure_' + i + '_', t = i === 1 ? 'Assuré principal' : 'Second assuré', cond = i === 2 ? ' data-if="nb_assures=2"' : '';
+  var actifs = CATEGORIES.filter(function (c) { return INACTIFS.indexOf(c) < 0; }).join('|');
+  var html = '<div class="sub-card"' + cond + '><div class="sub-card-title">' + t + '</div><div class="radio-group">';
+  GARANTIES.forEach(function (g) {
+    var id = 'tip-' + g.k + '-' + i;
+    html += '<div' + (g.actif ? ' data-if="' + p + 'categorie=' + actifs + '"' : '') + '><div class="garantie-row"><label class="checkbox-label"><input type="checkbox" name="' + p + 'garanties" value="' + GP.esc(g.label) + '"' + (g.fixed ? ' checked onclick="return false"' : '') + '> ' + g.label + '</label>' + infoBtn(id) + '</div>' + tip(id, g.tip) + '</div>';
+  });
+  html += '</div>' +
+    '<div class="field-group" data-req="Capital décès (' + t + ')" style="margin-top:14px"><label class="field-label">Capital décès souhaité (€) <span class="req">*</span><br><span class="hint">Versé en une fois aux bénéficiaires.</span></label><input class="field-input" name="' + p + 'capital_deces" type="number" min="0" step="1000" placeholder="Ex : 150000" style="max-width:240px"></div>' +
+    '<div class="sub-block" data-if="' + p + 'garanties=Incapacité Temporaire Totale de travail (ITT)">' +
+      '<div class="field-row cols2"><div class="field-group" data-req="Indemnité journalière (' + t + ')"><label class="field-label">Indemnité journalière souhaitée (€ par jour) <span class="req">*</span></label><input class="field-input" name="' + p + 'ij_montant" type="number" min="0" placeholder="Ex : 80"></div>' +
+      '<div class="field-group"><label class="field-label">Franchise</label><select class="field-input" name="' + p + 'ij_franchise">' + opts('Pas de préférence', FRANCHISES) + '</select></div></div>' +
+    '</div>' +
+    '<div class="field-group" data-if="' + p + 'garanties=Invalidité Permanente Totale (IPT)|Invalidité Permanente Partielle (IPP)"><label class="field-label">Rente d\'invalidité souhaitée (€ par mois)<br><span class="hint">Facultatif : votre conseiller vous fera une proposition</span></label><input class="field-input" name="' + p + 'rente_invalidite" type="number" min="0" placeholder="Ex : 1500" style="max-width:240px"></div>' +
+    '</div>';
+  return html;
+}
+
+document.getElementById('assures').innerHTML = blocAssure(1) + blocAssure(2);
+document.getElementById('habitudes').innerHTML = blocHabitudes(1) + blocHabitudes(2);
+document.getElementById('garanties').innerHTML = blocGaranties(1) + blocGaranties(2);
+
+function ageAt(dn, de) {
+  var a = new Date(dn), b = de ? new Date(de) : new Date();
+  if (isNaN(a) || isNaN(b)) return '';
+  var m = (b.getFullYear() - a.getFullYear()) * 12 + b.getMonth() - a.getMonth() - (b.getDate() < a.getDate() ? 1 : 0);
+  return m < 0 ? '' : Math.floor(m / 12) + ' ans et ' + (m % 12) + ' mois';
+}
+
+GP.init({
+  formulaire: 'Recueil des besoins Prévoyance familiale',
+  subject: function () { return 'Recueil des besoins Prévoyance familiale' + (GP.val('assure_1_nom') ? ' — ' + GP.val('assure_1_nom') : ''); },
+  // Le tabac n'est jamais repris dans le lien pré-rempli : c'est au client de le déclarer
+  noLink: /_tabac$/,
+  onRefresh: function () {
+    [1, 2].forEach(function (i) {
+      var a = ageAt(GP.val('assure_' + i + '_date_naissance'), GP.val('date_effet'));
+      document.getElementById('age_' + i).textContent = a ? 'Âge à la date d\'effet : ' + a : '';
+    });
+  },
+  validate: function (s, err) {
+    if (s !== 0) return;
+    var d = GP.val('date_effet'), g = document.querySelector('[name="date_effet"]').closest('.field-group');
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    if (d && new Date(d) < today && !GP.isAdmin()) err(g, 'La date d\'effet ne peut pas être dans le passé');
+  }
+});
+document.getElementById('mainForm').addEventListener('input', function (e) { if (e.target.type === 'date') GP.refresh(); });
+</script>
+</body>
+</html>
